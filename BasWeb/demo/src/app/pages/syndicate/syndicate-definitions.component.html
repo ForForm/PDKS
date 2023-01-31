@@ -1,0 +1,128 @@
+<form [formGroup]="form" >
+
+  <div style="overflow: hidden; height: 600px;">
+
+    <div mat-dialog-title fxLayout="row" cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle>
+
+      <mat-form-field style="width: 100%;">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtre">
+      </mat-form-field>
+
+    </div>
+
+
+    <mat-dialog-content fxLayout="row"  [ngStyle]="{'height': this.Type=='flex'?'300px ':'600px'}">
+
+
+
+      <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort style="margin: 5px;">
+
+
+
+        <ng-container matColumnDef="ID">
+          <th hidden *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>ID</th>
+          <td hidden *matCellDef="let row" mat-cell>
+            <span style="font-size: 20px; ">{{ row.ID }}</span>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Code">
+          <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>{{this.languageMap['Kod'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Code }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+          <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>{{this.languageMap['Adı'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Name }}</span>
+          </td>
+
+        </ng-container>
+
+
+        <ng-container matColumnDef="CardNo">
+          <th [hidden]="this.defaults.Type!=='0'" *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+            {{this.languageMap['KartNo'].labelName}}
+          </th>
+          <td [hidden]="this.defaults.Type!=='0'" *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.CardNo }}</span>
+          </td>
+
+        </ng-container>
+
+
+
+
+
+        <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+        <tr (dblclick)="select(row)" (click)="getDetail(row)" *matRowDef="let row; columns: columns;" @fadeInUp
+          class="hover:bg-hover cursor-pointer" style="max-height: 120px;" mat-row></tr>
+      </table>
+
+    </mat-dialog-content>
+
+
+    <mat-dialog-content fxLayout="row" style="margin: 5px; background-color: #F5F5F8;" *ngIf="this.Type=='flex'">
+
+      <div style="overflow-y:scroll; width: 100%; height: 300px; background-color: #F5F5F8;"  >
+        <table @stagger [dataSource]="dataSourceV" class="w-full" mat-table matSort style="background-color: #F5F5F8;">
+
+
+          <ng-container matColumnDef="ID">
+            <th hidden *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>ID</th>
+            <td hidden *matCellDef="let row" mat-cell>
+              <span style="font-size: 20px; ">{{ row.ID }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="FlexPersonnelGroupID">
+            <th hidden *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>FlexPersonnelGroupID
+            </th>
+            <td hidden *matCellDef="let row" mat-cell>
+              <span style="font-size: 20px; ">{{ row.FlexPersonnelGroupID }}</span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Type">
+            <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+              {{this.languageMap['Tip'].labelName}}
+            </th>
+            <td *matCellDef="let row" mat-cell>
+              <!-- <span style="font-size: 11px; ">{{ row.Type }}</span> -->
+
+              <mat-select disabled style="width: 100%;" [value]="row.Type">
+                <mat-option style="font-size: 8px; " disabled *ngFor="let item of groups" [value]="item.Code">
+                  {{ item.Name }}
+                </mat-option>
+              </mat-select>
+
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="Value">
+            <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+              {{this.languageMap['Değer'].labelName}}
+            </th>
+            <td *matCellDef="let row" mat-cell>
+              <span style="font-size: 11px; ">{{ row.Value }}</span>
+            </td>
+
+          </ng-container>
+
+         
+
+          <!-- (click)="selectDetail(row)"  -->
+          <tr *matHeaderRowDef="columnsV;sticky: true;" mat-header-row style="height: 26px;"></tr>
+          <tr *matRowDef="let row; columns: columnsV;" @fadeInUp
+            class="hover:bg-hover cursor-pointer" style="height: 30px;" mat-row></tr>
+        </table>
+      </div>
+    </mat-dialog-content>
+  </div>
+</form>

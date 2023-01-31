@@ -1,0 +1,40 @@
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[0]
+      User profile is available. Using 'C:\Users\Dell\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+Hosting environment: Development
+Content root path: D:\Projects\BasApp\BASApp
+Now listening on: http://127.0.0.1:2597
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 DEBUG http://localhost/BasApp  0
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:44312/BasApp/cache  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 25.6581ms 200 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 57.2131ms 404 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:44312/BasApp/authorization/companies  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint '405 HTTP Method Not Supported'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint '405 HTTP Method Not Supported'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 23.3788ms 405 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:44312/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 1409.5857ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 1454.2828ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 1509.0455ms 200 application/json; charset=utf-8

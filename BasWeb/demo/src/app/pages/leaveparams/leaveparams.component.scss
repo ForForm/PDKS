@@ -1,0 +1,128 @@
+table {
+  width: 100%;
+  height: 5px;
+}
+
+// body {
+// height: 100%;
+// }
+ 
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  
+}
+ 
+.mat-icon.mat-icon-inline {
+  font-size: 24px;
+}
+
+.class-mat-tab-link
+{
+  @apply bg-primary text-primary-contrast;
+  
+}
+
+.mat-class {
+font-size: 14px;transform: scale(-1);
+
+}
+
+.highlight{
+  font-weight:bolder;
+  @apply bg-primary text-primary-contrast ;
+   filter: brightness(1.75);
+ }
+
+
+ .mat-form-field{
+  padding: 0px !important;
+  font-size:12px;
+  margin-bottom: -10px;
+  margin-top: 0px;
+  margin-left: 5px;
+  width: 180px;
+}
+ 
+ 
+.mat-success {
+  background-color: green;
+  color: #fff;
+} 
+ 
+
+.mat-header-cell {
+  font-size: 10px;
+  padding: 0px;
+  text-align:center;
+}
+
+.mat-header-row {
+  height:26px;
+  
+}
+
+.mat-footer-cell {
+  font-size: 11px;
+  padding: 5px; 
+  font-weight: bolder;
+  text-align:center;
+
+}
+.mat-row {
+font-size: 10px;
+padding: 0px;
+height: 20px !important;
+text-align: center;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+}
+ 
+.custom-modalbox {
+  mat-dialog-container {
+      padding: 0;
+  }
+}
+ 
+
+.mat-icon1 {
+  font-size: 40px;  
+  // margin-right: 30px;
+}
+ 
+.mat-dialog-content
+{
+  overflow: hidden;  
+  padding-right: 0px;
+  padding-left: 0px;
+
+  // padding-right: 15px;
+  // padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+.mat-form-field
+{
+  margin-bottom: 5px;
+}
+ 
+.mat-icon-button{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.mat-cell {
+  font-size: 10px;
+  justify-content: center;
+}
+
+// ::ng-deep .mat-form-field-wrapper{
+//   margin-bottom: none;
+// }

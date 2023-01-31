@@ -1,0 +1,56 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+  height: 5px;
+}
+ 
+
+.mat-class {
+  font-size: 14px;
+  transform: scale(-1);
+}
+   
+
+:host {
+  display: block;
+}
+
+.highlight{
+  font-weight:bolder;
+  @apply bg-primary text-primary-contrast ;
+   filter: brightness(1.75);
+ }
+
+
+.mat-header-row {
+  width: 100%;
+  min-height: 10px;
+  height: 10px;
+  padding: 0px 0px 0px 4px;
+}
+
+.mat-row {
+  width: 100%;
+  min-height: 10px;
+  height: 10px;
+  padding: 0px 0px 0px 4px;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  outline: none;
+}
+
+ 
+
+
+.mat-icon-button{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.mat-cell {
+  font-size: 10px;
+  justify-content: center;
+}

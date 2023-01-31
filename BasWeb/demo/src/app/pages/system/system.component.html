@@ -1,0 +1,801 @@
+<vex-page-layout>
+
+  <vex-page-layout-header *ngIf="!isMobileLayout" class="pb-16" fxLayout="column" fxLayoutAlign="center start"
+    style=" margin-bottom: -75px;">
+    <div [class.container]="layoutCtrl.value === 'boxed'" [class.px-gutter]="layoutCtrl.value === 'fullwidth'"
+      class="w-full flex flex-col sm:flex-row justify-between">
+
+      <div>
+        <h1 class="title mt-0 mb-1">{{this.languageMap['Sistem Tanımları'].labelName}}</h1>
+        <vex-breadcrumbs class="breadcrumb" [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+      </div>
+
+      <mat-button-toggle-group [formControl]="layoutCtrl" class="mt-4 sm:mt-0">
+        <mat-button-toggle value="boxed" (click)="resize('boxed')">{{this.languageMap['Ortala'].labelName}}
+        </mat-button-toggle>
+        <mat-button-toggle value="fullwidth" (click)="resize('fullwidth')">{{this.languageMap['Tam Ekran'].labelName}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </vex-page-layout-header>
+
+  <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+    [ngStyle]="{'width': (layoutCtrl.value === 'fullwidth')?'100%':'80%'}"
+    [class.px-gutter]="layoutCtrl.value === 'fullwidth'" class="-mt-6">
+
+
+
+    <nav mat-tab-nav-bar class="class-mat-tab-link" style="width: 100%; "
+      [ngStyle]="{'margin-top': isMobileLayout?'30px ':'0px'}">
+      <a mat-tab-link *ngFor="let link of links" (click)="gotoTab(link)" class="class-mat-tab-link"
+        [ngStyle]="{'color': link.Index===this.activeLinkIndex?'white':'black'}">
+        {{ this.languageMap[link.name].labelName }}
+      </a>
+
+      <span fxFlex></span>
+
+
+    </nav>
+
+    <div div fxLayout="row" fxLayoutAlign="start" style=" width: 100%; margin: 5px;">
+
+
+
+      <button mat-raised-button color="primary" (click)="clear()" style=" width: 120px;height: 35px; font-size: 12px;">
+
+        <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+        {{this.languageMap['Yeni Kayıt'].labelName}}
+
+      </button>
+
+
+
+
+      <span fxFlex></span>
+      <!-- || !this.testOk -->
+      <button mat-raised-button color="primary" (click)="save()" style="margin-right: 10px; width: 90px;" [disabled]="this.formDatabase.invalid">
+        <span>{{
+          this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+
+
+    </div>
+
+    <div div fxLayout="row" fxLayoutAlign="start" *ngIf="this.activeLinkIndex===0" style="width: 100%;">
+
+
+
+      <mat-dialog-content fxLayout="row" style="overflow-y:scroll; width: 100%;  margin-top: 0px; ">
+
+        <div class="card" style="width: 100%; overflow: hidden;">
+
+
+          <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 5px;">
+
+            <form [formGroup]="form">
+
+              <input hidden formControlName="ID" matInput style="font-size: larger; font-weight: bold;">
+
+
+              <mat-form-field class="mt-6 flex-auto" appearance="outline">
+                <mat-label>
+                  {{this.languageMap['Adı'].labelName}}</mat-label>
+                <input formControlName="Name" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              &nbsp;
+
+              <mat-form-field class="mt-6 flex-auto" appearance="outline">
+                <mat-label>{{this.languageMap['Veritabanı'].labelName}}</mat-label>
+                <input formControlName="Database" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              &nbsp;
+              <mat-form-field class="mt-6 flex-auto" appearance="outline">
+                <mat-label>{{this.languageMap['Protokol'].labelName}}</mat-label>
+                <input formControlName="Protocol" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              &nbsp;
+              <mat-form-field class="mt-6 flex-auto" appearance="outline">
+                <mat-label>{{this.languageMap['Sunucu'].labelName}}</mat-label>
+                <input formControlName="Hostname" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              &nbsp;
+              <mat-form-field class="mt-6 flex-auto" appearance="outline">
+                <mat-label>{{this.languageMap['Kullanıcı Adı'].labelName}}</mat-label>
+                <input formControlName="DUsername" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              &nbsp;
+              <mat-form-field class="mt-6 flex-auto" appearance="outline">
+                <mat-label>{{this.languageMap['Şifre'].labelName}}</mat-label>
+                <input formControlName="Password" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              &nbsp;
+              <mat-checkbox style="margin: 10px 0 0 10px;" color="primary" formControlName="Repeat"
+                [checked]="this.form.value.Repeat">
+                {{this.languageMap['Tekrar'].labelName}}</mat-checkbox>
+
+              <mat-checkbox style="margin: 10px 0 0 10px;" color="primary" formControlName="Inout"
+                [checked]="this.form.value.Inout">
+                {{this.languageMap['G/C'].labelName}}</mat-checkbox>
+
+
+            </form>
+
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <table [dataSource]="dataSource" class="w-full" style="overflow: auto;" fxFlex="auto" mat-table>
+
+
+              <ng-container matColumnDef="Checkbox">
+                <th hidden *matHeaderCellDef mat-header-cell>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                  </mat-checkbox>
+                </th>
+                <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                  <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                    [checked]="selection.isSelected(row)" color="primary">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="ID">
+                <th hidden *matHeaderCellDef c mat-header-cell>ID</th>
+                <td hidden *matCellDef="let row" mat-cell>
+                  <span style="font-size: 20px; ">{{ row.ID }}</span>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Name">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['Adı'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Name }}</span>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Database">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['Veritabanı'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Database }}</span>
+                </td>
+              </ng-container>
+
+
+
+              <ng-container matColumnDef="Protocol">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['Protokol'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Protocol }}</span>
+                </td>
+              </ng-container>
+
+
+
+              <ng-container matColumnDef="Hostname">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['Sunucu'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Hostname }}</span>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Username">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['Kullanıcı Adı'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Username }}</span>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Password">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['Şifre'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Password }}</span>
+                </td>
+              </ng-container>
+
+
+
+
+              <ng-container matColumnDef="Inout">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['G/C'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <mat-checkbox [checked]="row.Inout" color="primary" disabled>
+                  </mat-checkbox>
+
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Repeat">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['Tekrar'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <mat-checkbox [checked]="row.Repeat" color="primary" disabled>
+                  </mat-checkbox>
+
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Actions" sticky>
+                <th *matHeaderCellDef mat-header-cell class="uppercase">
+                  {{this.languageMap['Aksiyon'].labelName}}</th>
+                <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                  <button (click)="delete(row)" mat-icon-button type="button">
+                    <mat-icon [icIcon]="icDelete"></mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+
+              <tr *matHeaderRowDef="columns; sticky: true" mat-header-row></tr>
+              <tr (click)=" detailToggle(row)" *matRowDef="let row; columns: columns;" @fadeInUp
+                [ngClass]=" {'highlight':  row === selectedRow}" mat-row>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+
+      </mat-dialog-content>
+
+
+
+
+    </div>
+
+
+    <div div fxLayout="row" *ngIf="this.activeLinkIndex===1" fxLayoutAlign="start" style="width: 100%;">
+
+      <div class="card" style="width: 100%; overflow: hidden;">
+
+        <mat-dialog-content fxLayout="row" style=" width: 100%; margin-top: 5px;">
+
+
+          <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 5px;">
+
+            <form [formGroup]="formDatabase">
+
+              <input hidden formControlName="ID" matInput style="font-size: larger; font-weight: bold;">
+
+
+              <mat-form-field appearance="outline">
+                <mat-label>
+                  {{this.languageMap['Adı'].labelName}}</mat-label>
+                <input formControlName="Name" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{this.languageMap['Veritabanı'].labelName}}</mat-label>
+                <input formControlName="Database" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{this.languageMap['Protokol'].labelName}}</mat-label>
+                <input formControlName="Protocol" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{this.languageMap['Sunucu'].labelName}}</mat-label>
+                <input formControlName="Hostname" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{this.languageMap['Kullanıcı Adı'].labelName}}</mat-label>
+                <input formControlName="DUsername" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 120px;">
+                <mat-label>{{this.languageMap['Şifre'].labelName}}</mat-label>
+                <input formControlName="Password" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              <mat-checkbox style="margin: 10px 0 0 10px;" formControlName="Inout" color="primary"
+                [checked]="this.form.value.Inout">
+                {{this.languageMap['G/C'].labelName}}</mat-checkbox>
+
+
+
+
+              <!-- </div> -->
+
+
+              <!-- </mat-dialog-content>
+
+          <mat-dialog-content fxLayout="row" style=" width: 100%; margin-top: 5px;"> -->
+
+
+              <!-- <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 5px;"> -->
+
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{this.languageMap['Tablo'].labelName}}</mat-label>
+                <input formControlName="DbTable" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline" style="width: 80px;">
+                <mat-label>{{this.languageMap['Tablo ID Kolon'].labelName}}</mat-label>
+                <input formControlName="TransferIdColumn" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline" style="width: 80px;">
+                <mat-label>{{this.languageMap['ID'].labelName}}</mat-label>
+                <input formControlName="TransferId" matInput type="number" style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline" style="width: 100px;">
+                <mat-label>{{this.languageMap['G'].labelName}}</mat-label>
+                <input formControlName="InChar" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline" style="width: 100px;">
+                <mat-label>{{this.languageMap['C'].labelName}}</mat-label>
+                <input formControlName="OutChar" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+
+              <mat-form-field appearance="outline" style="width: 500px;">
+                <mat-label>{{this.languageMap['Sorgu'].labelName}}</mat-label>
+                <input formControlName="DbQuery" matInput style="font-size: larger; font-weight: bold;">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 80px;">
+                <mat-label>{{this.languageMap['Tekrar'].labelName}}</mat-label>
+                <input format="HH:mm" type="time" cdkFocusInitial formControlName="RepeatTime" matInput>
+              </mat-form-field>
+
+              <mat-checkbox style="margin: 10px 0 0 10px;" formControlName="RepeatDirection" color="primary"
+              [checked]="this.form.value.Inout">
+              {{this.languageMap['Tekrar Kontrol Tek Yön'].labelName}}</mat-checkbox>
+
+              
+              <mat-form-field appearance="outline" style="width: 80px;">
+                <mat-label>{{this.languageMap['Limit'].labelName}}</mat-label>
+                <input format="HH:mm" type="time" cdkFocusInitial formControlName="Limit" matInput>
+              </mat-form-field>
+
+              <mat-checkbox style="margin: 10px 0 0 10px;" formControlName="FirstLast" color="primary"
+              [checked]="this.form.value.FirstLast">
+              {{this.languageMap['İlk-Son Hareket'].labelName}}</mat-checkbox>
+
+            
+              
+              &nbsp;&nbsp;&nbsp;
+              <!-- [disabled]="!this.saveEnabled" -->
+              <!-- !this.enabled || -->
+              <button mat-raised-button color="primary" style="width: 90px;" (click)="test(this.formDatabase.value.ID)" [disabled]="this.formDatabase.invalid" > <span>{{
+                  this.languageMap['Test'].labelName.toUpperCase() }}</span> </button>
+
+
+
+            </form>
+          </div>
+
+
+        </mat-dialog-content>
+
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+
+          <table [dataSource]="dataSource" class="w-full" style="overflow: auto;" fxFlex="auto" mat-table>
+
+
+            <ng-container matColumnDef="Checkbox">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                </mat-checkbox>
+              </th>
+              <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                  [checked]="selection.isSelected(row)" color="primary">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ID">
+              <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+              <td hidden *matCellDef="let row" mat-cell>
+                <span style="font-size: 20px; ">{{ row.ID }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Name">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Adı'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.Name }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Database">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Veritabanı'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.Database }}</span>
+              </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="Protocol">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Protokol'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.Protocol }}</span>
+              </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="Hostname">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Sunucu'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.Hostname }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Username">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Kullanıcı Adı'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.Username }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Password">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Şifre'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.Password }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="DbTable">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Tablo'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.DbTable }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="TransferIdColumn">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Tablo ID Kolon'].labelName}}
+
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.TransferIdColumn }}</span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="TransferId">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['ID'].labelName}}
+
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.TransferId }}</span>
+              </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="TransferType">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Transfer Türü'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.TransferType }}</span>
+              </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="Inout">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['G/C'].labelName}}
+              </th>
+              <td  hidden *matCellDef="let row" mat-cell>
+                <mat-checkbox [checked]="row.Inout" color="primary" disabled>
+                </mat-checkbox>
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="RepeatDirection">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Tekrar Kontrol Tek Yön'].labelName}}
+              </th>
+              <td hidden *matCellDef="let row" mat-cell>
+                <mat-checkbox [checked]="row.RepeatDirection" color="primary" disabled>
+                </mat-checkbox>
+
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="FirstLast">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['İlk-Son Hareket'].labelName}}
+              </th>
+              <td hidden *matCellDef="let row" mat-cell>
+                <mat-checkbox [checked]="row.FirstLast" color="primary" disabled>
+                </mat-checkbox>
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="RepeatTime">
+              <th  hidden *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Tekrar'].labelName}}
+              </th>
+              <td  hidden *matCellDef="let row" mat-cell>
+                <span>{{row.RepeatTime | date :"HH:mm" }}</span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Limit">
+              <th hidden  *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Limit'].labelName}}
+              </th>
+              <td hidden  *matCellDef="let row" mat-cell>
+                <span>{{row.Limit | date :"HH:mm" }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="InChar">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['G'].labelName}}
+              </th>
+              <td hidden *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.InChar }}</span>
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="OutChar">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['C'].labelName}}
+              </th>
+              <td hidden *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.OutChar }}</span>
+
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="DbQuery">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Sorgu'].labelName}}
+              </th>
+              <td hidden *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.DbQuery }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Actions" sticky>
+              <th *matHeaderCellDef mat-header-cell class="uppercase">
+                {{this.languageMap['Aksiyon'].labelName}}</th>
+              <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                <button (click)="delete(row)" mat-icon-button type="button">
+                  <mat-icon [icIcon]="icDelete"></mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+
+            <tr *matHeaderRowDef="columnsDb; sticky: true" mat-header-row></tr>
+            <tr (click)=" detailToggleDb(row)" *matRowDef="let row; columns: columnsDb;" @fadeInUp
+              [ngClass]=" {'highlight':  row === selectedRow}" mat-row>
+            </tr>
+          </table>
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <div div fxLayout="row" *ngIf="this.activeLinkIndex===2" fxLayoutAlign="start"
+      style="min-height: 70vh; width: 100%;">
+
+      <form [formGroup]="formFile">
+        <mat-dialog-content fxLayout="row" style=" width: 100%; margin-top: 5px;">
+
+          <input hidden formControlName="ID" matInput style="font-size: larger; font-weight: bold;">
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>
+              {{this.languageMap['Adı'].labelName}}</mat-label>
+            <input formControlName="Name" matInput style="font-size: larger; font-weight: bold;">
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{this.languageMap['Dosya'].labelName}}</mat-label>
+            <input formControlName="File" matInput style="font-size: larger; font-weight: bold;">
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{this.languageMap['G'].labelName}}</mat-label>
+            <input formControlName="InChar" matInput style="font-size: larger; font-weight: bold;">
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline">
+            <mat-label>{{this.languageMap['C'].labelName}}</mat-label>
+            <input formControlName="OutChar" matInput style="font-size: larger; font-weight: bold;">
+          </mat-form-field>
+
+          <mat-checkbox style="margin: 10px 0 0 10px;" formControlName="Inout" [checked]="this.form.value.Inout">
+            {{this.languageMap['G/C'].labelName}}</mat-checkbox>
+
+
+
+        </mat-dialog-content>
+
+
+
+        <mat-dialog-content fxLayout="row" style="overflow-y:scroll; width: 100%;  margin-top: 0px;min-height: 50vh; ">
+
+          <table [dataSource]="dataSource" class="w-full" style="overflow: auto;" fxFlex="auto" mat-table>
+
+
+            <ng-container matColumnDef="Checkbox">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                </mat-checkbox>
+              </th>
+              <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                  [checked]="selection.isSelected(row)" color="primary">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="ID">
+              <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+              <td hidden *matCellDef="let row" mat-cell>
+                <span style="font-size: 20px; ">{{ row.ID }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Name">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Adı'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.Name }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="File">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Dosya'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.File }}</span>
+              </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="InChar">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['G'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.InChar }}</span>
+
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="OutChar">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['C'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.OutChar }}</span>
+
+              </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="Inout">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['G/C'].labelName}}
+              </th>
+              <td *matCellDef="let row" mat-cell>
+                <mat-checkbox [checked]="row.Inout" color="primary" disabled>
+                </mat-checkbox>
+
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Actions" sticky>
+              <th *matHeaderCellDef mat-header-cell class="uppercase">
+                {{this.languageMap['Aksiyon'].labelName}}</th>
+              <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                <button (click)="delete(row)" mat-icon-button type="button">
+                  <mat-icon [icIcon]="icDelete"></mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+
+            <tr *matHeaderRowDef="columnsFile; sticky: true" mat-header-row></tr>
+            <tr (click)=" detailToggleFile(row)" *matRowDef="let row; columns: columnsFile;" @fadeInUp
+              class="hover:bg-hover cursor-pointer" mat-row [ngStyle]="{ 'background-color': '#F3F2F6'}">
+            </tr>
+          </table>
+
+        </mat-dialog-content>
+
+
+
+
+      </form>
+
+
+    </div>
+
+
+  </vex-page-layout-content>
+
+</vex-page-layout>

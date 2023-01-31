@@ -1,0 +1,100 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+  height: 5px;
+}
+ 
+ 
+tr.mat-footer-row,
+tr.mat-row {
+  height: 20px;
+}
+
+.class-mat-tab-link
+{
+  @apply bg-primary text-primary-contrast;
+  
+}
+
+.mat-icon {
+  font-size: 28px;
+}
+ 
+.mat-dialog-content {
+  overflow: hidden;
+  padding-right: 0px;
+  padding-left: 0px;
+  max-height: none;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+.highlight{
+  font-weight:bolder;
+  @apply bg-primary text-primary-contrast ;
+   filter: brightness(1.75);
+ }
+
+ 
+
+.mat-header-row {
+  height: 0px;
+  padding: 0px;
+  justify-content: center;
+}
+
+.mat-header-cell {
+  height: 0px;
+  padding: 0px;
+  justify-content: center;
+  font-weight: bolder;
+  font-size: 10px;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+}
+
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+
+.mat-dialog-content {
+  overflow: hidden;
+  padding-right: 0px;
+  padding-left: 0px;
+  max-height: none;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+ 
+.mat-form-field {
+  width: 50%;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+
+.mat-icon-button{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.mat-cell {
+  font-size: 10px;
+  justify-content: center;
+  padding: 0px;
+}
+ 
+.mat-toolbar-multiple-rows {
+  min-height: 10px;
+}
+.mat-header-row, mat-row, mat-footer-row 
+{min-height: 20px;}
+ 

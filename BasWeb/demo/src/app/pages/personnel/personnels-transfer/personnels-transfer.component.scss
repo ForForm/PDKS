@@ -1,0 +1,94 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+  height: 5px;
+}
+
+.my-dialog-container-class {
+  height: 100%;
+}
+
+ 
+.myapp-no-padding-dialog2 .mat-dialog-container {
+  padding: 0;
+  max-width: 100vw !important;
+}
+
+
+ 
+   
+.class-mat-tab-link
+{
+  @apply bg-primary text-primary-contrast;
+  
+}
+
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+
+.mat-dialog-content {
+  overflow: hidden;
+  padding-right: 0px;
+  padding-left: 0px;
+  max-height: none;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.mat-icon {
+  font-size: 28px;
+}
+
+
+.highlight{
+  font-weight:bolder;
+  @apply bg-primary text-primary-contrast ;
+   filter: brightness(1.75);
+ }
+
+
+.mat-header-row {
+  width: 100%;
+  min-height: 10px;
+  height: 10px;
+  padding: 0px 0px 0px 4px;
+}
+
+.mat-row {
+  width: 100%;
+  min-height: 10px;
+  height: 10px;
+  padding: 0px 0px 0px 4px;
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  outline: none;
+}
+
+.mat-cell {
+  font-size: 11px;
+  justify-content: center;
+}
+
+// .mat-form-field-flex > .mat-form-field-infix { padding: 0.1em 0px !important;}
+// .mat-form-field-label-wrapper { top: -2.5em; }
+// .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+//   transform: translateY(-1.1em) scale(.75);
+//   width: 133.33333%;
+// }
+
+.mat-form-field {  
+  padding: 0px;
+  margin-top: 2px;
+  font-size: 9px;
+  margin-top: 5px;
+}
+
+// .mat-form-field-appearance-outline .mat-form-field-wrapper {
+//   // margin: unset;
+//   margin-top: 10px;
+// }

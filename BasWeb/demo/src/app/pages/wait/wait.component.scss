@@ -1,0 +1,24 @@
+img {
+  max-width: 50%;
+  position: absolute;
+  max-height: 50%;
+  top: 0;
+  height: 50%;
+  width: 50%;
+  margin-top: 32px;
+  margin-left: 0px;
+  clip-path: circle(45% at 50% 49%);
+  // opacity: 0.8;
+}
+
+/* .mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #3a5e99 !important;
+} */
+
+
+// .class-mat-tab-link
+// {
+//   @apply bg-primary text-primary-contrast;
+  
+// }

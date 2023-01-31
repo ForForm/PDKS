@@ -1,0 +1,243 @@
+<div class="h-full relative">
+
+  <vex-page-layout >
+    <!-- style="background-color:#C7D5EB;color: black;" -->
+    <vex-page-layout-header *ngIf="!isMobileLayout" class="pb-16" fxLayout="column" fxLayoutAlign="center start"
+      style="margin-bottom:-70px">
+
+      <div [class.container]="layoutCtrl.value === 'boxed'" [class.px-gutter]="layoutCtrl.value === 'fullwidth'"
+        class="w-full flex flex-col sm:flex-row justify-between">
+
+        <div>
+          <h1 class="title mt-0 mb-1">
+            {{this.languageMap['Personel Bilgileri'].labelName}}
+          </h1>
+          <vex-breadcrumbs [crumbs]="this.breadcrumbs" class="breadcrumb">
+            <!-- [ngClass]="{'breadcrumb':this.styleService.style$.source.value==='vex-style-default', 
+            'breadcrumb1':this.styleService.style$.source.value!=='vex-style-default' }" -->
+          </vex-breadcrumbs>
+        </div>
+
+        <mat-button-toggle-group [formControl]="layoutCtrl" class="mt-4 sm:mt-0">
+          <mat-button-toggle value="boxed" (click)="resize('boxed')">{{this.languageMap['Ortala'].labelName}}
+          </mat-button-toggle>
+          <mat-button-toggle value="fullwidth" (click)="resize('fullwidth')">{{this.languageMap['Tam Ekran'].labelName}}
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </vex-page-layout-header>
+
+
+    <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+      [class.px-gutter]="layoutCtrl.value === 'fullwidth'" class="-mt-6"
+      [ngStyle]="{'width': (layoutCtrl.value === 'fullwidth')?'100%':'80%'}" style=" padding: 0px;">
+
+
+
+
+      <div fxLayout="column" fxLayoutAlign="space-between" style="height: 68vh;">
+
+
+        <div>
+
+          <div @fadeInUp style="width:30%; font-size: 11px; " fxFlex="auto">
+            <table style="width: 100%;">
+              <tr>
+                <td [ngStyle]="{'width':isMobileLayout?'50px':'140px'}">
+                  <!-- [ngStyle]="{'width':isMobileLayout?'50px':'150px','background-color':this.styleService.style$.source.value=='vex-style-default'?'#1795D0':'black'}" -->
+                  <button (click)="createPersonnel.emit()" color="primary" class="flex-auto" mat-raised-button
+                    type="button" style="font-size: 13px;height: 40px; padding: 0px; width: 100%; ">
+                    <ic-icon [icon]="icPersonAdd" class="ltr:mr-1 rtl:ml-3" inline="true" size="18px"></ic-icon>
+                    <span *ngIf="!isMobileLayout">{{this.languageMap['Personel Ekle'].labelName}}</span>
+                  </button>
+                </td>
+                <td *ngIf="!isMobileLayout" style="width: 50px;">
+                  <div style="width: 50px; display: block; padding: 0px;">
+                    <button mat-raised-button (click)="createColumns.emit()" color="primary"
+                      style="display: block; padding: 0px;">
+                      <ic-icon [icon]="icColumns" class="ltr:mr-3 rtl:ml-3" inline="true" size="18px"></ic-icon>
+                    </button>
+
+                  </div>
+                </td>
+
+
+                <td *ngIf="isMobileLayout" style="width: 130px;">
+                  <div class="bg-card rounded-full border px-1"
+                    style="overflow: auto; margin-top: 5px;margin-left: 20px;" fxFlex.lt-md="auto" fxLayout="row"
+                    fxLayoutAlign="end center">
+                    <input [formControl]="searchCtrl" (keyup)="applyFilter($event.target.value)"
+                      class="px-1 py-3 border-0 outline-none w-full bg-transparent" style="width:100% "
+                      [placeholder]="this.languageMap['Ara'].labelName" type="search">
+                  </div>
+
+                </td>
+
+                <td>
+                  <div *ngIf="!isMobileLayout"
+                    class="hidden sm:flex items-center bg-card rounded-full overflow-hidden relative ltr:pl-5 rtl:pr-5 h-12 max-w-md w-full shadow-8 mx-auto"
+                    style="width: 200px; ">
+
+                    <ic-icon [icon]="icSearch" class="text-secondary flex-none" size="24px"></ic-icon>
+                    <input [formControl]="searchCtrl" (keyup)="applyFilter($event.target.value)"
+                      class="border-0 h-10 outline-none ltr:pl-4 rtl:pr-4 placeholder:text-secondary bg-card flex-auto"
+                      [placeholder]="this.languageMap['Ara'].labelName" type="text" />
+                  </div>
+
+
+                  <span fxFlex></span>
+                </td>
+
+                <td style="width: 240px;">
+
+
+                  <mat-paginator #usrPaginator style="font-size: 10px;  height: 50px;" hidePageSize=true
+                    showFirstLastButtons=false pageSize="15" [pageSizeOptions]="[5, 10, 20, 50, 100]">
+                  </mat-paginator>
+                </td>
+              </tr>
+            </table>
+
+          </div>
+
+        </div>
+
+        <!-- 375px -->
+        <mat-dialog-content fxLayout="row" style="overflow-y:auto; height: 100%;"  >
+          <!-- [@stagger]="dataSource.filteredData"  -->
+          <table [@stagger]="dataSource.filteredData" [dataSource]="dataSource" class="w-full" fxFlex="auto"  matSort mat-table   
+            >
+
+            <ng-container *ngFor="let column of columns">
+              <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+                <th
+                  [hidden]="column.property==='ID' || (isMobileLayout && (column.property!=='Surname'  && column.property!=='Name' && column.property!=='Code'))"
+                  *matHeaderCellDef mat-header-cell mat-sort-header  > {{ column.label }}
+                </th>
+                <td
+                  [hidden]="column.property==='ID' || (isMobileLayout && (column.property!=='Surname'  && column.property!=='Name' && column.property!=='Code'))"
+                  *matCellDef="let row" mat-cell>
+                  {{ row[column.property] }}</td>
+              </ng-container>
+
+              <ng-container *ngIf="column.type === 'date'" [matColumnDef]="column.property">
+                <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell mat-sort-header  [@stagger]="dataSource.filteredData" > {{ column.label }}</th>
+                <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                  {{row[column.property] | date : "dd.MM.y"}}
+
+                </td>
+              </ng-container>
+
+              <ng-container *ngIf="column.type === 'checkbox'" [matColumnDef]="column.property">
+                <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}</th>
+                <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                  <mat-checkbox (click)="$event.stopPropagation()" [checked]="row[column.property]" disabled>
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <ng-container *ngIf="column.type === 'image'" [matColumnDef]="column.property">
+                <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell mat-sort-header style="width: 20px;"> {{
+                  column.label }}</th>
+                <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell style="min-width: 3rem; width: 20px; ">
+                  <img [src]="row[column.property]" class="avatar h-6 w-6 align-middle my-1">
+                </td>
+              </ng-container>
+
+              <ng-container *ngIf="column.type === 'button'" [matColumnDef]="column.property">
+                <ng-container *ngIf="column.property === 'Chief'">
+                  <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}</th>
+                  <td *matCellDef="let row" class="w-10" mat-cell>
+                    <button (click)="emitToggleStar($event, row.id)" mat-icon-button type="button">
+                      <mat-icon *ngIf="row[column.property]" [icIcon]="icStar" class="text-amber-500" color="primary"></mat-icon>
+                      <mat-icon *ngIf="!row[column.property]" [icIcon]="icStarBorder"></mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+                <ng-container *ngIf="column.property === 'menu'">
+                  <th [hidden]="(!tabAuth.update && !tabAuth.delete)" *matHeaderCellDef mat-header-cell mat-sort-header>
+                    {{ column.label }}</th>
+                  <td [hidden]="(!tabAuth.update && !tabAuth.delete)" *matCellDef="let row" class="w-10" mat-cell>
+
+                    <mat-menu #menu="matMenu" xPosition="before" yPosition="below">
+                      <ng-template let-definition="definition" matMenuContent>
+                        <button mat-menu-item (click)="this.selectedRowIndex = row.ID; editContact.emit(definition)"
+                          *ngIf="tabAuth.update">
+                          <mat-icon [icIcon]="icEdit"></mat-icon>
+                          <span>{{this.languageMap['Güncelle'].labelName}}</span>
+                        </button>
+
+                        <button mat-menu-item
+                          (click)="this.selectedRowIndex = row.ID; deleteContact.emit(definition.ID)"
+                          *ngIf="tabAuth.delete">
+                          <mat-icon [icIcon]="icDeleteForever"></mat-icon>
+                          <span>{{this.languageMap['Sil'].labelName}}</span>
+                        </button>
+                      </ng-template>
+                    </mat-menu>
+
+                    <button (click)="$event.stopPropagation()" [matMenuTriggerData]="{ definition: row }"
+                      [matMenuTriggerFor]="menu" mat-icon-button type="button">
+                      <mat-icon [icIcon]="icMoreVert"></mat-icon>
+                    </button>
+
+
+
+                  </td>
+                </ng-container>
+              </ng-container>
+            </ng-container>
+
+
+            <tr *matHeaderRowDef="visibleColumns; sticky: true " mat-header-row></tr>
+            <tr (dblclick)="openContact.emit(row)" *matRowDef="let row; columns: visibleColumns;" @fadeInUp
+              (click)="this.selectedRowIndex = row.ID" [ngClass]=" {'highlight': selectedRowIndex == row.ID}" mat-row>
+            </tr>
+          </table>
+
+        </mat-dialog-content>
+
+        <div div fxLayout="row" >
+
+          <mat-toolbar class="sticky top-0 left-0 right-0 border-t" fxFlex="none" style=" position: relative;">
+            <mat-toolbar-row >
+
+              <!-- [ngStyle]="{'background-color':this.styleService.style$.source.value=='vex-style-default'?'white':'black'}" -->
+              <table style="width: 100%;">
+                <tr>
+                  <td>
+                    <div fxLayout="column" fxLayoutAlign="end" fxLayoutGap="24px" style="text-align: left;">
+                      <mat-radio-group class="radio">
+                        <mat-radio-button
+                          (click)=" this.selectedWorkFilter=this.workFilter.code;getPersonnel.emit({Type:'workType',Code:this.workFilter.code});"
+                          *ngFor="let workFilter of workFilters" [checked]="workFilter.code === 0"
+                          [value]="workFilter.code" color="primary"
+                          style=" text-align: left; padding-right: 20px; font-size:small;">
+
+                          {{ workFilter.name }} ( {{ (workFilter.code===0) ? this.total :(workFilter.code===1 ? this.workTotal:this.firedTotal) }} )
+                        </mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </td>
+                  <td>
+
+
+
+                  </td>
+
+                </tr>
+              </table>
+            </mat-toolbar-row>
+          </mat-toolbar>
+
+        </div>
+
+
+      </div>
+
+
+
+    </vex-page-layout-content>
+  </vex-page-layout>
+</div>

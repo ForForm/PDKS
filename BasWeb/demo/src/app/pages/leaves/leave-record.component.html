@@ -1,0 +1,162 @@
+<form [formGroup]="form">
+
+
+  <div mat-dialog-title class="px-gutter py-1 border-b" style="background-color: #D2D2DB; color:black" cdkDrag
+    cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+
+
+    <span fxFlex></span>
+
+    <button mat-button style=" width: 90px;" (click)="closeDialog()"> <span style="color:black;">{{
+        this.languageMap['Çıkış'].labelName.toUpperCase() }}</span> </button>
+
+    <!-- [disabled]="!this.saveEnabled" -->
+    <button mat-raised-button color="primary" (click)="addRecord()" [disabled]="!this.saveEnabled"
+      style="margin-right: 3px; width: 90px;"> <span>{{
+        this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+  </div>
+
+
+
+  <nav mat-tab-nav-bar id="tabElement11" class="class-mat-tab-link"
+    style="width: 100%; background-color:#EBEBEE; height: 5vh; ">
+    <a mat-tab-link *ngFor="let link of links" (click)="gotoTab(link)" class="class-mat-tab-link"
+      [ngStyle]="{'color': link.index===this.activeLinkIndex?'white':'black'}">
+      {{ link.name }}
+    </a>
+
+  </nav>
+
+  <div class="card" style="padding: 5px;">
+
+
+
+
+
+    <mat-dialog-content fxLayout="row" style="margin-top: 10px;">
+
+      <input hidden formControlName="ID" matInput>
+      <input hidden formControlName="EmployeeID" matInput>
+
+
+      <mat-form-field style="width: 30%;">
+        <mat-label>{{this.languageMap['SicilNo'].labelName}}</mat-label>
+        <input readonly formControlName="Code" matInput>
+        <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openDefinition('0',0)" inline="true">
+        </mat-icon>
+
+      </mat-form-field>
+
+
+      &nbsp;&nbsp;&nbsp;
+      <mat-form-field style="width: 60%;">
+        <mat-label>{{this.languageMap['Adı'].labelName}}</mat-label>
+        <input readonly formControlName="Name" matInput>
+
+      </mat-form-field>
+      &nbsp;&nbsp;&nbsp;
+
+    </mat-dialog-content>
+
+    <mat-dialog-content fxLayout="row" style="margin-top: -10px;">
+
+      <mat-form-field style="width: 30%;">
+        <mat-label>{{this.languageMap['İzin'].labelName}}</mat-label>
+        <input readonly formControlName="Izin" matInput>
+
+        <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openDefinition('13',1)" inline="true">
+        </mat-icon>
+
+      </mat-form-field>
+
+
+      &nbsp;&nbsp;&nbsp;
+
+      <mat-form-field style="width: 60%;">
+        <mat-label>{{this.languageMap['İzin Açıklama'].labelName}}</mat-label>
+        <input formControlName="IzinDesc" readonly matInput>
+      </mat-form-field>
+
+    </mat-dialog-content>
+
+
+    <mat-dialog-content fxLayout="row" style="margin-top: -10px;">
+
+      <mat-form-field>
+        <!-- calcDisabled=false; -->
+        <mat-label>{{this.languageMap['Tarih'].labelName}}</mat-label>
+        <!-- (dateChange)="saveDisabled=true;" -->
+        <input format="DD/MM/YYYY" formControlName="StartDate" [matDatepicker]="datepickerStartDate" matInput>
+        <mat-datepicker-toggle [for]="datepickerStartDate" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #datepickerStartDate></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field *ngIf="this.activeLinkIndex===0 ">
+        <mat-label>{{this.languageMap['Gün'].labelName}}</mat-label>
+        <input formControlName="Day" type="number" (change)="calculateTotalDay()" matInput>
+      </mat-form-field>
+
+    </mat-dialog-content>
+
+    <mat-dialog-content *ngIf="this.activeLinkIndex===0 " fxLayout="row" style="margin-top: -10px;">
+
+      <mat-form-field>
+        <mat-label>{{this.languageMap['Tarih'].labelName}}</mat-label>
+        <input format="DD/MM/YYYY" formControlName="EndDate" [matDatepicker]="datepickerEndDate" matInput>
+        <mat-datepicker-toggle [for]="datepickerEndDate" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #datepickerEndDate></mat-datepicker>
+      </mat-form-field>
+
+      <span fxFlex></span>
+
+
+    </mat-dialog-content>
+
+    <mat-dialog-content *ngIf="this.activeLinkIndex===1 || (this.activeLinkIndex===2 )" fxLayout="row"
+      style="margin-top: -10px;">
+
+      <mat-form-field>
+        <mat-label>{{this.languageMap['Başlangıç Saat'].labelName}}</mat-label>
+        <input class="col-md-5 end" format="HH:mm:ss" (change)="calculateTotalTime();" matInput type="time"
+          formControlName="StartTime">
+      </mat-form-field>
+
+    </mat-dialog-content>
+
+    <mat-dialog-content *ngIf="this.activeLinkIndex===1 || (this.activeLinkIndex===2 )" fxLayout="row"
+      style="margin-top: -10px;">
+
+      <mat-form-field>
+        <mat-label>{{this.languageMap['Bitiş Saat'].labelName}}</mat-label>
+        <input class="col-md-5 end" format="HH:mm:ss" (change)="calculateTotalTime();" matInput type="time"
+          formControlName="EndTime">
+      </mat-form-field>
+
+
+      <!-- <div hidden> -->
+        <mat-form-field>
+          <mat-label>{{this.languageMap['Süre'].labelName}}</mat-label>
+          <input readonly class="col-md-5 end" format="HH:mm:ss" matInput type="time" formControlName="TotalTime">
+        </mat-form-field>
+      <!-- </div> -->
+
+    </mat-dialog-content>
+
+    <mat-dialog-content fxLayout="row" style="margin-top: -10px;">
+
+      <mat-form-field style="width: 100%;">
+        <mat-label>{{this.languageMap['Açıklama'].labelName}}</mat-label>
+        <!-- (change)="calcDisabled=false;saveDisabled=true;" -->
+        <input formControlName="Description" matInput>
+      </mat-form-field>
+
+
+    </mat-dialog-content>
+
+
+
+
+  </div>
+</form>

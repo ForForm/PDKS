@@ -1,0 +1,34 @@
+<div div fxLayout="row" fxLayoutAlign=" center">
+
+  <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto" style="padding: 0px; height: 700px; overflow: hidden;">
+    <div class="card" style="padding:0px;height: 700px; ">
+
+      <div mat-dialog-title class="px-gutter py-1 border-b" style="background-color: #D2D2DB; color:black" cdkDrag
+        cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+          <h2 class="title m-0">{{this.languageMap['Vardiya Grup Parametreleri'].labelName}}</h2>
+          <span fxFlex></span>
+          <button mat-button style="width: 90px;" (click)="closeDialog()">
+            <span>{{
+              this.languageMap['Çıkış'].labelName.toUpperCase() }}</span> </button>
+            &nbsp;&nbsp;&nbsp;
+          <button mat-raised-button color="primary" style="width: 90px;" [disabled]="!this.saveEnabled"
+            (click)="save()"> <span>{{
+              this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+  
+        </div>
+      </div>
+
+
+      <vex-shiftgroup-definitions-item  class="class-mat-tab-link" 
+      [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}" *ngIf="this.selectedStyle$ | async as selectedStyle"
+      [formOnay]="true" [shiftsCode]="this.shiftsCode" [saveClick]="(this.saveClick)"
+        (changeDetectEvent)="changeDetectEvent($event)">
+      </vex-shiftgroup-definitions-item>
+
+
+    </div>
+  </div>
+</div>

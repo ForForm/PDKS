@@ -1,0 +1,103 @@
+table {
+  width: 100%;
+  
+}
+ 
+ 
+.mat-dialog-content {
+  overflow: hidden;
+  padding-right: 0px;
+  padding-left: 0px;
+  max-height: none;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+ 
+.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination {
+  display: none;
+}
+
+ 
+  
+.mat-class {
+font-size: 14px;transform: scale(-1);
+
+}
+
+.highlight{
+  font-weight:bolder;
+  @apply bg-primary text-primary-contrast ;
+   filter: brightness(1.75);
+ }
+
+
+
+
+ 
+
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+ 
+
+  
+.mat-cell {
+  font-size: 10px;
+  justify-content: center;
+}
+
+mat-header-cell,
+mat-cell {
+  justify-content: center;
+  font-size: 10px;
+}
+
+.mat-header-row {
+  height: 0px;
+}
+
+tr.mat-footer-row,
+tr.mat-row {
+  height: 8px !important;
+  padding: 0px;
+}
+
+
+.mat-row:hover {
+  cursor: pointer;
+}
+  
+
+.mat-form-field {
+  width: 150px;
+}
+
+.mat-icon.mat-icon-inline {
+  font-size: 24px;
+}
+
+.class-mat-tab-link
+{
+  @apply bg-primary text-primary-contrast;
+  
+}
+
+::ng-deep .mat-simple-snackbar {
+  display: block !important;
+}
+
+::ng-deep .mat-snack-bar-container {
+  display: block;
+  // min-height: 200px !important;
+  // overflow-y: auto;
+  
+}
+
+::ng-deep .success-snackbar {
+  font-size: 12px;
+  vertical-align: middle;
+  white-space: pre-wrap;
+}

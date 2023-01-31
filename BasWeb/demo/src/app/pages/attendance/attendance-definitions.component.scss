@@ -1,0 +1,44 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+  height: 5px;
+
+}
+
+
+.highlight{
+  font-weight:bolder;
+  @apply bg-primary text-primary-contrast ;
+   filter: brightness(1.75);
+ }
+
+.mat-cell {
+  font-size: smaller;
+  padding: 0px;
+  // color: white;
+}
+
+.mat-header-cell {
+  font-size: smaller;
+  padding: 0px;
+
+}
+.mat-row {
+// background-color: #e5e5f9;
+height: 30px !important;
+// font-weight: bolder;
+font-size: smaller;
+
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  font-size:11pt;
+}
+
+ 
+.mat-form-field {
+  width: 50%;
+  font-size: 10px;
+ 
+}

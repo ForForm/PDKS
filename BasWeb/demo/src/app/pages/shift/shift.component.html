@@ -1,0 +1,15 @@
+
+  <vex-secondary-toolbar [current]="this.languageMap['Vardiya Parametreleri'].labelName">
+    <vex-breadcrumbs [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+  </vex-secondary-toolbar>
+
+
+  
+  <div div fxLayout="row"  style=" width: 100%;" [ngStyle]="{'height': (this.subFooter?'80vh':'calc(80vh + 35px)')}">
+
+ 
+    <!-- [selectedIndex]="selectedTabIndex===undefined?0:selectedTabIndex" -->
+            <shift-table  style="width: 100%;"  [languageMap]="this.languageMap" [pageauth]="this.pageauth" [shiftTypes]="this.shiftTypes"></shift-table>
+   
+
+</div>

@@ -1,0 +1,445 @@
+ 
+<vex-page-layout style=" overflow-y: hidden;" [ngStyle]="{'margin-top': this.data!==null?'20px':'none'}">
+
+
+
+  <vex-page-layout-header *ngIf="!isMobileLayout && this.data == null" class="pb-16" fxLayout="column"
+    fxLayoutAlign="center start" style="  margin-bottom: -75px;" cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle>
+
+
+    <div [class.container]="layoutCtrl.value === 'boxed'" [class.px-gutter]="layoutCtrl.value === 'fullwidth'"
+      class="w-full flex flex-col sm:flex-row justify-between">
+ 
+      <div>
+        <h1 class="title mt-0 mb-1">
+          {{(this.deftype==='RoundingHour'?this.languageMap['Yuvarlama
+          Saat'].labelName:(this.deftype==='RoundingDay'?this.languageMap['Yuvarlama
+          Gün'].labelName:this.languageMap[this.deftype].labelName)) }}
+          {{this.languageMap['Kod Tanımları'].labelName}}
+        </h1>
+        <vex-breadcrumbs class="breadcrumb" [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+      </div>
+
+      <mat-button-toggle-group *ngIf="this.data==null" [formControl]="layoutCtrl" class="mt-4 sm:mt-0">
+        <mat-button-toggle value="boxed" (click)="resize('boxed')">{{this.languageMap['Ortala'].labelName}}
+        </mat-button-toggle>
+        <mat-button-toggle value="fullwidth" (click)="resize('fullwidth')">{{this.languageMap['Tam Ekran'].labelName}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+  </vex-page-layout-header>
+  <!-- 'height': this.subFooter?'calc(87vh - 170px)':'calc(93vh - 170px)', -->
+  <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+    [class.px-gutter]="layoutCtrl.value === 'fullwidth'" class="-mt-6"
+    
+    [ngStyle]="{ 'width': (layoutCtrl.value === 'fullwidth')?'100%':'80%'}">
+ 
+    <div div fxLayout="row" [ngStyle]="{'margin-top': isMobileLayout?'30px ':'-13px'}">
+ 
+
+      <div class="card" style="width: 100%;">
+        <div class="bg-app-bar px-6 h-16 border-b sticky left-0" fxLayout="row" fxLayoutAlign="start center">
+    
+
+          <button mat-raised-button color="primary" *ngIf="this.pageauth.write"
+            style=" width: 120px; height: 35px; font-size: 12px;" (click)="createDefinition()">
+            <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+            {{this.languageMap['Yeni Kayıt'].labelName}}
+          </button>
+
+          <span fxFlex></span>
+
+
+          <div *ngIf="isMobileLayout" class="bg-card rounded-full border px-4" style="overflow: auto;"
+            fxFlex.lt-md="auto" fxLayout="row" fxLayoutAlign="start center">
+            <!-- <ic-icon [icIcon]="icSearch" size="20px"></ic-icon> -->
+            <input [formControl]="searchCtrl" class="px-1 py-2 border-0 outline-none w-full bg-transparent"
+              style="width: 60px;" [placeholder]="this.languageMap['Ara'].labelName" type="search">
+          </div>
+
+
+          <div *ngIf="!isMobileLayout" class="bg-card rounded-full border px-4" style="overflow: auto;" fxFlex="400px"
+            fxFlex.lt-md="auto" fxHide.xs fxLayout="row" fxLayoutAlign="start center">
+            <ic-icon [icIcon]="icSearch" size="20px"></ic-icon>
+            <input [formControl]="searchCtrl" class="px-4 py-3 border-0 outline-none w-full bg-transparent"
+              [placeholder]="this.languageMap['Ara'].labelName" type="search">
+          </div>
+
+          <button color="primary" mat-icon-button type="button" (click)="definitionGetTypes(this.deftype,null)">
+            <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+          </button>
+
+
+
+          <button *ngIf="!isMobileLayout" class="ml-4" fxFlex="none" fxHide.gt-xs mat-icon-button type="button">
+            <mat-icon [icIcon]="icSearch"></mat-icon>
+          </button>
+
+          <!-- <button [matMenuTriggerFor]="columnFilterMenu"
+                  class="ml-4"
+                  fxFlex="none"
+                  mat-icon-button
+                  matTooltip="Filter Columns"
+                  type="button">
+            <mat-icon [icIcon]="icFilterList"></mat-icon>
+          </button>
+   -->
+          <!-- <button (click)="createDefinition()" *ngIf="this.pageauth.write" class="ml-4" color="primary" fxFlex="none"
+            mat-mini-fab matTooltip="{{this.deftype}} Kod Ekle" type="button">
+            <mat-icon [icIcon]="icAdd"></mat-icon>
+          </button> -->
+
+
+
+
+        </div>
+
+        <!-- [ngStyle]="{'height': modul=='code'?'69vh':'27.5vh'}" -->
+        <!-- [ngStyle]="{'height':isMobileLayout?(this.subFooter?'calc(68vh - 50px)':'calc(68vh)'): (this.subFooter?'calc(75vh - 50px)':'calc(75vh)')}" -->
+        <div style="overflow: auto;" [ngStyle]="{'height':this.data!==null?'75vh':'calc(75vh - 50px)'}">
+          <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort>
+
+            <!--- Note that these columns can be defined in any order.
+                The actual rendered columns are set as a property on the row definition" -->
+
+            <!-- Checkbox Column -->
+            <ng-container hidden matColumnDef="checkbox">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                </mat-checkbox>
+              </th>
+              <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                  [checked]="selection.isSelected(row)" color="primary">
+                </mat-checkbox>
+              </td>
+            </ng-container>
+
+            <ng-container hidden>
+              <ng-container hidden matColumnDef="id" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>
+                  <span >{{ row.id }}</span>
+                </td>
+              </ng-container>
+            </ng-container>
+
+
+            <ng-container>
+              <ng-container matColumnDef="code">
+                <th  *matHeaderCellDef style="width: 10px;" mat-header-cell mat-sort-header>
+                  {{this.languageMap['Kod'].labelName}}</th>
+                <td *matCellDef="let row" style="width: 10px;" mat-cell>
+
+                  <!-- <mat-checkbox hidden style="margin-right: 10px;" *ngIf="row.code!==''"
+                    (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                    [checked]="selection.isSelected(row)" color="primary">
+                  </mat-checkbox> -->
+
+                  <!-- <button *ngIf="row.code!=='' && this.pageauth.write" (click)="addSubCode(row)"  >
+                  <mat-icon [icIcon]="icAdd"  matTooltip="Alt Kod Ekle" class="mat-class" ></mat-icon>  
+                </button>  -->
+                  <span >{{ row.code }}</span>
+
+                  <span *ngIf="row.code2!==''" 
+                    [ngStyle]="{'margin-left': isMobileLayout?'10px ':'30px'}"></span>
+                  <!-- <button *ngIf="row.code2!=='' && this.pageauth.write" (click)="addSubCode(row)"  >
+                  <mat-icon [icIcon]="icAdd"  matTooltip="Alt Kod Ekle" class="mat-class" ></mat-icon>  
+                </button>  -->
+                  <span>{{ row.code2 }}</span>
+
+                  <span *ngIf="row.code3!==''"
+                    [ngStyle]="{'margin-left': isMobileLayout?'20px ':'60px'}"></span>
+                  <!-- <button *ngIf="row.code3!=='' && this.pageauth.write" (click)="addSubCode(row)" >
+                  <mat-icon [icIcon]="icAdd"  matTooltip="Alt Kod Ekle" class="mat-class" ></mat-icon>  
+                </button>  -->
+                  <span >{{ row.code3 }}</span>
+
+                  <span *ngIf="row.code4!==''"
+                    [ngStyle]="{'margin-left': isMobileLayout?'30px ':'90px'}"></span>
+                  <!-- <button *ngIf="row.code4!=='' && this.pageauth.write" (click)="addSubCode(row)" >
+                  <mat-icon [icIcon]="icAdd"  matTooltip="Alt Kod Ekle" class="mat-class" ></mat-icon>  
+                </button>  -->
+                  <span >{{ row.code4 }}</span>
+
+                  <span [ngStyle]="{'margin-left': isMobileLayout?'40px ':'120px'}"></span>
+                  <span >{{ row.code5 }}</span>
+
+                </td>
+              </ng-container>
+            </ng-container>
+
+            <ng-container>
+              <ng-container matColumnDef="name">
+                <th *matHeaderCellDef style="width: 10px;" mat-header-cell mat-sort-header>
+                  {{this.languageMap['Adı'].labelName}}</th>
+                <td *matCellDef="let row" style="width: 10px;" mat-cell>
+                  <span >{{ row.name }}</span>
+                  <span> {{ row.name2 }}</span>
+                  <span> {{ row.name3 }}</span>
+                  <span> {{ row.name4 }}</span>
+                  <span> {{ row.name5 }}</span>
+                </td>
+
+              </ng-container>
+            </ng-container>
+
+
+            <ng-container>
+              <ng-container matColumnDef="code2" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Kod'].labelName}}</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>
+                  <span >{{ row.code2 }}</span>
+                </td>
+              </ng-container>
+            </ng-container>
+
+            <ng-container>
+              <ng-container matColumnDef="name2" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Adı'].labelName}}</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>{{ row.name2 }}</td>
+              </ng-container>
+            </ng-container>
+
+
+
+            <ng-container>
+              <ng-container matColumnDef="code3" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Kod'].labelName}}</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>{{ row.code3 }}
+                </td>
+              </ng-container>
+            </ng-container>
+
+            <ng-container>
+              <ng-container matColumnDef="name3" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Adı'].labelName}}</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>{{ row.name3 }}</td>
+              </ng-container>
+            </ng-container>
+
+
+            <ng-container>
+              <ng-container matColumnDef="code4" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Kod'].labelName}}</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>{{ row.code4 }}
+                </td>
+              </ng-container>
+            </ng-container>
+
+            <ng-container>
+              <ng-container matColumnDef="name4" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Adı'].labelName}}</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>{{ row.name4 }}</td>
+              </ng-container>
+            </ng-container>
+
+
+            <ng-container>
+              <ng-container matColumnDef="code5" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Kod'].labelName}}</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>{{ row.code5 }}
+                </td>
+              </ng-container>
+            </ng-container>
+
+            <ng-container>
+              <ng-container matColumnDef="name5" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Adı'].labelName}}</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>{{ row.name5 }}</td>
+              </ng-container>
+            </ng-container>
+
+
+            <ng-container>
+              <ng-container matColumnDef="codePath" style="width: 10px;">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>codePath</th>
+                <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>{{ row.codePath }}</td>
+              </ng-container>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="actions">
+              <th [hidden]="(!this.pageauth.write && !this.pageauth.update && !this.pageauth.delete)" *matHeaderCellDef
+                mat-header-cell mat-sort-header>{{this.languageMap['Aksiyon'].labelName}}</th>
+              <td [hidden]="(!this.pageauth.write && !this.pageauth.update && !this.pageauth.delete)"
+                *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                <button (click)="$event.stopPropagation()" [matMenuTriggerData]="{ definition: row }"
+                  [matMenuTriggerFor]="actionsMenu" mat-icon-button type="button">
+                  <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+
+            <tr *matHeaderRowDef="visibleColumns;sticky: true;" mat-header-row></tr>
+            <!-- (click)="updateDefinition(row)" -->
+            <!-- [class]="this.modul==='code' && row.code!==''? 'mat-row':'hover:bg-hover trans-ease-out cursor-pointer'"   -->
+            <!-- [ngClass]="{'highlight': selectedRowIndex == row.id}" -->
+            <tr (click)="definitionDetailClick(row)" *matRowDef="let row; columns: visibleColumns;" @fadeInUp
+              [class]="this.modul==='code' && row.code!==''? 'mat-row1':''"
+              [ngClass]=" {'highlight': selectedRowIndex == row.id}" style="max-height: 120px;" mat-row></tr>
+          </table>
+        </div>
+
+
+        <div class="bg-app-bar px-6 h-16 border-b sticky left-0" fxLayout="row" fxLayoutAlign="start center"
+          *ngIf="(this.deftype==='RoundingDay' || this.deftype==='RoundingHour')">
+
+          <span style="font-weight: bolder; font-size: larger;">{{this.subCode+' - '+this.subName}}</span>
+          <span fxFlex></span>
+
+
+          <button (click)="createDefinitionDetail()" *ngIf="this.pageauth.write && this.subCode!==''" class="ml-4"
+            color="primary" fxFlex="none" mat-mini-fab matTooltip="{{this.deftype}} Kod Ekle" type="button">
+            <mat-icon [icIcon]="icAdd"></mat-icon>
+          </button>
+        </div>
+
+
+        <!-- height: 250px; -->
+        <!-- [ngStyle]="{'height': modul=='code'?'69vh':'27.5vh'}" -->
+        <div *ngIf="(this.deftype==='RoundingDay' || this.deftype==='RoundingHour')" style="overflow: auto;"
+          [ngStyle]="{'height': this.subFooter?'calc(78vh - 170px)':'calc(84vh - 170px)'}">
+          <table @stagger [dataSource]="dataSourceHour" class="w-full" mat-table matSort>
+
+            <ng-container matColumnDef="id" style="width: 10px;">
+              <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+              <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>
+                <span >{{ row.id }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="firstValue">
+              <th *matHeaderCellDef style="width: 10px;" mat-header-cell mat-sort-header>İlk Değer
+              </th>
+              <td *matCellDef="let row" style="width: 10px;" mat-cell>
+                <span >{{ row.firstValue }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="finalValue">
+              <th *matHeaderCellDef style="width: 10px;" mat-header-cell mat-sort-header>Son Değer
+              </th>
+              <td *matCellDef="let row" style="width: 10px;" mat-cell>
+                <span >{{ row.finalValue }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="plainValue">
+              <th *matHeaderCellDef style="width: 10px;" mat-header-cell mat-sort-header>Net Değer
+              </th>
+              <td *matCellDef="let row" style="width: 10px;" mat-cell>
+                <span >{{ row.plainValue }}</span>
+              </td>
+            </ng-container>
+
+            <!-- [hidden]= "(!this.pageauth.write && !this.pageauth.update && !this.pageauth.delete)" -->
+            <ng-container matColumnDef="actions">
+              <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                {{this.languageMap['Aksiyon'].labelName}}</th>
+              <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                <button (click)="$event.stopPropagation()" [matMenuTriggerData]="{ definitionHourDetail: row }"
+                  [matMenuTriggerFor]="actionsMenu2" mat-icon-button type="button">
+                  <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+
+            <tr *matHeaderRowDef="visibleColumnsHour;sticky: true;" mat-header-row></tr>
+            <!-- (click)="updateDefinition(row)" -->
+
+            <tr (click)="this.selectedRowIndex2 = row.id" *matRowDef="let row; columns: visibleColumnsHour;" @fadeInUp
+              [ngClass]=" {'highlight': selectedRowIndex2 == row.id}" style="max-height: 120px;" mat-row></tr>
+
+          </table>
+        </div>
+
+
+        <!-- <mat-paginator [pageSizeOptions]="pageSizeOptions" [pageSize]="pageSize" class="sticky left-0"></mat-paginator> -->
+        <!-- </div> -->
+        <!-- </vex-page-layout-content>
+  </vex-page-layout> -->
+
+      </div>
+
+    </div>
+
+
+    <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+      <ng-template let-definition="definition" matMenuContent>
+
+        <button (click)="addSubCode(definition)"
+          *ngIf="this.pageauth.write && (this.deftype!=='RoundingHour' && this.deftype!=='RoundingDay') " mat-menu-item>
+          <mat-icon [icIcon]="icAdd"></mat-icon>
+          <span>{{this.languageMap['Alt Kod Ekle'].labelName}}</span>
+        </button>
+
+        <button (click)="updateDefinition(definition)" *ngIf="this.pageauth.update" mat-menu-item>
+          <mat-icon [icIcon]="icEdit"></mat-icon>
+          <span>{{this.languageMap['Güncelle'].labelName}}</span>
+        </button>
+        <button (click)="deleteDefinition(definition)" *ngIf="this.pageauth.delete" mat-menu-item>
+          <mat-icon [icIcon]="icDelete"></mat-icon>
+          <span>{{this.languageMap['Sil'].labelName}}</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+
+
+
+    <mat-menu #actionsMenu2="matMenu" xPosition="before" yPosition="below">
+      <ng-template let-definitionHourDetail="definitionHourDetail" matMenuContent>
+
+        <button (click)="updateDefinitionDetail(definitionHourDetail)" *ngIf="this.pageauth.update" mat-menu-item>
+          <mat-icon [icIcon]="icEdit"></mat-icon>
+          <span>{{this.languageMap['Güncelle'].labelName}}</span>
+        </button>
+        <button (click)="deleteDefinitionDetail(definitionHourDetail)" *ngIf="this.pageauth.delete" mat-menu-item>
+          <mat-icon [icIcon]="icDelete"></mat-icon>
+          <span>{{this.languageMap['Sil'].labelName}}</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+
+
+    <!-- 
+<mat-menu #actionsMenu2="matMenu" xPosition="before" yPosition="below">
+    <button (click)="addSubCode(definition)" mat-menu-item>
+      <mat-icon [icIcon]="icAdd"></mat-icon>
+      <span>{{(this.deftype==='RoundingHour')?'Puantaj Saatleri Yuvarlama Ekle':'Alt Kod Ekle'}}</span>
+    </button>
+  </ng-template>
+</mat-menu>
+
+
+
+<mat-menu #actionsMenu3="matMenu" xPosition="before" yPosition="below">
+  <ng-template let-definition="definition" matMenuContent>
+    <button (click)="addSubCode(definition)" mat-menu-item>
+      <mat-icon [icIcon]="icAdd"></mat-icon>
+      <span>{{(this.deftype==='RoundingHour')?'Puantaj Saatleri Yuvarlama Ekle':'Alt Kod Ekle'}}</span>
+    </button>
+  </ng-template>
+</mat-menu> -->
+
+
+  </vex-page-layout-content>
+
+</vex-page-layout>

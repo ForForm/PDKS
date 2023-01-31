@@ -1,0 +1,295 @@
+<vex-page-layout style="color: black; padding: 0px; height: 90vh; overflow: hidden;">
+
+  <vex-page-layout-header *ngIf="!isMobileLayout" class="pb-16" fxLayout="column" fxLayoutAlign="center start"
+    style="  margin-bottom: -75px;">
+    <div [class.container]="layoutCtrl.value === 'boxed'" [class.px-gutter]="layoutCtrl.value === 'fullwidth'"
+      class="w-full flex flex-col sm:flex-row justify-between">
+
+      <div>
+        <h1 class="title mt-0 mb-1">{{this.languageMap['Kullanıcı Tanımlama'].labelName}}</h1>
+        <vex-breadcrumbs class="breadcrumb" [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+      </div>
+
+
+      <mat-button-toggle-group [formControl]="layoutCtrl" class="mt-4 sm:mt-0">
+        <mat-button-toggle value="boxed" (click)="resize('boxed')">{{this.languageMap['Ortala'].labelName}}
+        </mat-button-toggle>
+        <mat-button-toggle value="fullwidth" (click)="resize('fullwidth')">{{this.languageMap['Tam Ekran'].labelName}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </vex-page-layout-header>
+
+  <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+    [ngStyle]="{'width': (layoutCtrl.value === 'fullwidth')?'100%':'80%'}"
+    [class.px-gutter]="layoutCtrl.value === 'fullwidth'" class="-mt-6">
+
+
+
+    <div class="card" style="width: 100%; overflow: hidden;" [ngStyle]="{'margin-top': isMobileLayout?'30px ':'-8px'}">
+      <form [formGroup]="form">
+
+        <div class="px-gutter py-4 border-b"  >
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+
+
+            <button mat-raised-button color="primary" (click)="add()"
+              style=" width: 120px; height: 35px; font-size: 12px;">
+              <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+              {{this.languageMap['Yeni Kayıt'].labelName}}
+            </button>
+            <span fxFlex></span>
+ 
+            <button mat-raised-button color="primary" (click)="save()" style="margin-right: 3px; width: 90px;"
+              [disabled]="this.form.invalid">
+              <span>{{
+                this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+          </div>
+        </div>
+
+
+        <mat-dialog-content fxLayout="row">
+          <mat-dialog-content fxLayout="column">
+            <div class="flex flex-col sm:flex-row" style="padding-top: 10px;">
+
+
+
+              <mat-form-field class="sm:mt-4 sm:ml-4 flex-auto" style="width: 200px;" appearance="outline"
+                style=" font-weight: bolder;">
+                <!-- <mat-icon matPrefix>source</mat-icon> -->
+                <mat-label>{{this.languageMap['Kod'].labelName}}</mat-label>
+                <input cdkFocusInitial formControlName="Code" matInput>
+              </mat-form-field>
+
+              <mat-form-field class="sm:mt-4 sm:ml-4 flex-auto" style="width: 200px;" appearance="outline">
+                <mat-label>{{this.languageMap['Adı'].labelName}}</mat-label>
+                <input cdkFocusInitial formControlName="Name" matInput>
+              </mat-form-field>
+
+              <input hidden cdkFocusInitial formControlName="ID" matInput>
+
+              <mat-form-field class="sm:mt-4 sm:ml-4 flex-auto" style="width: 200px;" appearance="outline">
+                <mat-icon matPrefix>vpn_key</mat-icon>
+                <mat-label>{{this.languageMap['Şifre'].labelName}}</mat-label>
+                <input cdkFocusInitial formControlName="Password" matInput>
+              </mat-form-field>
+
+              &nbsp;&nbsp;
+
+              <mat-form-field appearance="outline" style="width: 200px; ">
+
+                <mat-label>
+                  {{this.languageMap['Personel'].labelName}}
+                </mat-label>
+
+                <input hidden cdkFocusInitial formControlName="EmployeeId" matInput>
+                <input readonly formControlName="EmployeeCode" matInput>
+
+                <!-- (click)="openContact('Department')"  -->
+                <!-- *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)" -->
+                <mat-icon [icIcon]="icMoreHoriz" style="font-size: 24px;" (click)="openDefinition('0',1)" matSuffix
+                  inline="true">
+                </mat-icon>
+
+              </mat-form-field>
+
+              <mat-checkbox color="primary" style="margin-top: 20px;margin-left: 20px;" formControlName="IsAdmin">Admin
+              </mat-checkbox>
+
+              <mat-checkbox color="primary" style="margin-top: 20px;margin-left: 20px;" formControlName="IsForced">
+                {{this.languageMap['Şifre Reset'].labelName}}
+              </mat-checkbox>
+
+              &nbsp;&nbsp;&nbsp;
+              <div>
+
+
+
+
+              </div>
+
+
+            </div>
+          </mat-dialog-content>
+        </mat-dialog-content>
+
+
+        <mat-dialog-content fxLayout="row">
+          <mat-dialog-content fxLayout="column" style="width: 100%; text-align: center;">
+            <div class="errors"
+              *ngIf="(form.get('Password').invalid && (form.get('Password').touched || form.get('Password').dirty))">
+
+              <!-- <div class="error-text" *ngIf="form.get('Password').hasError('required')">{{this.languageMap['Şifre
+      gerekli'].labelName}}</div> -->
+
+              <div class="error-text" *ngIf="form.get('Password').errors.minlength">{{this.languageMap['Şifre en az
+                8
+                karakter olmalı'].labelName}}</div>
+
+              <div class="error-text" *ngIf="form.get('Password').hasError('passwordStrength')">
+                {{this.languageMap[form.get('Password').errors['passwordStrength']].labelName}}</div>
+
+
+            </div>
+
+          </mat-dialog-content>
+        </mat-dialog-content>
+        <!-- 
+        <mat-dialog-content fxLayout="row">
+          <mat-dialog-content fxLayout="column">
+            <div class="flex flex-col sm:flex-row" style="padding: 10px;"> -->
+
+
+        <!-- 
+            </div>
+          </mat-dialog-content>
+        </mat-dialog-content> -->
+
+
+
+        <mat-dialog-content fxLayout="row">
+          <!-- [ngStyle]="{'height': this.subFooter?'calc(40vh - 50px)':'40vh'}" -->
+          <div style="overflow-y:scroll; width: 100%; "
+            [ngStyle]="{'height': this.subFooter?'calc(90vh - 430px)':'calc(90vh - 380px)'}">
+            <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort>
+
+              <ng-container matColumnDef="Checkbox">
+                <th hidden *matHeaderCellDef mat-header-cell>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                  </mat-checkbox>
+                </th>
+                <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                  <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                    [checked]="selection.isSelected(row)" color="primary">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="ID">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+                <td hidden *matCellDef="let row" mat-cell>
+                  <span style="font-size: 20px; ">{{ row.ID }}</span>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Code">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Kod'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Code }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Name">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Adı'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Name }}</span>
+                </td>
+
+              </ng-container>
+
+
+              <ng-container matColumnDef="Password">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Şifre'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Password }}</span>
+                </td>
+
+              </ng-container>
+
+
+              <ng-container matColumnDef="IsAdmin">
+                <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Admin'].labelName}}
+                </th>
+                <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+
+                  <mat-checkbox disabled [checked]="row.IsAdmin" color="primary">
+                  </mat-checkbox>
+
+                </td>
+
+              </ng-container>
+
+              <ng-container matColumnDef="EmployeeId">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Personel'].labelName}}
+                </th>
+                <td hidden *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.EmployeeId }}</span>
+                </td>
+
+              </ng-container>
+
+              <ng-container matColumnDef="EmployeeCode">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Personel'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.EmployeeCode }}</span>
+                  <!-- formControlName="CollarColor" -->
+                  <!-- <mat-select style="width: 100%;" [value]="row.UserId" >
+                    <mat-option *ngFor="let item of this.Employees" [value]="item.ID">
+                      {{ item.Code }}
+                    </mat-option>
+                  </mat-select> -->
+
+                </td>
+
+              </ng-container>
+
+              <ng-container matColumnDef="IsForced">
+                <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Şifre Reset'].labelName}}
+                </th>
+                <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+
+                  <mat-checkbox disabled [checked]="row.IsForced" color="primary">
+                  </mat-checkbox>
+
+                </td>
+
+              </ng-container>
+
+
+              <ng-container matColumnDef="Actions" sticky>
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Aksiyon'].labelName}}</th>
+                <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                  <button (click)="delete(row)" mat-icon-button type="button">
+                    <mat-icon [icIcon]="icDelete"></mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+
+
+              <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+              <tr (click)="selectRow(row)" *matRowDef="let row; columns: columns;" @fadeInUp
+                [ngClass]=" {'highlight': selectedRowIndex == row.ID}" style="max-height: 120px;" mat-row></tr>
+            </table>
+          </div>
+        </mat-dialog-content>
+
+      </form>
+    </div>
+
+
+
+
+
+    <!-- </div> -->
+
+  </vex-page-layout-content>
+
+</vex-page-layout>

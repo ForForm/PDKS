@@ -1,0 +1,75 @@
+
+<div class="container py-gutter" style="padding: 0px; height: 100%; overflow: hidden; min-width: 100%;" cdkDrag
+cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+
+
+<form [formGroup]="form">
+
+  <mat-dialog-content fxLayout="row">
+
+    <mat-form-field style="width: 100%;">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtre">
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+
+  <mat-dialog-content fxLayout="row" style="overflow-y:auto; width: 420px; height: 100%;">
+
+
+
+    <table @stagger [dataSource]="dataSource" class="w-full"  mat-table matSort>
+
+
+
+      <ng-container matColumnDef="ID">
+        <th hidden *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>ID</th>
+        <td hidden *matCellDef="let row" mat-cell>
+          <span style="font-size: 20px; ">{{ row.ID }}</span>
+        </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="Code">
+        <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>{{this.languageMap['Kod'].labelName}}
+        </th>
+        <td *matCellDef="let row" mat-cell>
+          <span style="font-size: 11px; ">{{ row.Code }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="Name">
+        <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>{{this.languageMap['Adı'].labelName}}
+        </th>
+        <td *matCellDef="let row" mat-cell>
+          <span style="font-size: 11px; ">{{ row.Name }}</span>
+        </td>
+
+      </ng-container>
+
+
+      <ng-container matColumnDef="CardNo">
+        <th [hidden]="this.defaults.Type!=='0'" *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+          {{this.languageMap['KartNo'].labelName}}
+        </th>
+        <td [hidden]="this.defaults.Type!=='0'" *matCellDef="let row" mat-cell>
+          <span style="font-size: 11px; ">{{ row.CardNo }}</span>
+        </td>
+
+      </ng-container>
+
+
+
+
+
+      <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+      <tr (click)="select(row)" *matRowDef="let row; columns: columns;" @fadeInUp class="hover:bg-hover cursor-pointer"
+        style="max-height: 120px;" mat-row></tr>
+    </table>
+
+  </mat-dialog-content>
+
+
+</form>
+
+</div>

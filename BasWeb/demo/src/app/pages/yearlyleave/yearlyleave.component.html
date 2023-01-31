@@ -1,0 +1,892 @@
+<vex-secondary-toolbar [current]="this.languageMap['Yıllık İzin İşlemleri'].labelName">
+  <vex-breadcrumbs [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+</vex-secondary-toolbar>
+
+<!-- 'backgroundColor': link.Index===this.activeLinkIndex ? '#5C77FF':'#EBEBEE', -->
+<nav mat-tab-nav-bar  class="class-mat-tab-link" style="width: 100%;  ">
+  <a mat-tab-link *ngFor="let link of links" (click)="gotoTab(link)" [ngStyle]="{
+    'color': link.Index === this.activeLinkIndex ? 'white':'black'}"  class="class-mat-tab-link">
+    {{ this.languageMap[link.name].labelName }}
+  </a>
+
+  <span fxFlex></span>
+
+  <button (click)="createUsedLeaveEntry()"  mat-raised-button color="primary" style="font-size: 12px; height: 50px; margin-top: 3px;">
+    <!-- <ic-icon [icon]="icDelete" class="ltr:mr-3 rtl:ml-3" inline="true" size="15px"></ic-icon> -->
+    <span>{{this.languageMap['Kullanılmış İzin Girişleri'].labelName}}</span>
+
+  </button>
+
+</nav>
+
+<div   [ngStyle]="{'height': this.subFooter?'calc(73vh)':'calc(73vh-50px)'}" style="overflow: hidden;  ">
+
+
+
+  <div *ngIf="this.activeLinkIndex===0" fxLayout="row" fxLayoutAlign="start" style="  width: 100%; ">
+
+
+    <as-split direction="horizontal" [gutterSize]="isMobileLayout?30:5">
+      <as-split-area [size]="this.filterHide?100:75">
+
+
+        <div fxFlex.lt-md="auto" class="card" style="overflow: hidden;">
+
+          <mat-dialog-content fxLayout="row" style="overflow: hidden; margin-bottom: -15px; ">
+
+
+            <mat-form-field style="width: 70%; font-size: 10px; top:-10px; overflow: hidden;">
+              <input matInput (keyup)="applyFilter($event.target.value)"
+                placeholder="{{this.languageMap['Filtre'].labelName}}">
+            </mat-form-field>
+
+            <span fxFlex></span>
+
+            <mat-paginator #usrPaginator style="font-size: 10px;  height: 50px; margin-top: -10px; "
+              [hidePageSize]="true" pageSize="20" [pageSizeOptions]="[5, 10, 20, 50, 100]">
+            </mat-paginator>
+
+            &nbsp;&nbsp;&nbsp;
+            <button *ngIf="!isMobileLayout" color="success" style="margin-top: -15px; margin-right: 20px;"
+              (click)="this.filterHide=!this.filterHide" matTooltip="{{this.languageMap['Filtre'].labelName}}">
+              <mat-icon [icIcon]="icFilter"></mat-icon>
+            </button>
+
+
+
+          </mat-dialog-content>
+
+
+          <mat-dialog-content  fxLayout="row"
+          style=" width: 100%; justify-content: flex-end; background-color: whitesmoke;">
+            <mat-toolbar class="sticky bottom-0 left-0 right-0 border-t" fxFlex="none">
+
+              <mat-toolbar-row style=" padding: 0px;height: 45px;">
+
+                <div fxFlex="calc(15% - 12px)" fxFlex.lt-md="auto">
+
+                  <mat-dialog-content fxLayout="row" style="height: 100%;  ">
+
+                    <!-- <table>
+                      <tr>
+                        <td>  -->
+                          &nbsp;
+                          <button [disabled]="nxtDisabled" (click)="calculate()" mat-raised-button type="button" color="primary">
+                            <mat-icon [icIcon]="icCalculator" class="ltr:mr-3 rtl:ml-3" inline="true" size="18px"  style="margin-top: -20px;" >
+                            </mat-icon>
+                            <span>{{this.languageMap[this.scoreLabel].labelName}}</span>
+                          </button>
+                        <!-- </td>
+                      </tr>
+                    </table> -->
+
+                  </mat-dialog-content>
+                  <span fxFlex></span>
+
+                </div>
+
+                <div fxFlex="calc(85% - 12px)"  fxFlex.lt-md="auto" style="padding: 5px;"
+                  [ngStyle]="{'margin-right':isMobileLayout?'40px':'none'}">
+
+                  <div class="card" style=" height: 20px;overflow-y:hidden;overflow-x: hidden;"
+                  [ngStyle]="{'width':isMobileLayout? '120px':'none'}">
+
+                      <p *ngFor="let i of calculateArray" [ngStyle]="{'text-align':isMobileLayout? 'start':'end'}">
+                        <!-- {{ (this.progresValue | number:'1.0-0') == 100 ? this.languageMap['İşlem Tamamlandı'].labelName
+                        :
+                        this.calculatingPersonel }} -->
+                        {{ (this.progresValue) == 100 ? this.languageMap['İşlem Tamamlandı'].labelName
+                        :
+                        this.calculatingPersonel }}
+                      </p>
+
+
+                    </div>  
+
+                    <mat-progress-bar mode="determinate" style="height: 20px;" [value]="progresValue">
+                    </mat-progress-bar>
+                    
+                </div>
+
+              </mat-toolbar-row>
+
+
+            </mat-toolbar>
+          </mat-dialog-content>
+          <mat-dialog-content fxLayout="row" style=" overflow-y:auto; width: 100%; margin-top: 0px;  "
+            [ngStyle]="{'max-height': this.subFooter?'calc(70vh - 50px)':'calc(70vh - 100px)'}">
+
+            <table mat-table #usrtable [dataSource]="dataSourceEmp" class="w-full" fxFlex="auto">
+
+              <ng-container *ngFor="let column of columns">
+
+                <ng-container *ngIf="column.property === 'select'" matColumnDef="select">
+                  <th *matHeaderCellDef mat-header-cell>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                    </mat-checkbox>
+                  </th>
+                  <td *matCellDef="let row" class="w-4" mat-cell>
+                    <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                      [checked]="selection.isSelected(row)" color="primary">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+                <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+                  <th
+                    [hidden]="column.property==='ID' 
+                  || (isMobileLayout && (column.property!=='Surname'  && column.property!=='Name' && column.property!=='Code'))"
+                    *matHeaderCellDef mat-header-cell>
+                    {{ column.label }}
+                  </th>
+                  <td
+                    [hidden]="column.property==='ID' 
+                  || (isMobileLayout && (column.property!=='Surname'  && column.property!=='Name' && column.property!=='Code'))"
+                    *matCellDef="let row" mat-cell>
+                    {{ row[column.property] }}</td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'date'" [matColumnDef]="column.property">
+                  <th
+                    [hidden]="(isMobileLayout && (column.property!=='Surname'  && column.property!=='Name' && column.property!=='Code'))"
+                    *matHeaderCellDef mat-header-cell>
+                    {{ column.label }}</th>
+                  <td
+                    [hidden]="(isMobileLayout && (column.property!=='Surname'  && column.property!=='Name' && column.property!=='Code'))"
+                    *matCellDef="let row" mat-cell>
+                    <!-- <input readonly format="DD/MM/YYYY" [matDatepicker]="datepickerRef" #datepickerRef matInput [value]="row[column.property]"> -->
+                    {{row[column.property] | date : "dd.MM.y"}}
+                  </td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'checkbox' && column.property!=='select'"
+                  [matColumnDef]="column.property">
+                  <th
+                    [hidden]="(isMobileLayout && (column.property!=='Surname'  && column.property!=='Name' && column.property!=='Code'))"
+                    *matHeaderCellDef mat-header-cell> {{ column.label }}</th>
+                  <td
+                    [hidden]="(isMobileLayout && (column.property!=='Surname'  && column.property!=='Name' && column.property!=='Code'))"
+                    *matCellDef="let row" mat-cell>
+                    <mat-checkbox (click)="$event.stopPropagation()" [checked]="row[column.property]"
+                      [disabled]="column.property!=='select'"></mat-checkbox>
+                  </td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'image'" [matColumnDef]="column.property">
+                  <th *matHeaderCellDef mat-header-cell style="width: 30px;"> {{ column.label }}</th>
+                  <td *matCellDef="let row" mat-cell style="min-width: 2rem; width: 30px;">
+                    <img [src]="row[column.property]" class="avatar h-5 w-5 align-middle my-1">
+                  </td>
+                </ng-container>
+
+                <ng-container *ngIf="column.type === 'button'" [matColumnDef]="column.property">
+                  <ng-container *ngIf="column.property === 'Chief'">
+                    <th *matHeaderCellDef mat-header-cell> {{ column.label }}</th>
+                    <td *matCellDef="let row" class="w-10" mat-cell>
+
+                      <!-- (click)="emitToggleStar($event, row.id)" -->
+                      <button  mat-icon-button type="button">
+                        <mat-icon *ngIf="row[column.property]" [icIcon]="icStar" class="text-amber-500"></mat-icon>
+                        <mat-icon *ngIf="!row[column.property]" [icIcon]="icStarBorder"></mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                </ng-container>
+              </ng-container>
+
+              <tr *matHeaderRowDef="visibleColumns; sticky: true" mat-header-row></tr>
+              <tr  [ngClass]=" {'highlight': selection.isSelected(row)}" *matRowDef="let row; columns: visibleColumns;"  mat-row>
+              </tr>
+            </table>
+
+
+
+          </mat-dialog-content>
+
+
+        </div>
+      </as-split-area>
+
+      <as-split-area [size]="this.filterHide?0:25">
+
+        <div [hidden]="filterHide" fxFlex.lt-md="auto">
+
+          <div class="card"  [ngStyle]="{'max-height': this.subFooter?'calc(85vh)':'calc(85vh - 50px)'}">
+
+            <mat-dialog-content fxLayout="row">
+
+              <button (click)="getPersonnel()" class="flex-auto" mat-raised-button type="button">
+                <ic-icon [icon]="icFilter" class="ltr:mr-3 rtl:ml-3" inline="true" size="18px"></ic-icon>
+                <span>{{this.languageMap['Filtre'].labelName}}</span>
+
+              </button>
+
+              <button (click)="ClearPFilter()" class="flex-auto" mat-raised-button type="button">
+                <ic-icon [icon]="icDelete" class="ltr:mr-3 rtl:ml-3" inline="true" size="18px"></ic-icon>
+                <span>{{this.languageMap['Temizle'].labelName}}</span>
+
+              </button>
+
+
+
+            </mat-dialog-content>
+
+            <form [formGroup]="form">
+
+              <div style="height: 70vh; overflow-y: scroll; overflow-x: hidden;">
+
+                <mat-dialog-content fxLayout="row">
+
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{this.languageMap['Tarih'].labelName}}</mat-label>
+                    <input format="DD/MM/YYYY" formControlName="StartDate" [matDatepicker]="datepickerStartDate"
+                      matInput>
+                    <mat-datepicker-toggle [for]="datepickerStartDate" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerStartDate></mat-datepicker>
+                  </mat-form-field>
+
+              
+
+<!-- 
+                  <mat-form-field  appearance="outline">
+                    <mat-label>{{this.languageMap['Tarih'].labelName}}</mat-label>
+                    <input format="DD/MM/YYYY" formControlName="EndDate" [matDatepicker]="datepickerEndDate" matInput>
+                    <mat-datepicker-toggle [for]="datepickerEndDate" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerEndDate></mat-datepicker>
+                  </mat-form-field> -->
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[0]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['SicilNo'].labelName}}</mat-label>
+                    <input formControlName="Emp1" matInput>
+
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('0',1)" inline="true" matSuffix></mat-icon>
+
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[0]">
+                    <mat-label>{{this.languageMap['SicilNo'].labelName}}</mat-label>
+                    <input formControlName="Emp2"  [value]="!(this.FilteroObjEnableArray[0])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('0',2)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[3]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Personel Tipi'].labelName}}</mat-label>
+                    <input formControlName="EmpType1"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('3',1)" inline="true" matSuffix></mat-icon>
+
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[3]">
+                    <mat-label>{{this.languageMap['Personel Tipi'].labelName}}</mat-label>
+                    <input formControlName="EmpType2"  [value]="!(this.FilteroObjEnableArray[3])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('3',2)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[1]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Departman'].labelName}}</mat-label>
+                    <input formControlName="Depart1"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('1',1)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[1]">
+                    <mat-label>{{this.languageMap['Departman'].labelName}}</mat-label>
+                    <input formControlName="Depart2"  [value]="!(this.FilteroObjEnableArray[1])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('1',2)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[4]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Masraf Tipi'].labelName}}</mat-label>
+                    <input formControlName="Cost1"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('4',1)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[4]">
+                    <mat-label>{{this.languageMap['Masraf Tipi'].labelName}}</mat-label>
+                    <input formControlName="Cost2"  [value]="!(this.FilteroObjEnableArray[4])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('4',2)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[5]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Kadro Tipi'].labelName}}</mat-label>
+                    <input formControlName="Cadre1"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('5',1)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[5]">
+                    <mat-label>{{this.languageMap['Kadro Tipi'].labelName}}</mat-label>
+                    <input formControlName="Cadre2"  [value]="!(this.FilteroObjEnableArray[5])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('5',2)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[6]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Meslek Tipi'].labelName}}</mat-label>
+                    <input formControlName="Prof1"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('6',1)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[6]">
+                    <mat-label>{{this.languageMap['Meslek Tipi'].labelName}}</mat-label>
+                    <input formControlName="Prof2"  [value]="!(this.FilteroObjEnableArray[6])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('6',2)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[7]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Gorev Tipi'].labelName}}</mat-label>
+                    <input formControlName="Task1"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('7',1)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[7]">
+                    <mat-label>{{this.languageMap['Gorev Tipi'].labelName}}</mat-label>
+                    <input formControlName="Task2"  [value]="!(this.FilteroObjEnableArray[7])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('7',2)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[8]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Grup Tipi'].labelName}}</mat-label>
+                    <input formControlName="Group1"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('8',1)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[8]">
+                    <mat-label>{{this.languageMap['Grup Tipi'].labelName}}</mat-label>
+                    <input formControlName="Group2"  [value]="!(this.FilteroObjEnableArray[8])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('8',2)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[9]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Birim Tipi'].labelName}}</mat-label>
+                    <input formControlName="Unit1"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('9',1)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[9]">
+                    <mat-label>{{this.languageMap['Birim Tipi'].labelName}}</mat-label>
+                    <input formControlName="Unit2"  [value]="!(this.FilteroObjEnableArray[9])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('9',2)" inline="true" matSuffix></mat-icon>
+                  </mat-form-field>
+
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[10]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Şube Tipi'].labelName}}</mat-label>
+                    <input formControlName="Branch1" matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('10',1)" inline="true" matSuffix>
+                    </mat-icon>
+                  </mat-form-field>
+
+
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[10]">
+                    <mat-label>{{this.languageMap['Şube Tipi'].labelName}}</mat-label>
+                    <input formControlName="Branch2"  [value]="!(this.FilteroObjEnableArray[10])?'':null"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('10',2)" inline="true" matSuffix>
+                    </mat-icon>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline" [ngStyle]="{width: this.FilteroObjEnableArray[11]?'50%':'100%'}">
+                    <mat-label>{{this.languageMap['Servis Tipi'].labelName}}</mat-label>
+                    <input formControlName="Service1"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('11',1)" inline="true" matSuffix>
+                    </mat-icon>
+                  </mat-form-field>
+
+
+                  <mat-form-field appearance="outline"  *ngIf="this.FilteroObjEnableArray[11]">
+                    <mat-label>{{this.languageMap['Servis Tipi'].labelName}}</mat-label>
+                    <input formControlName="Service2"  matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('11',2)" inline="true" matSuffix>
+                    </mat-icon>
+                  </mat-form-field>
+
+
+                </mat-dialog-content>
+
+
+                <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{this.languageMap['Gömlek Yaka'].labelName}}</mat-label>
+                    <mat-select style="width: 100%;" formControlName="Collar1">
+                      <option *ngFor="let item of this.Collarcolors" [value]="item.Code">
+                        {{ item.Name }}
+                      </option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>{{this.languageMap['Gömlek Yaka'].labelName}}</mat-label>
+                    <mat-select style="width: 100%;" formControlName="Collar2">
+                      <option *ngFor="let item of this.Collarcolors" [value]="item.Code">
+                        {{ item.Name }}
+                      </option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+              </div>
+
+            </form>
+
+
+          </div>
+
+        </div>
+
+      </as-split-area>
+
+    </as-split>
+
+  </div>
+
+
+
+  <div *ngIf="this.activeLinkIndex===1" style="width: 100%;" class="example-container mat-elevation-z8">
+
+    <mat-dialog-content fxLayout="row" style="width:100%; min-height: 45px">
+
+      <mat-form-field style="width: 100%; top:-10px; font-size: 12px; overflow: hidden;">
+        <input matInput (keyup)="applyFilterTotal($event.target.value)"
+          placeholder="{{this.languageMap['Filtre'].labelName}}">
+      </mat-form-field>
+
+      <span fxFlex></span>
+      <!-- 
+      <mat-paginator #totalPaginator style="font-size: 10px;  height: 50px; margin-top: -10px;" [hidePageSize]="true"
+      pageSize="20" [pageSizeOptions]="[5, 10, 20, 50, 100]">
+    </mat-paginator> -->
+
+    </mat-dialog-content>
+    <mat-dialog-content fxLayout="row" style=" overflow:auto; width: 100%; margin-top: -20px;"
+      [ngStyle]="{'height': this.subFooter?'calc(70vh)':'calc(70vh - 50px)'}">
+
+
+      <mat-table #table [dataSource]="dataSourceTotal" style="width: 100%;" >
+
+        <ng-container matColumnDef="Checkbox">
+          <mat-header-cell hidden *matHeaderCellDef>
+            <mat-checkbox  (change)="$event ? masterToggle() : null"
+              [checked]="selection.hasValue() && isAllSelected()"
+              [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell hidden *matCellDef="let row" class="w-4">
+            <mat-checkbox  (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+              [checked]="selection.isSelected(row)" color="primary">
+            </mat-checkbox>
+
+
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="ID">
+          <mat-header-cell *matHeaderCellDef>
+            {{this.languageMap['ID'].labelName}}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"> <span >{{ element.ID }}</span>
+          </mat-cell>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Code">
+          <mat-header-cell *matHeaderCellDef>
+            {{this.languageMap['Kod'].labelName}}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"> <span >{{ element.Code }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+          <mat-header-cell *matHeaderCellDef>
+            {{this.languageMap['Adı'].labelName}}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element"> <span > {{ element.Name }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="DeptCode">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['Departman'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element"> <span > {{
+              element.DeptCode }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="DeptName">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['DepartmanAdı'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element"> <span >{{
+              element.DeptName }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="EmpTypeCode">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['Personel Tipi'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element">
+            <span >{{ element.EmpTypeCode }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="EmpTypeName">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['Personel Tipi Adı'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element">
+            <span >{{ element.EmpTypeName }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="StartingDate">
+          <mat-header-cell *matHeaderCellDef>
+            {{this.languageMap['İş Giriş Tarihi'].labelName}}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span > {{element.StartingDate | date : "dd.MM.y"}}</span>
+
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="CalculationDate">
+          <mat-header-cell *matHeaderCellDef>
+            {{this.languageMap['Hesap Tarihi'].labelName}}
+          </mat-header-cell>
+          <mat-cell *matCellDef="let element">
+            <span >{{ element.CalculationDate | date : "dd.MM.y"}}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Seniority">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['Kıdem'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element">
+            <span >{{ element.Seniority }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="VestingDate">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['Hakediş Tarihi'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element">
+            <span >{{ element.VestingDate | date : "dd.MM.y" }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="PeriodYear">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['Devir'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element">
+            <span >{{ element.PeriodYear }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Extra">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['İlave'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element">
+            <span >{{ element.Extra }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="VestingDay">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['Hakediş'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element">
+            <span >{{ element.VestingDay }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="UsedDay">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['Kullanılan'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element">
+            <span >{{ element.UsedDay }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="TotalRemain">
+          <mat-header-cell [hidden]="isMobileLayout" *matHeaderCellDef>
+            {{this.languageMap['Kalan'].labelName}}
+          </mat-header-cell>
+          <mat-cell [hidden]="isMobileLayout" *matCellDef="let element">
+            <span >{{ element.TotalRemain }}</span>
+          </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail" style="height: 20px;">
+          <mat-cell *matCellDef="let detail" class="class-mat-tab-link">
+
+            <div style="width: 50%;" class="card" fxFlex="auto" style="margin:5px;">
+              <mat-dialog-content fxLayout="row" style="overflow-y:scroll; margin:0px;max-height:100px;height:100px;">
+                <table [dataSource]="dataSourceDetail" mat-table  matSort>
+
+                  <ng-container matColumnDef="Checkbox">
+                    <th hidden *matHeaderCellDef mat-header-cell>
+                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                      </mat-checkbox>
+                    </th>
+                    <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                      <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                        [checked]="selection.isSelected(row)" color="primary">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="EmployeeID">
+                    <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                    <td hidden *matCellDef="let row" mat-cell>
+                      <span >{{ row.EmployeeID }}</span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Year">
+                    <th *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Yıl'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" mat-cell>
+                      <span >{{ row.Year }}</span>
+                    </td>
+                  </ng-container>
+
+
+
+                  <ng-container matColumnDef="PeriodYear">
+                    <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Yıl Devri'].labelName}}
+                    </th>
+                    <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                      <span >{{ row.PeriodYear }}</span>
+                    </td>
+                  </ng-container>
+
+
+
+                  <ng-container matColumnDef="VestingDay">
+                    <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Hakediş'].labelName}}
+                    </th>
+                    <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                      <span >{{ row.VestingDay }}</span>
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="UsedDay">
+                    <th *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Kullanılan'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" mat-cell>
+                      <span >{{ row.UsedDay }}</span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="TotalRemain">
+                    <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Kalan'].labelName}}
+                    </th>
+                    <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                      <span >{{ row.TotalRemain }}</span>
+                    </td>
+
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="OffSet">
+                    <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Mahsup'].labelName}}
+                    </th>
+                    <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                      <span >{{ row.OffSet | date : "dd.MM.y" }}</span>
+
+                    </td>
+
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="CalculationDate">
+                    <th *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Hesap Tarihi'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" mat-cell>
+                      <span >{{ row.CalculationDate | date : "dd.MM.y" }}</span>
+
+
+                    </td>
+
+                  </ng-container>
+
+
+
+
+
+                  <tr *matHeaderRowDef="detailColumns;sticky: true;" mat-header-row></tr>
+                  <tr (click)="selectDetailRow(row)" *matRowDef="let row; columns: detailColumns;"
+                    class="hover:bg-hover cursor-pointer" style="max-height: 120px;" mat-row></tr>
+                </table>
+              </mat-dialog-content>
+            </div>
+
+            <div style="width: 50%;" class="card" fxFlex="auto" style="margin:5px;">
+              <mat-dialog-content fxLayout="row" style="overflow-y:scroll; margin:0px;max-height:100px;height:100px;">
+                <table [dataSource]="dataSourceLeave" mat-table matSort>
+
+                  <ng-container matColumnDef="Checkbox">
+                    <th hidden *matHeaderCellDef mat-header-cell>
+                      <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                      </mat-checkbox>
+                    </th>
+                    <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                      <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                        [checked]="selection.isSelected(row)" color="primary">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="EmployeeID">
+                    <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                    <td hidden *matCellDef="let row" mat-cell>
+                      <span >{{ row.EmployeeID }}</span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="StartDate">
+                    <th *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Başlangıç Tarih'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" mat-cell>
+                      <span >{{ row.StartDate | date : "dd.MM.y" }}</span>
+
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="EndDate">
+                    <th *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Bitiş Tarih'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" mat-cell>
+                      <span >{{ row.EndDate | date : "dd.MM.y" }}</span>
+
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="Day">
+                    <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Gün'].labelName}}
+                    </th>
+                    <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                      <span >{{ row.Day }}</span>
+                    </td>
+                  </ng-container>
+
+
+
+                  <ng-container matColumnDef="OffSetDate">
+                    <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Mahsup Tarih'].labelName}}
+                    </th>
+                    <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                      <span >{{ row.OffSetDate }}</span>
+
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="OffSetDay">
+                    <th *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Mahsup Gün'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" mat-cell>
+                      <span >{{ row.OffSetDay }}</span>
+                    </td>
+                  </ng-container>
+
+
+
+                  <!-- (click)="selectExtendRow(row)" -->
+                  <tr *matHeaderRowDef="leaveColumns;sticky: true;" mat-header-row></tr>
+                  <tr  *matRowDef="let row; columns: leaveColumns;"
+                    class="hover:bg-hover cursor-pointer" style="max-height: 120px;" mat-row></tr>
+                </table>
+              </mat-dialog-content>
+            </div>
+
+          </mat-cell>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="totalColumns;sticky: true;"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: totalColumns;" matRipple class="element-row"
+          [class.expanded]="expandedElement == row" (click)="totalRowClick(row)"></mat-row>
+        <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+          [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'" style="overflow: hidden">
+        </mat-row>
+
+      </mat-table>
+    </mat-dialog-content>
+  </div>
+
+</div>

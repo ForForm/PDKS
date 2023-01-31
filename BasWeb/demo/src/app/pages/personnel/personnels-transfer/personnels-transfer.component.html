@@ -1,0 +1,367 @@
+<vex-page-layout style="color: black; overflow: hidden; ">
+
+    <vex-page-layout-header *ngIf="!isMobileLayout" class="pb-16" fxLayout="column" fxLayoutAlign="center start"
+        style="  margin-bottom: -75px; height: 75px;">
+        <div [class.container]="layoutCtrl.value === 'boxed'" [class.px-gutter]="layoutCtrl.value === 'fullwidth'"
+            class="w-full flex flex-col sm:flex-row justify-between">
+            <div>
+                <h1 class="title mt-0 mb-1">{{this.languageMap['Personel Transfer'].labelName}}</h1>
+                <vex-breadcrumbs class="breadcrumb" [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+            </div>
+
+            <mat-button-toggle-group [formControl]="layoutCtrl" class="mt-4 sm:mt-0">
+                <mat-button-toggle value="boxed" (click)="resize('boxed')">{{this.languageMap['Ortala'].labelName}}
+                </mat-button-toggle>
+                <mat-button-toggle value="fullwidth" (click)="resize('fullwidth')">{{this.languageMap['Tam
+                    Ekran'].labelName}}</mat-button-toggle>
+            </mat-button-toggle-group>
+        </div>
+    </vex-page-layout-header>
+    <form [formGroup]="form">
+
+        <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+            [ngStyle]="{'margin-top': isMobileLayout?'10px ':'0px', 'width': (layoutCtrl.value === 'fullwidth')?'100%':'80%'}"
+            [class.px-gutter]="layoutCtrl.value === 'fullwidth'" class="-mt-6" style="overflow:hidden">
+
+
+
+            <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxLayoutAlign.lt-md="start stretch">
+
+                <nav mat-tab-nav-bar class="class-mat-tab-link" style="width: 100%; ">
+                    <a mat-tab-link *ngFor="let link of links" (click)="gotoTab(link)"
+                        [disabled]="(link.index!==0?this.primaryNotSelected:false)  "
+                        [ngStyle]="{'color': link.index===this.activeLinkIndex?'white':'black'}"
+                        class="class-mat-tab-link">
+                        <span [ngStyle]="{'opacity': (link.index!==0 && this.primaryNotSelected) ?'0.2':'1'}">
+                            {{ this.languageMap[link.name].labelName }}
+                        </span>
+                    </a>
+                </nav>
+            </div>
+
+            <div div fxLayout="row" style="height: 65vh;">
+                <div label="Dosya Transfer Bilgileri" [hidden]="this.activeLinkIndex!==0"
+                    style="width:-webkit-fill-available;">
+
+
+
+                    <mat-dialog-content fxLayout="row">
+
+
+
+
+                        <input type="file" name="input" formControlName="Code" (click)="incomingfile($event)"
+                            (change)="incomingfile($event)" [readonly]="!this.pageauth.write" cdkFocusInitial
+                            style="font-size: 13px; font-weight: bold; margin-top: 15px; width: 200px; " placeholder="Upload file"
+                            accept=".xlsx">
+
+
+
+                        <button mat-button color="white" (click)="Upload()" [disabled]="excelButtonDisabled"
+                            style="margin-right: 3px; width: 50px; height: 50px;  ">
+                            <mat-icon [icIcon]="icExcel" color="green" matPrefix></mat-icon>
+
+                        </button>
+                        <!--appearance="outline" style="width: 80px;margin-top: 10px;" -->
+                        <mat-form-field style="height: 20px;top: 0px; margin-right: 15px; font-weight: 500;">
+                            <mat-select formControlName="Sheet" (selectionChange)="Upload()">
+                                <mat-option *ngFor="let item of this.Sheets" [value]="item.Code">
+                                    {{ item.Name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <span fxFlex></span>
+
+
+                        <mat-form-field style="height: 20px;top: 0px; margin-right: 15px; font-weight: 500;">
+                            <mat-select  [disabled]="!this.Uploaded" formControlName="TemplateList"
+                                (selectionChange)="SetScreenExcelTemplate($event)">
+                                <mat-option   *ngFor="let item of this.TemplatesList" [value]="item.Name">
+                                    {{ item.Name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <!-- matTooltip="{{this.languageMap['Şablon Adı'].labelName}}" -->
+                        <mat-form-field appearance="outline" style="width: 200px; margin-bottom: -10px;">
+                            <mat-label>
+                                {{this.languageMap['Şablon Adı'].labelName}}</mat-label>
+                            <input [readonly]="this.primaryNotSelected || this.form.value.TemplateList!==null"
+                                formControlName="TemplateName"
+                                matInput>
+                        </mat-form-field>
+
+                        &nbsp;&nbsp;
+                        <!-- || this.form.value.TemplateList!==null -->
+                        <!-- (this.primaryNotSelected && this.form.value.TemplateName!==null) || -->
+                        <!-- (this.primaryNotSelected && this.form.value.TemplateList==null) &&  -->
+                        <button mat-raised-button
+                            [disabled]="((this.primaryNotSelected || (this.form.value.TemplateName==null || this.form.value.TemplateName=='')) )"
+                            (click)="PostExcelTemplate()" color="primary"
+                            style="margin-right: 3px; margin-top: 8px; width: 90px; height: 32px;">
+                            <span>{{
+                                this.languageMap['Kaydet'].labelName.toUpperCase() }}
+                            </span> </button>
+
+                    </mat-dialog-content>
+
+                    <mat-dialog-content fxLayout="row">
+                        <mat-paginator #viewPaginator style="font-size: 10px;  height: 45px;   width: 100%;"
+                            class="class-mat-tab-link" hidePageSize=true showFirstLastButtons=false pageSize="20"
+                            [pageSizeOptions]="[5, 10, 20, 50, 100]">
+                        </mat-paginator>
+
+                    </mat-dialog-content>
+                    <as-split direction="vertical" [gutterSize]="isMobileLayout?20:5">
+
+                        <as-split-area [size]="isMobileLayout?'30':'30'">
+                            <!-- height: -webkit-fill-available; -->
+                            <mat-dialog-content fxLayout="row" style="overflow: auto; height:-webkit-fill-available; ">
+
+                                <table [dataSource]="dataSource" class="w-full" fxFlex="auto"
+                                    style="overflow-x: scroll;" mat-table>
+
+                                    <ng-container *ngFor="let column of columns">
+                                        <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+                                            <th *matHeaderCellDef mat-header-cell style="width: 120px;"> {{ column.label
+                                                }}
+                                            </th>
+                                            <td *matCellDef="let row" mat-cell>
+
+                                                {{ row[column.property] }}
+
+                                            </td>
+                                        </ng-container>
+
+
+                                    </ng-container>
+
+                                    <tr *matHeaderRowDef="visibleColumns; sticky: true " mat-header-row></tr>
+                                    <tr (click)="this.selectedRow = row"
+                                        [ngClass]="{ 'highlight': row === selectedRow }"
+                                        *matRowDef="let row; columns: visibleColumns;" mat-row></tr>
+                                </table>
+
+
+                            </mat-dialog-content>
+
+
+                        </as-split-area>
+
+                        <as-split-area [size]="isMobileLayout?'70':'70'">
+
+                            <mat-dialog-content fxLayout="row" class="card" style="overflow-y:auto; height: 80%;">
+
+
+                                <table style="height: 100% ">
+                                    <tr style="text-align: left; ">
+                                        <!-- [ngStyle]="{'color':this.styleService.style$.source.value=='vex-style-default'?'black':'white'}" -->
+                                        <th> {{ this.languageMap['Hedef'].labelName }}</th>
+                                        <th> {{ this.languageMap['Tip'].labelName }}</th>
+                                        <th> {{ this.languageMap['Kaynak'].labelName }}</th>
+                                        <th> {{ this.languageMap['Öndeğer'].labelName }}</th>
+                                    </tr>
+                                    <!-- <form class="example-form"> -->
+                                    <ng-container *ngFor="let item of this.transferTable">
+
+                                        <tr>
+                                            <td style="width:30%; border:1px solid black ">
+                                                <mat-checkbox #checkbox style=" margin-top: 10px;  width: 100%;"
+                                                    color="primary" (change)="check(checkbox)" [checked]="item.Active"
+                                                    [value]="item.DestinationField">
+                                                    <!-- [ngStyle]="{'color':this.styleService.style$.source.value=='vex-style-default'?'black':'white'}" -->
+                                                    <span>
+                                                        {{this.languageMap[item.DestinationField].labelName}}</span>
+                                                    <span *ngIf="item.DestinationField==='CompanyCode' || item.DestinationField==='Code' 
+                                                        || item.DestinationField==='Name' || item.DestinationField==='Surname' 
+                                                        || item.DestinationField==='PassCode' || item.DestinationField==='PassDate' 
+                                                        || item.DestinationField==='ShiftGroupCode' || item.DestinationField==='EmployeeTypeCode' || item.DestinationField==='DepartmentCode' 
+                                                        || item.DestinationField==='StartingDate'" style='color:red'>
+                                                        * </span>
+                                                </mat-checkbox>
+                                            </td>
+                                            <td style="width:30%; border:1px solid black ">
+                                                <!-- [ngStyle]="{'color':this.styleService.style$.source.value=='vex-style-default'?'black':'white'}" -->
+                                                <input style="width:150px" matInput readonly [value]=" item.Type">
+                                            </td>
+
+                                            <!-- template geldiyse item.property=> item.SourceField    -->
+                                            <td style="width:40%; border: 1px solid black;"
+                                                [ngStyle]="{'background-color':!item.Active?'whitesmoke':'#74d2f7'}">
+                                                <mat-select [disabled]="!item.Active"
+                                                    [value]="!item.Active?'':(item.SourceField==null?item.property:item.SourceField)"
+                                                    style=" width: 100%; font-size: 11px;"
+                                                    (selectionChange)="change('select',item.DestinationField,$event)">
+                                                    <mat-option *ngFor="let item of this.columns"
+                                                        [value]="(item.SourceField==null?item.property:item.SourceField)">
+                                                        <span>
+                                                            {{ (item.SourceField==null?item.property:item.SourceField)
+                                                            }}
+                                                        </span>
+                                                    </mat-option>
+                                                </mat-select>
+
+                                                <!--                                            
+                                                    <mat-form-field class="example-full-width" appearance="fill">
+                                                        <input type="text" [disabled]="!item.Active"
+                                                            style=" width: 100%; font-size: 12px;" matInput
+                                                            [formControl]="myControl" 
+                                                            [matAutocomplete]="auto">
+                                                        <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                                                            <mat-option *ngFor="let item of this.columns"
+                                                                [value]="item.property"
+                                                                style=" width: 100%; font-size: 10px;">
+                                                                {{ item.property }}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field> -->
+
+                                            </td>
+
+                                            <td style="width:40%; border: 1px solid black;"
+                                                [ngStyle]="{'text-align':item.Type === 'Bit'?'center':'none'}">
+
+                                                <input style="width:100%;text-align: center; font-weight: bold;"
+                                                    *ngIf="item.Type === 'String'" matInput [value]="item.DefaultValue"
+                                                    (change)="change('text',item.DestinationField,$event)">
+                                                <input style="width:100%; text-align: center;font-weight: bold;"
+                                                    *ngIf="item.Type === 'Datetime'" matInput type="date" [value]="item.DefaultValue"
+                                                    (change)="change('datetime',item.DestinationField,$event)">
+                                                <mat-checkbox style="text-align: center;" *ngIf="item.Type === 'Bit'"
+                                                    color="primary" style="margin: 10px 0 0 10px;"  [value]="item.DefaultValue"
+                                                    (change)="change('check',item.DestinationField,$event)"
+                                                    [checked]="item.DefaultValue"></mat-checkbox>
+
+
+                                            </td>
+
+                                        </tr>
+                                    </ng-container>
+
+                                    <!-- </form> -->
+                                </table>
+
+                            </mat-dialog-content>
+
+
+                        </as-split-area>
+
+                    </as-split>
+
+                </div>
+
+                <div label="Geçici Tabloda Göster" [hidden]="this.activeLinkIndex!==1"
+                    style="width: -webkit-fill-available">
+
+                    <as-split direction="vertical" [gutterSize]="isMobileLayout?20:5">
+
+                        <as-split-area [size]="isMobileLayout?'98':'98'" style="overflow:hidden; ">
+
+                            <mat-dialog-content fxLayout="row" style="margin-top: 5px;">
+
+
+                                <div fxFlex="calc(80% - 12px)" class="card" fxFlex.lt-md="auto" style="padding: 5px;"
+                                    [ngStyle]="{'margin-right':isMobileLayout?'40px':'none'}">
+
+                                    <mat-dialog-content fxLayout="row">
+                                        <div style=" height: 20px;overflow-y:hidden;overflow-x: hidden;"
+                                            [ngStyle]="{'width':isMobileLayout? '220px':'none'}">
+
+                                            <p *ngFor="let i of calculateArray"
+                                                [ngStyle]="{'text-align':isMobileLayout? 'start':'end'}"
+                                                style="color:red">
+                                                <!-- {{ (this.progresValue | number:'1.0-0') == 100 ?
+                                                ('Kayıtlar kontrol ediliyor...')
+                                                :
+                                                this.calculatingPersonel }} -->
+                                                {{ (this.progresValue) == 100 ? this.languageMap['İşlem
+                                                Tamamlandı'].labelName
+                                                :
+                                                this.calculatingPersonel }}
+
+                                                <!-- {{this.calculatingPersonel}} -->
+                                            </p>
+
+
+                                        </div>
+                                    </mat-dialog-content>
+                                    <mat-dialog-content fxLayout="row">
+
+                                        <mat-progress-bar mode="determinate" style="height: 20px;"
+                                            [value]="progresValue">
+                                        </mat-progress-bar>
+                                    </mat-dialog-content>
+                                </div>
+
+                                <span fxFlex></span>
+
+                                <button mat-raised-button [disabled]="primaryNotSelected" (click)="StartTransfer()"
+                                    style="width: 100%; height: 50px; color:red">
+                                    {{this.scoreLabel}}
+                                </button>
+                                <!-- 
+                                <button mat-raised-button [disabled]="primaryNotSelected" (click)="StartControl()"
+                                    style="width: 200px; margin-right: 20px; height: 50px; color:red">
+                                    Kontrol
+                                </button> -->
+                            </mat-dialog-content>
+
+                            <mat-dialog-content fxLayout="row">
+
+                                <span fxFlex></span>
+                                <mat-paginator #usrPaginator
+                                    style="font-size: 10px;  height: 50px; margin-top: 5px; width: 100%;"
+                                    hidePageSize=true showFirstLastButtons=false pageSize="50"
+                                    [pageSizeOptions]="[5, 10, 20, 50, 100]">
+                                </mat-paginator>
+
+                            </mat-dialog-content>
+
+
+                            <mat-dialog-content fxLayout="row"
+                                style=" height:50vh; margin-top: 0px; padding: 5px;overflow: scroll;"
+                                [ngStyle]="{'width': (layoutCtrl.value === 'fullwidth')?'190vh':'130vh'}">
+
+
+
+                                <table [dataSource]="dataSourceE" style="table-layout:auto; " mat-table>
+
+                                    <ng-container *ngFor="let column of columnsE">
+                                        <ng-container *ngIf="column.type === 'text'" [matColumnDef]="column.property">
+                                            <th *matHeaderCellDef mat-header-cell> {{ column.label }}
+                                            </th>
+                                            <td *matCellDef="let row" mat-cell>
+                                                {{ row[column.property] }}</td>
+                                        </ng-container>
+                                    </ng-container>
+
+                                    <tr *matHeaderRowDef="visibleColumnsE; sticky: true " mat-header-row></tr>
+                                    <tr (click)="this.selectedRow = row"
+                                        [ngClass]="{ 'highlight': row === selectedRow }"
+                                        *matRowDef="let row; columns: visibleColumnsE;" mat-row></tr>
+                                </table>
+
+                            </mat-dialog-content>
+
+                        </as-split-area>
+
+                        <as-split-area [size]="isMobileLayout?'2':'2'" style="overflow:hidden; ">
+
+                            <mat-dialog-content fxLayout="row"
+                                style=" height: 200px; overflow:auto; margin-top: 0px; padding: 5px;"
+                                [ngStyle]="{'width': (layoutCtrl.value === 'fullwidth')?'190vh':'130vh'}">
+                                <span fxFlex></span>
+                                <span>{{ this.errorsLabel }}</span>
+                                <span fxFlex></span>
+                            </mat-dialog-content>
+
+                        </as-split-area>
+
+                    </as-split>
+
+                </div>
+
+            </div>
+
+        </vex-page-layout-content>
+    </form>
+</vex-page-layout>

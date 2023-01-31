@@ -1,0 +1,142 @@
+<form (ngSubmit)="save()" [formGroup]="form">
+ 
+
+  
+    <div class="card" style="margin:5px; ">
+      <div class="px-gutter py-4 border-b" style="height: 50px;">
+
+        <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: -10px;" >
+          <h2 class="title m-0">{{this.defaults.screenName}}</h2>
+          <button color="primary" mat-button  ><span class="material-icons md-48">
+              save
+            </span></button>
+        </div>
+      </div>
+
+  <mat-dialog-content fxLayout="column">
+    <div class="flex flex-col sm:flex-row" style="padding: 10px;">
+      <mat-form-field class="mt-6 flex-auto" *ngIf="codeV" appearance="outline" >
+        <mat-label>{{this.languageMap['Kod'].labelName}}</mat-label>
+        <input cdkFocusInitial formControlName="code" matInput [readonly]="this.defaults.update || this.defaults.sub===true">
+      </mat-form-field>
+
+      <mat-form-field  class="sm:mt-6 sm:ml-6 flex-auto" *ngIf="nameV" appearance="outline">
+        <mat-label>{{this.languageMap['Adı'].labelName}}</mat-label>
+        <input cdkFocusInitial formControlName="name" matInput [readonly]="this.defaults.sub===true">
+      </mat-form-field>
+
+
+      <mat-form-field  class="sm:mt-6 sm:ml-6 flex-auto"  *ngIf="firstHourValueV" appearance="outline">
+        <mat-label>{{this.languageMap['İlk Değer'].labelName}}</mat-label>
+        <input  cdkFocusInitial formControlName="firstHourValue" matInput >
+      </mat-form-field>
+
+      
+      <mat-form-field  class="sm:mt-6 sm:ml-6 flex-auto" *ngIf="finalHourValueV" appearance="outline">
+        <mat-label>{{this.languageMap['Son Değer'].labelName}}</mat-label>
+        <input  cdkFocusInitial formControlName="finalHourValue" matInput >
+      </mat-form-field>
+
+
+      <mat-form-field  class="sm:mt-6 sm:ml-6 flex-auto"  *ngIf="plainHourValueV" appearance="outline">
+        <mat-label>{{this.languageMap['Net Değer'].labelName}}</mat-label>
+        <input  cdkFocusInitial formControlName="plainHourValue" matInput >
+      </mat-form-field>
+
+      
+      <mat-form-field  class="sm:mt-6 sm:ml-6 flex-auto" *ngIf="firstDayValueV" appearance="outline">
+        <mat-label>{{this.languageMap['Alt Limit'].labelName}} </mat-label>
+        <input format="YYYY/MM/DD HH:mm:ss" type="time" cdkFocusInitial formControlName="firstDayValue" matInput >
+      </mat-form-field>
+
+
+      <mat-form-field  class="sm:mt-6 sm:ml-6 flex-auto"  *ngIf="finalDayValueV" appearance="outline">
+        <mat-label>{{this.languageMap['Üst Limit'].labelName}}</mat-label>
+        <input format="YYYY/MM/DD HH:mm:ss" type="time" cdkFocusInitial formControlName="finalDayValue" matInput >
+      </mat-form-field>
+
+      <mat-form-field  class="sm:mt-6 sm:ml-6 flex-auto"  *ngIf="plainDayValueV" appearance="outline">
+        <mat-label>{{this.languageMap['Var.Sure'].labelName}}</mat-label>
+        <input format="YYYY/MM/DD HH:mm:ss" type="time" cdkFocusInitial formControlName="plainDayValue" matInput >
+      </mat-form-field>
+
+    </div>
+
+    <div class="flex flex-col sm:flex-row">
+    
+    <mat-form-field *ngIf="subcodeV" class="mt-6 flex-auto" appearance="outline">
+      <mat-label>{{this.languageMap['Alt Kod'].labelName}}</mat-label>
+      <input cdkFocusInitial formControlName="subcode" matInput>
+    </mat-form-field>
+
+    <mat-form-field *ngIf="subnameV"  class="mt-6 flex-auto" appearance="outline">
+      <mat-label>{{this.languageMap['Alt Adı'].labelName}}</mat-label>
+      <input cdkFocusInitial formControlName="subname" matInput>
+    </mat-form-field>
+  
+  
+  </div>
+    <!-- 
+    <mat-form-field class="flex-auto">
+      <mat-label>Street</mat-label>
+      <input formControlName="street" matInput>
+
+      <mat-icon [icIcon]="icEditLocation" class="mr-3" matPrefix></mat-icon>
+    </mat-form-field>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field class="flex-auto">
+        <mat-label>Zipcode</mat-label>
+        <input formControlName="zipcode" matInput>
+
+        <mat-icon [icIcon]="icMyLocation" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+
+      <mat-form-field class="sm:ml-6 flex-auto">
+        <mat-label>City</mat-label>
+        <input formControlName="city" matInput>
+
+        <mat-icon [icIcon]="icLocationCity" class="mr-3" matPrefix></mat-icon>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="flex-auto">
+      <mat-label>Phone Number</mat-label>
+      <input formControlName="phoneNumber" matInput>
+
+      <mat-icon [icIcon]="icPhone" class="mr-3" matPrefix></mat-icon>
+    </mat-form-field>
+
+    <mat-form-field class="flex-auto">
+      <mat-label>Notes</mat-label>
+      <textarea formControlName="notes" matInput></textarea>
+    </mat-form-field>
+  -->
+</mat-dialog-content> 
+
+  <!-- <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">İPTAL</button>
+    <button *ngIf="isCreateMode()" color="primary" mat-button type="submit">EKLE</button>
+    <button *ngIf="isUpdateMode()" color="primary" mat-button type="submit">{{this.visible?'ALT KOD EKLE':'GÜNCELLE'}}</button>
+  </mat-dialog-actions> -->
+
+
+</div>
+</form>
+
+<mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icPrint"></mat-icon>
+    <span>Print</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDownload"></mat-icon>
+    <span>Export</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDelete"></mat-icon>
+    <span>Delete</span>
+  </button>
+</mat-menu>

@@ -1,0 +1,34 @@
+<vex-secondary-toolbar *ngIf="isMobileLayout"
+  [current]="isMobileLayout?this.languageMap['Personel Bilgileri'].labelName:'none'">
+  <vex-breadcrumbs [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+  <span *ngIf="!isMobileLayout" fxFlex></span>
+
+</vex-secondary-toolbar>
+
+
+<!-- [ngStyle]="{'color':this.styleService.style$.source.value=='vex-style-default'?'red':'white'}"-->
+
+
+<div div fxLayout="row" fxLayoutAlign="start" style="height: 85vh;  width: 100%;padding: 5px; overflow: hidden;">
+
+  <mat-drawer-container class="bg-transparent flex-auto flex"
+    style=" margin-left: -20px; margin-right: -20px;   padding: 0px; overflow: hidden;">
+
+    <!-- -->
+    <mat-drawer-content class="p-gutter pt-0 flex-auto flex items-start">
+
+      <div style="width: 100%; overflow: hidden;">
+        <vex-personnels-data-table (editContact)="editContact($event)" (openContact)="openContact($event)"
+          (deleteContact)="deleteContact($event)" (getPersonnel)="getPersonnel($event)"
+          (createPersonnel)="createPersonnel($event,false)" (createColumns)="createColumns()"
+          [columns]="this.tableColumns" [tabAuth]="tabAuth[0]" (toggleStar)="toggleStar($event)" [data]="this.tableData"
+          [subFooter]="subFooter">
+        </vex-personnels-data-table>
+      </div>
+
+
+    </mat-drawer-content>
+
+
+  </mat-drawer-container>
+</div>

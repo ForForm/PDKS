@@ -1,0 +1,19 @@
+<div class="card overflow-hidden" style="margin-bottom: 5px;">
+  <span fxFlex></span>
+  <button color="primary" mat-button type="submit" (click)="save()"><span class="material-icons md-48">
+      save
+    </span></button>
+</div>
+
+<div class="container py-gutter" style="padding: 0px; height: 500px; overflow: auto; width: 95%;">
+  <div class="bg-app-bar p-2" fxLayout="row" fxLayoutAlign="space-around center">
+    <div [ngClass.gt-xs]="['ltr:ml-6 rtl:mr-6']" class="max-w-full" fxFlex="none">
+      <mat-checkbox #checkbox *ngFor="let item of this.columns" (change)="check(checkbox)"   [value]="item.ColumnName" [checked]="item.Active">
+        {{item.ColumnName}}
+        <input matInput name="{{item.ColumnName}}" value="{{item.Label}}" (change)="change($event)">        
+      </mat-checkbox>
+
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,128 @@
+
+ <!-- (ngSubmit)="save()" -->
+<form [formGroup]="form">
+  
+  
+<div mat-dialog-title class="px-gutter py-1 border-b" style="background-color: #D2D2DB; color:black" cdkDrag
+cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+   
+
+        <span fxFlex></span>
+
+        <button mat-button style=" width: 90px;" (click)="closeDialog()"> <span style="color:black;" >{{
+            this.languageMap['Çıkış'].labelName.toUpperCase() }}</span> </button>
+
+        <!-- [disabled]="!this.saveEnabled" -->
+        <button mat-raised-button color="primary" style="margin-right: 3px; width: 90px;" (click)="save()" [disabled]="!this.saveEnabled || this.form.invalid"  > <span>{{
+            this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+ 
+ 
+    </div>
+
+  <div class="card" style=" overflow: hidden; ">
+ 
+    <mat-dialog-content fxLayout="column">
+      <div class="flex flex-col sm:flex-row" style="padding: 10px;">
+        <mat-form-field *ngIf="codeV" appearance="outline" style="width: 40%;" cdkFocusInitial (focusout)="onFocusOutCode($event)" >
+          <mat-label  >{{this.languageMap['Kod'].labelName}}</mat-label>
+          <input cdkFocusInitial formControlName="code" matInput
+            [readonly]="this.defaults.update || this.defaults.sub===true">
+        </mat-form-field>
+
+        &nbsp;&nbsp;
+
+        <mat-form-field  *ngIf="nameV" appearance="outline" style="width: 60%;" >
+          <mat-label  >{{this.languageMap['Adı'].labelName}}</mat-label>
+          <input cdkFocusInitial formControlName="name" matInput [readonly]="this.defaults.sub===true">
+        </mat-form-field>
+
+
+        <mat-form-field  *ngIf="firstHourValueV" appearance="outline" style="width: 33%;" >
+          <mat-label >{{this.languageMap['İlk Değer'].labelName}}</mat-label>
+          
+          <input cdkFocusInitial type="number" max="60" min="0"  formControlName="firstHourValue" (blur)="controlInputValue1('Day',$event)" matInput>
+         
+          <mat-error *ngIf="form.get('firstHourValue').hasError('min') || form.get('firstHourValue').hasError('max')">          
+              
+              {{this.languageMap['0-60 arasında olmalı'].labelName}}
+          </mat-error>
+
+        </mat-form-field>
+
+
+        <mat-form-field  *ngIf="finalHourValueV" appearance="outline" style="width: 33%;">
+          <mat-label >{{this.languageMap['Son Değer'].labelName}}</mat-label>
+          <input cdkFocusInitial type="number" max="60" min="0"  formControlName="finalHourValue" matInput (blur)="controlInputValue2('Hour',$event)"> 
+
+          <mat-error *ngIf="form.get('finalHourValue').hasError('min') || form.get('finalHourValue').hasError('max')">          
+            {{this.languageMap['0-60 arasında olmalı'].labelName}}
+        </mat-error>
+
+        </mat-form-field>
+
+
+        <mat-form-field  *ngIf="plainHourValueV" appearance="outline" style="width: 33%;">
+          <mat-label >{{this.languageMap['Net Değer'].labelName}}</mat-label>
+          <input cdkFocusInitial type="number" formControlName="plainHourValue" matInput>
+
+        </mat-form-field>
+
+
+        <mat-form-field  *ngIf="firstDayValueV" appearance="outline" style="width: 33%;">
+          <mat-label >{{this.languageMap['Alt Limit'].labelName}} </mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" cdkFocusInitial formControlName="firstDayValue" (blur)="controlInputValue1('Day',$event)" matInput>
+    
+
+        </mat-form-field>
+
+
+        <mat-form-field  *ngIf="finalDayValueV" appearance="outline" style="width: 33%;">
+          <mat-label >{{this.languageMap['Üst Limit'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" cdkFocusInitial formControlName="finalDayValue" matInput (blur)="controlInputValue2('Day',$event)">
+        </mat-form-field>
+
+        <mat-form-field  *ngIf="plainDayValueV" appearance="outline" style="width: 33%;">
+          <mat-label  >{{this.languageMap['Var.Sure'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" cdkFocusInitial formControlName="plainDayValue" matInput>
+        </mat-form-field>
+
+      </div>
+
+      <div class="flex flex-col sm:flex-row">
+
+        <mat-form-field *ngIf="subcodeV" appearance="outline" style="width: 40%;">
+          <mat-label >{{this.languageMap['Alt Kod'].labelName}}</mat-label>
+          <input cdkFocusInitial formControlName="subcode" matInput>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="subnameV" appearance="outline" style="width: 60%;">
+          <mat-label   >{{this.languageMap['Alt Adı'].labelName}}</mat-label>
+          <input cdkFocusInitial formControlName="subname" matInput>
+        </mat-form-field>
+
+
+      </div>
+    
+    </mat-dialog-content>
+
+ 
+
+  </div>
+</form>
+
+<mat-menu #settingsMenu="matMenu" xPosition="before" yPosition="below">
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icPrint"></mat-icon>
+    <span>Print</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDownload"></mat-icon>
+    <span>Export</span>
+  </button>
+
+  <button mat-menu-item>
+    <mat-icon [icIcon]="icDelete"></mat-icon>
+    <span>Delete</span>
+  </button>
+</mat-menu>

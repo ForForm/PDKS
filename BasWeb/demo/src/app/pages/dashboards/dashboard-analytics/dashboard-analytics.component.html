@@ -1,0 +1,252 @@
+<vex-secondary-toolbar current="Dashboard">
+  <vex-breadcrumbs [crumbs]="['Dashboards', 'Analytics']" class="flex-auto"></vex-breadcrumbs>
+</vex-secondary-toolbar>
+
+
+
+<mat-dialog-content style=" position: relative" >
+
+  <div fxFlex="calc(95% - 12px)" fxFlex.lt-md="auto" style="padding:10px; ;overflow:scroll ">
+
+    <div *ngFor="let y of yCount">
+
+      <mat-dialog-content fxLayout="row">
+
+
+        <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto">
+
+          <div *ngFor="let x of xCount">
+            <!-- fxFlex="calc($'this.ChartConfig[\'view11\'][0]//10'% - 12px)" -->
+            <!-- fxFlex="calc(100% - 12px)" -->
+            <div fxFlex="calc($'this.ChartConfig[\'view'x+y'\'][0]//10'% - 12px)" fxFlex.lt-md="auto"
+              style="margin:10px;">
+              <!-- *ngIf="this.section11" -->
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='vertical'" style="position: absolute; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+                , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-bar-vertical [results]="ChartConfig['singleData'+y+x]" [view]="ChartConfig['view'+y+x]"
+                  [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]" 
+                  [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]"
+                  [xAxis]="ChartConfig['showXAxis'+y+x]" 
+                  [yAxis]="ChartConfig['showYAxis'+y+x]"
+                  [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" 
+                  [legend]="ChartConfig['showLegend'+y+x]"
+                  [legendTitle]="ChartConfig['legendTitle'+y+x]" [gradient]="true">
+                </ngx-charts-bar-vertical>
+              </div>
+              <!-- top:350px; -->
+              <div *ngIf="this.ChartConfig['type'+y+x]==='vertical2d'" style="position: absolute; margin:10px"
+                [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+                , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-bar-vertical-2d [results]="ChartConfig['multiData'+y+x]" [view]="ChartConfig['view'+y+x]"
+                  [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]" [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]"
+                  [xAxis]="ChartConfig['showXAxis'+y+x]" [yAxis]="ChartConfig['showYAxis'+y+x]"
+                  [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" [legend]="ChartConfig['showLegend'+y+x]"
+                  [legendTitle]="ChartConfig['legendTitle'+y+x]" [gradient]="true">
+                </ngx-charts-bar-vertical-2d>
+              </div>
+
+              <!-- {{$'this.yAxisLabel'+'11'}} -->
+              <!-- {{obj["yAxisLabel11"].value}} -->
+              <!-- yAxisLabel={{$yAxisLabel11}} -->
+              <div *ngIf="this.ChartConfig['type'+y+x]==='horizontal'" style="position: absolute; margin:10px"
+                [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+                , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-bar-horizontal [results]="ChartConfig['singleData'+y+x]" [view]="ChartConfig['view'+y+x]"
+                  [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]" [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]"
+                  [xAxis]="ChartConfig['showXAxis'+y+x]" [yAxis]="ChartConfig['showYAxis'+y+x]"
+                  [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" [legend]="ChartConfig['showLegend'+y+x]"
+                  [legendTitle]="ChartConfig['legendTitle'+y+x]" [gradient]="true">
+                </ngx-charts-bar-horizontal>
+              </div>
+
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='horizontal2d'" style="position: absolute; margin:10px"
+                [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+                , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-bar-horizontal-2d [results]="ChartConfig['multiData'+y+x]" [view]="ChartConfig['view'+y+x]"
+                  [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]" [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]"
+                  [xAxis]="ChartConfig['showXAxis'+y+x]" [yAxis]="ChartConfig['showYAxis'+y+x]"
+                  [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" [legend]="ChartConfig['showLegend'+y+x]"
+                  [legendTitle]="ChartConfig['legendTitle'+y+x]" [gradient]="true">
+                </ngx-charts-bar-horizontal-2d>
+              </div>
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='horizontalNormalized'" style="position: absolute; margin:10px"
+                [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+                , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-bar-horizontal-normalized [results]="ChartConfig['multiData'+y+x]"
+                  [view]="ChartConfig['view'+y+x]" [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]"
+                  [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]" [xAxis]="ChartConfig['showXAxis'+y+x]"
+                  [yAxis]="ChartConfig['showYAxis'+y+x]" [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" [legend]="ChartConfig['showLegend'+y+x]"
+                  [legendTitle]="ChartConfig['legendTitle'+y+x]" [gradient]="true">
+                </ngx-charts-bar-horizontal-normalized>
+              </div>
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='heatmap'" style="position: absolute; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+                , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-heat-map [results]="ChartConfig['multiData'+y+x]" [view]="ChartConfig['view'+y+x]"
+                  [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]" [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]"
+                  [xAxis]="ChartConfig['showXAxis'+y+x]" [yAxis]="ChartConfig['showYAxis'+y+x]"
+                  [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" [legend]="ChartConfig['showLegend'+y+x]"
+                  [legendTitle]="ChartConfig['legendTitle'+y+x]" [gradient]="true">
+                </ngx-charts-heat-map>
+              </div>
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='stacked'" style="position: absolute; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+                , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-area-chart-stacked [scheme]="colorScheme" [results]="ChartConfig['multiData'+y+x]"
+                  [view]="ChartConfig['view'+y+x]" [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]"
+                  [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]" [xAxis]="ChartConfig['showXAxis'+y+x]"
+                  [yAxis]="ChartConfig['showYAxis'+y+x]" [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" [legend]="ChartConfig['showLegend'+y+x]"
+                  [legendTitle]="ChartConfig['legendTitle'+y+x]" timeline="true">
+                </ngx-charts-area-chart-stacked>
+              </div>
+
+              <!-- [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x]}" -->
+              <div *ngIf="this.ChartConfig['type'+y+x]==='normalized'" style="position: absolute; margin:10px"
+                [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+              , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-area-chart-normalized [scheme]="colorScheme" [results]="ChartConfig['multiData'+y+x]"
+                  [view]="ChartConfig['view'+y+x]" [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]"
+                  [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]" [xAxis]="ChartConfig['showXAxis'+y+x]"
+                  [yAxis]="ChartConfig['showYAxis'+y+x]" [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" [legend]="ChartConfig['showLegend'+y+x]"
+                  timeline="true">
+                </ngx-charts-area-chart-normalized>
+              </div>
+
+              <!-- [legendPosition]="below" -->
+              <div *ngIf="this.ChartConfig['type'+y+x]==='gauge'" style="position: absolute; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+              , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-gauge [scheme]="colorScheme" [results]="ChartConfig['singleData'+y+x]"
+                  [view]="ChartConfig['view'+y+x]" [scheme]="colorScheme" [legend]="ChartConfig['showLegend'+y+x]"
+                  
+                  >
+                </ngx-charts-gauge>
+              </div>
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='polar'" style="position: absolute; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+              , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-polar-chart [scheme]="colorScheme" [results]="ChartConfig['multiData'+y+x]"
+                  [view]="ChartConfig['view'+y+x]" [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]"
+                  [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]" [xAxis]="ChartConfig['showXAxis'+y+x]"
+                  [yAxis]="ChartConfig['showYAxis'+y+x]" [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" [legend]="ChartConfig['showLegend'+y+x]">
+                </ngx-charts-polar-chart>
+              </div>
+
+              <!-- (select)="onSelect($event)" -->
+              <div *ngIf="this.ChartConfig['type'+y+x]==='card'" style="position: absolute;; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+              , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-number-card [view]="ChartConfig['view'+y+x]" [scheme]="colorScheme"
+                  [results]="ChartConfig['singleData'+y+x]" [cardColor]="cardColor">
+                </ngx-charts-number-card>
+              </div>
+              <!-- top:400px -->
+              <div *ngIf="this.ChartConfig['type'+y+x]==='tree'" style="position: absolute;; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x],
+              'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-tree-map [view]="ChartConfig['view'+y+x]" [scheme]="colorScheme"
+                  [results]="ChartConfig['singleData'+y+x]" [gradient]="true" [animations]="true"
+                  [labelFormatting]="labelFormatting">
+                </ngx-charts-tree-map>
+              </div>
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='advancedpie'" style="position: absolute; margin:10px"
+                [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+              , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-advanced-pie-chart [view]="ChartConfig['view'+y+x]" [scheme]="colorScheme"
+                  [results]="ChartConfig['singleData'+y+x]" [gradient]="true">
+                </ngx-charts-advanced-pie-chart>
+              </div>
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='piegrid'" style="position: absolute; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+              , 'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-pie-grid [view]="ChartConfig['view'+y+x]" [scheme]="colorScheme"
+                  [results]="ChartConfig['singleData'+y+x]">
+                </ngx-charts-pie-grid>
+              </div>
+
+
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='pie'" style="position: absolute;; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x], 
+                'left':ChartConfig['left'+y+x]}">
+                <ngx-charts-pie-chart [results]="ChartConfig['singleData'+y+x]" [legend]="ChartConfig['showLegend'+y+x]"
+                  [legendTitle]="ChartConfig['legendTitle'+y+x]" [view]="ChartConfig['view'+y+x]"
+                  [labels]="ChartConfig['showLegend'+y+x]">
+                </ngx-charts-pie-chart>
+
+              </div>
+
+              <div *ngIf="this.ChartConfig['type'+y+x]==='line'" style="position: absolute; margin:10px" [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+                , 'left':ChartConfig['left'+y+x]}">
+
+                <ngx-charts-line-chart [view]="ChartConfig['view'+y+x]" [results]="ChartConfig['multiData'+y+x]"
+                  [xAxis]="ChartConfig['showXAxis'+y+x]" [yAxis]="ChartConfig['showYAxis'+y+x]"
+                  [legend]="ChartConfig['showLegend'+y+x]" [showXAxisLabel]="ChartConfig['showXAxisLabel'+y+x]"
+                  [showYAxisLabel]="ChartConfig['showYAxisLabel'+y+x]" [xAxisLabel]="ChartConfig['xAxisLabel'+y+x]"
+                  [yAxisLabel]="ChartConfig['yAxisLabel'+y+x]" [legendTitle]="ChartConfig['legendTitle'+y+x]">
+                </ngx-charts-line-chart>
+
+              </div>
+
+              <!-- (click)="selectRow(row)" -->
+              <div *ngIf="this.ChartConfig['type'+y+x]==='grid'" style="position: absolute; margin:10px; " [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x], 'top':ChartConfig['top'+y+x]
+              , 'left':ChartConfig['left'+y+x] }">
+      
+              <mat-dialog-content *ngIf="ChartConfig['showLegend'+y+x]" fxLayout="row"  [ngStyle]="{ 'width': ChartConfig['view'+y+x][0]+'px' }">
+                <span fxFlex></span>
+                <h2 >{{ChartConfig['legendTitle'+y+x]}}</h2>
+                <span fxFlex></span>
+              </mat-dialog-content>
+         
+                <mat-dialog-content fxLayout="row" style="overflow-x: scroll;overflow-y: scroll;"
+                  [ngStyle]="{ 'height': ChartConfig['view'+y+x][1]+'px','width': ChartConfig['view'+y+x][0]+'px' }">
+            
+                  <table [dataSource]="ChartConfig['dataSourceGrid'+y+x]"
+                    [ngStyle]="{'background-color':ChartConfig['backgroundColor'+y+x]}" class="w-full" mat-table
+                    matSort>
+
+                    <ng-container *ngFor="let column of columnsArray">
+
+                      <ng-container [matColumnDef]="column.property">
+                        <th *matHeaderCellDef mat-header-cell mat-sort-header> {{ column.label }}
+                        </th>
+                        <td *matCellDef="let row" mat-cell>
+                          {{ row[column.property] }}</td>
+                      </ng-container>
+
+                    </ng-container>
+
+                    <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+                    <tr *matRowDef="let row; columns: columns;" class="hover:bg-hover cursor-pointer"  mat-row></tr>
+                  </table>
+                 
+                </mat-dialog-content>
+              </div>
+
+            </div>
+
+          </div>
+ 
+
+
+        </div>
+
+
+
+      </mat-dialog-content>
+
+    </div>
+
+ 
+  </div>
+
+</mat-dialog-content>

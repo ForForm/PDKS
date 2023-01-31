@@ -1,0 +1,777 @@
+<!-- <vex-secondary-toolbar [current]="this.languageMap['Uygulama Parametreler'].labelName">
+  <vex-breadcrumbs [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+</vex-secondary-toolbar> -->
+
+
+<vex-page-layout>
+
+  <vex-page-layout-header *ngIf="!isMobileLayout" class="pb-16" fxLayout="column" fxLayoutAlign="center start"
+    style="margin-bottom: -75px;">
+    <div [class.container]="layoutCtrl.value === 'boxed'" [class.px-gutter]="layoutCtrl.value === 'fullwidth'"
+      class="w-full flex flex-col sm:flex-row justify-between">
+
+      <div>
+        <h1 class="title mt-0 mb-1">{{this.languageMap['Uygulama Parametreler'].labelName}}</h1>
+        <vex-breadcrumbs class="breadcrumb" [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+      </div>
+
+      <mat-button-toggle-group [formControl]="layoutCtrl" class="mt-4 sm:mt-0">
+        <mat-button-toggle value="boxed" (click)="resize('boxed')">{{this.languageMap['Ortala'].labelName}}
+        </mat-button-toggle>
+        <mat-button-toggle value="fullwidth" (click)="resize('fullwidth')">{{this.languageMap['Tam Ekran'].labelName}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </vex-page-layout-header>
+
+  <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+    [ngStyle]="{'width': (layoutCtrl.value === 'fullwidth')?'100%':'80%'}"
+    [class.px-gutter]="layoutCtrl.value === 'fullwidth'" class="-mt-6">
+
+
+
+    <nav mat-tab-nav-bar style="width: 100%;  " class="class-mat-tab-link"
+      [ngStyle]="{'margin-top': isMobileLayout?'30px ':'0px'}">
+      <a mat-tab-link *ngFor="let link of links" (click)="gotoTab(link)" [ngStyle]="{'color': link.Index===this.activeLinkIndex?'white':'black'}" 
+      class="class-mat-tab-link">
+        {{ this.languageMap[link.name].labelName }}
+      </a>
+
+      <span fxFlex></span>
+
+
+
+    </nav>
+
+    <div div fxLayout="row" fxLayoutAlign="start" style=" width: 100%; margin: 5px;">
+
+
+      <button mat-raised-button color="primary" *ngIf="this.activeLinkIndex===7" mat-button class="my-fab"
+        style=" width: 120px;height: 32px; margin-left: 15px; font-size: 12px;" (click)="newDashRecord()">
+        <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+        {{this.languageMap['Yeni Kayıt'].labelName}}
+      </button>
+
+      <span fxFlex></span>
+
+      <mat-label *ngIf="this.activeLinkIndex===7" style="margin-top: 10px; color:#1795D0"
+        [ngStyle]="{'font-size': isMobileLayout?'9px ':'12px','text-align': 'center'}">{{this.chartInfoLabel}}
+      </mat-label>
+      <span fxFlex></span>
+
+
+
+      <button mat-raised-button color="primary"
+        [disabled]="(this.activeLinkIndex===4 && activeScoreIndex===1)?this.formS.invalid:false"
+        (click)="(this.activeLinkIndex===4 && activeScoreIndex===1)? saveScoringDeff() :PostParameter(this.activeLinkIndex)"
+        style="margin-right: 3px; width: 90px;">
+        <span>{{
+          this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+      <button *ngIf="this.activeLinkIndex===7" color="primary" mat-button (click)="deleteDashItem()">
+        <mat-icon [icIcon]="icDeleteForever"
+          style="font-size: 40px; color:maroon; margin-left: -20px;    margin-top: -20px;"></mat-icon>
+      </button>
+
+    </div>
+
+
+    <nav mat-tab-nav-bar *ngIf="this.activeLinkIndex===4" style="width: 100%; "
+      class="class-mat-tab-link" [ngStyle]="{'margin-top': isMobileLayout?'30px ':'0px'}">
+      <a mat-tab-link *ngFor="let scorelink of scoreLinks" (click)="gotoScoreTab(scorelink)" class="class-mat-tab-link"
+        [ngStyle]="{'color': scorelink.Index===this.activeScoreIndex?'white':'black'}">
+        <!-- {{ this.languageMap[link.name].labelName }} -->
+        {{scorelink.name }}
+      </a>
+      <span fxFlex></span>
+    </nav>
+
+
+    <div div fxLayout="row" fxLayoutAlign="start" style=" width: 100%;">
+
+
+      <mat-dialog-content fxLayout="row" style="overflow-y:scroll; width: 100%;  margin-top: 0px; ">
+
+
+        <div *ngIf="this.activeLinkIndex===7" class="card" style="width: 100%; overflow: hidden;">
+
+          <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 5px;">
+
+            <form [formGroup]="formD" novalidate>
+
+              <mat-form-field class="mt-6 flex-auto" appearance="outline" style="width: 50px;">
+                <mat-label>{{this.languageMap['ID'].labelName}}</mat-label>
+                <input readonly formControlName="ID" matInput>
+              </mat-form-field>
+
+
+              &nbsp;
+              <mat-form-field class="mt-6 flex-auto" appearance="outline" style="width: 75px;">
+                <mat-label>{{this.languageMap['Bölüm'].labelName}}</mat-label>
+                <!-- <input formControlName="Section" matInput>  -->
+                <mat-select style="width: 100%;" formControlName="Section">
+                  <mat-option *ngFor="let item of this.Sections" [value]="item.Name">
+                    {{ item.Name }}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+
+              &nbsp;
+              <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto" appearance="outline" style="width: 75px;">
+                <mat-label>{{this.languageMap['Çizerge'].labelName}}</mat-label>
+                <!-- <input formControlName="Type" matInput> -->
+
+                <mat-select style="width: 100%;" formControlName="Type" (selectionChange)="typesItemChange($event)">
+                  <mat-option *ngFor="let item of this.Types" [value]="item.Name">
+                    {{ item.Name }}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+
+              &nbsp;
+              <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto" appearance="outline" style="width: 75px;">
+                <mat-label>{{this.languageMap['Boyut'].labelName}}</mat-label>
+                <input style="font-size: 13px;" formControlName="View" matInput>
+              </mat-form-field>
+
+              &nbsp;
+              <mat-checkbox style="font-size:9px" formControlName="ShowX" color="primary">
+                {{this.languageMap['XGöster'].labelName}}
+              </mat-checkbox>
+
+              &nbsp;
+
+              <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto" appearance="outline" style="width: 75px;">
+                <mat-label>{{this.languageMap['XEtiket'].labelName}}</mat-label>
+                <input formControlName="XLabel" matInput>
+              </mat-form-field>
+
+
+              &nbsp;
+              <mat-checkbox style="font-size:9px" formControlName="ShowY" color="primary">
+                {{this.languageMap['YGöster'].labelName}}
+              </mat-checkbox>
+
+              &nbsp;
+
+              <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto" appearance="outline" style="width: 75px;">
+                <mat-label>{{this.languageMap['YEtiket'].labelName}}</mat-label>
+                <input formControlName="YLabel" matInput>
+              </mat-form-field>
+
+
+              &nbsp;
+              <mat-checkbox style="font-size:9px" formControlName="ShowDetail" color="primary">
+                {{this.languageMap['DetayGöster'].labelName}}
+              </mat-checkbox>
+
+
+              &nbsp;
+              <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto" appearance="outline" style="width: 100px;">
+                <mat-label>{{this.languageMap['DetayEtiket'].labelName}}</mat-label>
+                <input formControlName="DetailLabel" matInput>
+              </mat-form-field>
+
+              &nbsp;
+              <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto" appearance="outline" style="width: 125px;">
+                <mat-label>{{this.languageMap['SpAdı'].labelName}}</mat-label>
+                <input formControlName="SpName" matInput>
+              </mat-form-field>
+
+              &nbsp;
+
+              <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto" appearance="outline" style="width: 100px;">
+                <mat-label>{{this.languageMap['ArkaPlanRenk'].labelName}}</mat-label>
+                <input formControlName="BackgroundColor" matInput>
+              </mat-form-field>
+
+
+              &nbsp;
+
+              <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto" appearance="outline" style="width: 50px;">
+                <mat-label>{{this.languageMap['Üst'].labelName}}</mat-label>
+                <input type="number" formControlName="Top" matInput>
+              </mat-form-field>
+
+
+              &nbsp;
+
+
+              <mat-form-field class="sm:mt-6 sm:ml-6 flex-auto" appearance="outline" style="width: 50px;">
+                <mat-label>{{this.languageMap['Sol'].labelName}}</mat-label>
+                <input type="number" formControlName="Left" matInput>
+              </mat-form-field>
+
+            </form>
+
+          </div>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <table [dataSource]="dataSourceD" class="w-full" style="overflow: auto;" fxFlex="auto" mat-table matSort>
+
+
+              <ng-container matColumnDef="Checkbox">
+                <th hidden *matHeaderCellDef mat-header-cell>
+                  <!-- <mat-checkbox (change)="$event ? masterToggle() : null"
+                  [checked]="selection.hasValue() && isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                </mat-checkbox> -->
+                </th>
+                <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                  <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                    [checked]="selection.isSelected(row)" color="primary">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="ID">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+                <td hidden *matCellDef="let row" mat-cell>
+                  <span style="font-size: 20px; ">{{ row.ID }}</span>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Section">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Bölüm'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Section }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Type">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Çizerge'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Type }}</span>
+                </td>
+
+              </ng-container>
+
+
+              <ng-container matColumnDef="View">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Boyut'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.View }}</span>
+                </td>
+
+              </ng-container>
+
+
+              <ng-container matColumnDef="ShowX">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['XGöster'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <!-- <span style="font-size: 11px; ">{{ row.IsAdmin }}</span> -->
+
+                  <mat-checkbox [checked]="row.ShowX" color="primary">
+                  </mat-checkbox>
+
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="XLabel">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['XEtiket'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.XLabel }}</span>
+                </td>
+
+              </ng-container>
+
+              <ng-container matColumnDef="ShowY">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['YGöster'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <!-- <span style="font-size: 11px; ">{{ row.IsAdmin }}</span> -->
+
+                  <mat-checkbox [checked]="row.ShowY" color="primary">
+                  </mat-checkbox>
+
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="YLabel">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['YEtiket'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.YLabel }}</span>
+                </td>
+
+              </ng-container>
+
+              <ng-container matColumnDef="ShowDetail">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['DetayGöster'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <!-- <span style="font-size: 11px; ">{{ row.IsAdmin }}</span> -->
+
+                  <mat-checkbox [checked]="row.ShowDetail" color="primary">
+                  </mat-checkbox>
+
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="DetailLabel">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['DetayEtiket'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.DetailLabel }}</span>
+                </td>
+
+              </ng-container>
+
+
+              <ng-container matColumnDef="SpName">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['SpAdı'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.SpName }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="BackgroundColor">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['ArkaPlanRenk'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.BackgroundColor }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Top">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Üst'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Top }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Left">
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Sol'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Left }}</span>
+                </td>
+              </ng-container>
+
+              <!-- (click)="openContact.emit(row)"   -->
+              <tr *matHeaderRowDef="columnsD; sticky: true" mat-header-row></tr>
+              <tr *matRowDef="let row; columns: columnsD;"  mat-row @fadeInUp
+                  [ngClass]=" {'highlight': selectedRowDIndex == row.ID}"
+                (click)="rowClick(row)">
+              </tr>
+            </table>
+          </div>
+        </div>
+
+
+        <table *ngIf="(this.activeLinkIndex!==7 && this.activeScoreIndex===0)" [dataSource]="dataSource" class="w-full"
+          style="overflow: auto;" fxFlex="auto" mat-table matSort>
+
+          <ng-container *ngFor="let column of columns">
+
+            <ng-container [matColumnDef]="column.property">
+              <th *matHeaderCellDef mat-header-cell [ngStyle]="{ 'text-align': column.label==='Parametre'? 'center':'center'}">
+                {{ this.languageMap[column.label].labelName }}</th>
+
+              <!-- 'background-color':this.styleService.style$.source.value=='vex-style-dark'?'black': (column.label==='Parametre'? '#E5E4E8':'white'), -->
+              <td *matCellDef="let row" mat-cell [hidden]="row['Index']!==this.activeLinkIndex" [ngStyle]="{ 
+              'text-align': column.label==='Parametre'? 'right':'left', 
+           
+              'width': column.label==='Parametre'? '100vh':'50vh','height': '40px'}">
+
+
+                <ng-container *ngIf="column.property==='Label' && row['Index']==this.activeLinkIndex  ">
+                  <span style="padding:5px; " [ngStyle]="{'font-size': isMobileLayout?'8px ':'12px'}"
+                    [ngClass]="isMobileLayout?'wrap-mat-radio-label':'' "> {{ row[column.property] }} </span>
+                </ng-container>
+
+
+
+                <ng-container
+                  *ngIf="column.property==='Value' && ((row['Value']==='false' || row['Value']==='true') && row['Template']==null) && row['Index']==this.activeLinkIndex   ">
+
+                  <mat-checkbox color="primary" style="padding-left: 5px;" (click)="$event.stopPropagation()"
+                    (change)="checkChange(row,$event)" [checked]="row['Value']==='true'?true:false">
+                  </mat-checkbox>
+
+                </ng-container>
+
+
+                <ng-container
+                  *ngIf="column.property==='Value' && row['Template']!==null && row['Index']==this.activeLinkIndex  ">
+
+                  <mat-form-field class="mt-6 flex-auto" appearance="standard">
+                    <mat-select style="width: 100%;" [value]="row['Value']"
+                      (selectionChange)="optionChange(row,$event)">
+                      <option *ngFor="let services of row['Template']" [value]="services.Code">
+                        {{services.Name }}
+                      </option>
+                    </mat-select>
+                  </mat-form-field>
+                </ng-container>
+
+                <ng-container
+                  *ngIf="column.property==='Value' && (row['Value']!=='false' && row['Value']!=='true') && row['Template']==null && row['Index']==this.activeLinkIndex  ">
+                  <mat-form-field class="my-form-field" style="width: 200px; " appearance="standard">
+                    <input matInput [value]="row['Value']" (change)="textChange(row,$event)">
+                  </mat-form-field>
+
+                </ng-container>
+
+
+              </td>
+            </ng-container>
+
+
+
+          </ng-container>
+
+          <tr *matHeaderRowDef="visibleColumns; sticky: true" mat-header-row></tr>
+          <tr *matRowDef="let row; columns: visibleColumns;" @fadeInUp class="hover:bg-hover cursor-pointer" mat-row
+            [hidden]="row['Index']!==this.activeLinkIndex">
+          </tr>
+        </table>
+
+
+        <as-split *ngIf="(this.activeLinkIndex!==7 && this.activeScoreIndex===1) && this.activeLinkIndex===4"
+          direction="horizontal" [gutterSize]="isMobileLayout?30:5">
+
+          <as-split-area [size]="60" style="overflow:hidden;">
+            <form [formGroup]="formS" novalidate>
+
+              <div class="card" style="width: 100%; overflow: hidden;  ">
+
+
+                <div fxLayout="row" fxLayoutAlign="space-between center" style=" margin-top: 5px; margin-left: 5px;">
+
+                  <!-- (click)="addExtendRow()" -->
+                  <button mat-raised-button color="primary" (click)="newRecord()"
+                    style="width: 120px; height: 35px; font-size: 12px;">
+                    <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+                    {{this.languageMap['Yeni Kayıt'].labelName}}
+                  </button>
+
+                  <span fxFlex></span>
+
+
+                  <!-- <button mat-raised-button color="primary" [disabled]="this.formS.invalid" (click)="saveScoringDeff()"
+                    style="margin-right: 3px; width: 90px;">
+                    <span>{{
+                      this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button> -->
+
+
+                </div>
+
+                <mat-dialog-content fxLayout="row" style=" margin-top: 5px; ">
+
+                  <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 5px; ">
+
+                    <mat-form-field>
+                      <mat-label>{{this.languageMap['Kod'].labelName}}</mat-label>
+                      <input formControlName="Code" matInput>
+                    </mat-form-field>
+
+                    &nbsp;
+                    <mat-form-field style=" font-size: 12px; width: 150px;">
+                      <mat-label>
+                        {{this.languageMap['Adı'].labelName}}</mat-label>
+                      <input formControlName="Name" matInput>
+                    </mat-form-field>
+
+
+                    &nbsp;
+                    <mat-form-field style=" font-size: 12px; width: 150px;">
+                      <mat-label>
+                        {{this.languageMap['Türü'].labelName}}</mat-label>
+
+
+                      <mat-select style="width: 100%;" formControlName="Type">
+                        <mat-option *ngFor="let item of scoringViewTypes" [value]="item.kodu">
+                          {{item.adi}}
+                        </mat-option>
+                      </mat-select>
+
+
+                    </mat-form-field>
+
+
+
+
+
+                  </div>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style=" margin-top: 5px; ">
+
+                  <div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 5px; ">
+
+                    <mat-form-field style=" font-size: 12px; width: 150px;">
+                      <mat-label>
+                        {{this.languageMap['Günlük Puantaj'].labelName}}</mat-label>
+
+
+                      <mat-select style="width: 100%;" formControlName="DailyScoring">
+                        <mat-option *ngFor="let item of timeViewTypes" [value]="item.kodu">
+                          {{item.adi}}
+                        </mat-option>
+                      </mat-select>
+
+
+                    </mat-form-field>
+
+
+                    &nbsp;
+                    <mat-form-field style=" font-size: 12px; width: 150px;">
+                      <mat-label>
+                        {{this.languageMap['Aylık Puantaj'].labelName}}</mat-label>
+
+                      <mat-select style="width: 100%;" formControlName="MonthlyScoring">
+                        <mat-option *ngFor="let item of timeViewTypes" [value]="item.kodu">
+                          {{item.adi}}
+                        </mat-option>
+                      </mat-select>
+
+                    </mat-form-field>
+
+                    &nbsp;
+                    <!-- [checked]="General" -->
+                    <mat-checkbox style="margin: 10px 0 0 10px;font-size: 11px;" formControlName="EmptyRows"
+                      color="primary">
+                      {{this.languageMap['Boş Satır Göster'].labelName}}</mat-checkbox>
+
+                    <mat-checkbox style="margin: 10px 0 0 10px;font-size: 11px;" formControlName="Default"
+                      color="primary">
+                      {{this.languageMap['Öndeğer'].labelName}}</mat-checkbox>
+                  </div>
+
+                </mat-dialog-content>
+
+
+                <mat-dialog-content fxLayout="row" style=" margin-top: 5px; ">
+
+
+                  <table [dataSource]="dataSourceSD" class="w-full" fxFlex="auto" mat-table matSort>
+
+                    <ng-container matColumnDef="ID">
+                      <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                      <td hidden *matCellDef="let row" mat-cell>
+                        <span style="font-size: 20px; ">{{ row.ID }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Code">
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Kod'].labelName}}
+                      </th>
+                      <td *matCellDef="let row" mat-cell>
+                        <span style="font-size: 11px; ">{{ row.Code }}</span>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="Name">
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Adı'].labelName}}
+                      </th>
+                      <td *matCellDef="let row" mat-cell>
+                        <span style="font-size: 11px; ">{{ row.Name }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Type">
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Tip'].labelName}}
+                      </th>
+                      <td *matCellDef="let row" mat-cell>
+
+                        <mat-select disabled style="width: 100%;" [value]="row.Type">
+                          <mat-option style="font-size: 8px; " disabled *ngFor="let item of scoringViewTypes"
+                            [value]="item.kodu">
+                            {{ item.adi }}
+                          </mat-option>
+                        </mat-select>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="DailyScoring">
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Günlük Puantaj'].labelName}}
+                      </th>
+                      <td *matCellDef="let row" mat-cell>
+
+                        <mat-select disabled style="width: 100%;" [value]="row.DailyScoring">
+                          <mat-option style="font-size: 8px; " disabled *ngFor="let item of timeViewTypes"
+                            [value]="item.kodu">
+                            {{ item.adi }}
+                          </mat-option>
+                        </mat-select>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="MonthlyScoring">
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Aylık Puantaj'].labelName}}
+                      </th>
+                      <td *matCellDef="let row" mat-cell>
+                        <mat-select disabled style="width: 100%;" [value]="row.MonthlyScoring">
+                          <mat-option style="font-size: 8px; " disabled *ngFor="let item of timeViewTypes"
+                            [value]="item.kodu">
+                            {{ item.adi }}
+                          </mat-option>
+                        </mat-select>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="EmptyRows">
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Boş Satır Göster'].labelName}}
+                      </th>
+                      <td *matCellDef="let row" mat-cell>
+                        <!-- <span style="font-size: 11px; ">{{ row.EmptyRows }}</span> -->
+                        <mat-checkbox [checked]="row.EmptyRows" disabled>
+                        </mat-checkbox>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Default">
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Öndeğer'].labelName}}
+                      </th>
+                      <td *matCellDef="let row" mat-cell>
+
+                        <mat-checkbox [checked]="row.Default" disabled>
+                        </mat-checkbox>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="WorkingTypeID">
+                      <th hidden *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['ÇalışmaTipi'].labelName}}
+                      </th>
+                      <td hidden *matCellDef="let row" mat-cell>
+                        <span style="font-size: 11px; ">{{ row.WorkingTypeID }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Actions" sticky>
+                      <th *matHeaderCellDef mat-header-cell  mat-sort-header>
+                        {{this.languageMap['Aksiyon'].labelName}}</th>
+                      <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                        <button (click)="delete(row)" mat-icon-button type="button">
+                          <mat-icon [icIcon]="icDelete"></mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+
+                    <tr *matHeaderRowDef="columnsSD;sticky: true;" mat-header-row></tr>
+                    <tr (click)="selectScoreDesignRow(row)" *matRowDef="let row; columns: columnsSD;" @fadeInUp
+                      [ngClass]="{ 'highlight': row === selectedRowSd }" style="max-height: 120px;" mat-row></tr>
+                  </table>
+
+                </mat-dialog-content>
+
+              </div>
+
+
+
+
+
+
+            </form>
+          </as-split-area>
+          <as-split-area [size]="40" style="overflow:hidden;">
+
+            <table [dataSource]="dataSourceS" class="w-full" fxFlex="auto" mat-table matSort>
+
+              <ng-container matColumnDef="Checkbox">
+                <th *matHeaderCellDef mat-header-cell>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selectionS.hasValue() && isAllSelected()"
+                    [indeterminate]="selectionS.hasValue() && !isAllSelectedS()" color="primary">
+                  </mat-checkbox>
+                </th>
+                <td *matCellDef="let row" class="w-4" mat-cell>
+                  <mat-checkbox (change)="$event ? detailToggleS(row) : null" (click)="$event.stopPropagation()"
+                    [checked]="selectionS.isSelected(row)" color="primary">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="ID">
+                <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                <td hidden *matCellDef="let row" mat-cell>
+                  <span style="font-size: 20px; ">{{ row.ID }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Code">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['Kod'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Code }}</span>
+                </td>
+              </ng-container>
+
+
+
+              <ng-container matColumnDef="Name">
+                <th *matHeaderCellDef mat-header-cell>
+                  {{this.languageMap['Adı'].labelName}}
+                </th>
+                <td *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Name }}</span>
+                </td>
+              </ng-container>
+
+              <tr *matHeaderRowDef="columnsS;sticky: true;" mat-header-row></tr>
+              <tr (click)="selectWorkingTypeRow(row)" *matRowDef="let row; columns: columnsS;" @fadeInUp
+                [ngClass]="{ 'highlight': row === selectedRowS }" style="max-height: 120px;" mat-row></tr>
+            </table>
+
+
+
+          </as-split-area>
+
+        </as-split>
+
+      </mat-dialog-content>
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+  </vex-page-layout-content>
+
+</vex-page-layout>

@@ -1,0 +1,93 @@
+  <div class="container py-gutter" style="padding: 0px; height: 100%; overflow: hidden; min-width: 100%;" cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+
+  <form [formGroup]="form" style="height: 88%;">
+
+    <mat-dialog-content fxLayout="row">
+      <mat-form-field style="width: 75%;  ">
+        <input matInput (keyup)="applyFilter($event.target.value)" cdkFocusInitial placeholder="Filtre">
+      </mat-form-field>
+
+      &nbsp;&nbsp;&nbsp;
+      <!-- <span fxFlex></span> -->
+      <button mat-button style="width: 90px;  height: 40px;" 
+        (click)="closeDialog()">
+        <span> {{this.languageMap['Kapat'].labelName.toUpperCase() }}</span> </button>
+
+    </mat-dialog-content>
+
+
+    <mat-dialog-content fxLayout="row" style="overflow-y:auto; width: 420px; height: 100%;">
+
+      <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort>
+
+        <ng-container matColumnDef="ID">
+          <th hidden *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>ID</th>
+          <td hidden *matCellDef="let row" mat-cell>
+            <span style="font-size: 20px; ">{{ row.ID }}</span>
+          </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="Code">
+          <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>{{this.languageMap['Kod'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Code }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+          <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>{{this.languageMap['Adı'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Name }}</span>
+          </td>
+
+        </ng-container>
+
+
+        <ng-container matColumnDef="CardNo">
+          <th [hidden]="this.defaults.Type!=='0'" *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+            {{this.languageMap['KartNo'].labelName}}
+          </th>
+          <td [hidden]="this.defaults.Type!=='0'" *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.CardNo }}</span>
+          </td>
+
+        </ng-container>
+
+
+        <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+        <tr (click)="select(row)" *matRowDef="let row; columns: columns;" @fadeInUp
+          class="hover:bg-hover cursor-pointer" style="max-height: 120px;" mat-row></tr>
+      </table>
+
+    </mat-dialog-content>
+
+    <!-- <div div fxLayout="row"  >
+
+      <mat-toolbar class="sticky top-0 left-0 right-0 border-t" fxFlex="none" style=" position: relative;"  *ngIf="this.defaults.Filter==undefined">
+        <mat-toolbar-row style="  margin-bottom: -1px; ">
+
+          
+          <mat-checkbox color="primary" style="margin: -10px 0px 0px -10px;
+          font-size: 12px;" formControlName="CheckMulti" (change)="onChecked($event)">
+            {{this.languageMap['Seçimleri art arda ekle'].labelName}}
+          </mat-checkbox>
+
+          &nbsp;&nbsp;&nbsp;
+          <mat-form-field appearance="outline" style="width: 200px;">
+            <mat-label> </mat-label>
+            <input formControlName="CheckText" matInput>
+
+          </mat-form-field>
+
+        </mat-toolbar-row>
+      </mat-toolbar>
+
+    </div> -->
+
+  </form>
+
+</div>

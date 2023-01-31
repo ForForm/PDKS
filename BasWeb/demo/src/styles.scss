@@ -1,0 +1,169 @@
+@import "~simplebar/dist/simplebar.css";
+@import "~highlight.js/styles/androidstudio.css";
+// Vex Core
+@import "./@vex/styles/core";
+@import '~material-design-icons/iconfont/material-icons.css';
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
+[mat-dialog-title] {
+   margin: 0px 0px 0px 0px !important;
+  // padding: 10px 24px;
+  
+  background: whitesmoke;
+  color: #fff;
+  cursor: move;
+}
+
+// .basic-container {
+//   padding: 30px;
+// }
+.version-info {
+  font-size: 8pt;
+  float: right;
+  margin: 8px;
+}
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+// ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,
+// .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+//   background-color: #3e3bff;
+// }
+
+// ::ng-deep .mat-checkbox-indeterminate.mat-accent .mat-checkbox-background,
+// .mat-checkbox-checked.mat-accent .mat-checkbox-background {
+//   background-color: #3e3bff;
+// }
+
+// .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+//   border-color: rgb(66, 134, 244);
+// }
+
+.myapp-no-padding-dialog .mat-dialog-container {
+  padding: 0;
+}
+.myapp-no-padding-dialog2 .mat-dialog-container {
+  padding: 0;
+  max-width: 100vw;
+}
+
+// .mat-radio-button.mat-accent .mat-radio-inner-circle {
+//   color: rgb(66, 134, 244);
+//   background-color: rgb(66, 134, 244);
+// }
+
+// .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+//   background-color: rgb(255, 37, 37, 0.26);
+// }
+
+.custom-modalbox {
+  mat-dialog-container {
+    padding: 0;
+    background: transparent;
+    text-align: -webkit-center;
+    overflow: hidden;
+    margin: 0;
+  }
+}
+
+.transparent .mat-dialog-container {
+  box-shadow: none;
+  background: rgba(0, 0, 0, 0);
+}
+
+.mat-progress-spinner circle,
+.mat-spinner circle {
+  stroke: #3a5e99 !important;
+}
+
+.basic-container {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.breadcrumb a {
+  color: black;
+} 
+
+
+.breadcrumb1 a {
+  color: white;
+} 
+
+::ng-deep .mat-paginator-page-size {
+  margin-top: 15px;
+}
+
+::ng-deep .mat-paginator-page-size-select {
+  width: 57px !important;
+  font-size: 10px;
+  margin-top: 15px;
+}
+
+
+
+::ng-deep .mat-select-value {
+  color: black;
+  font-weight: bold;
+  font-size: 10px;
+  background-color: white;
+}
+::ng-deep .mat-select-arrow {
+  color: black;
+}
+::ng-deep .mat-option {
+  padding: 0 !important;
+}
+::ng-deep .mat-option-text {
+  text-align: center;
+}
+ 
+.test {
+  white-space: pre-line;
+}
+
+
+::ng-deep .mat-icon-button{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+
+
+
+/*
+  You can override any CSS Variable or style here
+  Example:
+
+  :root {
+   --sidenav-background: #333333;
+  }
+
+  All possible variables can be found in @vex/styles/core or by simply inspecting the element you want to change
+  in Chrome/Firefox DevTools
+*/
+
+/**
+  Uncomment the below code and adjust the values to fit your colors, the application will automatically adjust
+ */
+// :root {
+//   // --color-primary: blue;
+//   // --color-primary-contrast: white;
+
+//   // --color-accent: yellow;
+//   // --color-accent-contrast: black;
+
+//   // --color-warn: yellow;
+//   // --color-warn-contrast: black;
+// }

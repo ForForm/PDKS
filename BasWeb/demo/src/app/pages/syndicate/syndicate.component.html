@@ -1,0 +1,993 @@
+<!-- <vex-secondary-toolbar [current]="this.languageMap['Şirket Tanımları'].labelName">
+  <vex-breadcrumbs [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+</vex-secondary-toolbar>
+ -->
+
+<vex-page-layout>
+
+  <vex-page-layout-header *ngIf="!isMobileLayout" class="pb-16" fxLayout="column" fxLayoutAlign="center start"
+    style="  margin-bottom: -75px; height: 75px;">
+    <div [class.container]="layoutCtrl.value === 'boxed'" [class.px-gutter]="layoutCtrl.value === 'fullwidth'"
+      class="w-full flex flex-col sm:flex-row justify-between">
+
+      <div>
+        <h1 class="title mt-0 mb-1">{{this.languageMap['Sendika Parametreleri'].labelName}}</h1>
+        <vex-breadcrumbs class="breadcrumb" [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+      </div>
+
+
+      <mat-button-toggle-group [formControl]="layoutCtrl" class="mt-4 sm:mt-0">
+        <mat-button-toggle value="boxed" (click)="resize('boxed')">{{this.languageMap['Ortala'].labelName}}
+        </mat-button-toggle>
+        <mat-button-toggle value="fullwidth" (click)="resize('fullwidth')">{{this.languageMap['Tam Ekran'].labelName}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </vex-page-layout-header>
+
+  <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+    [class.px-gutter]="layoutCtrl.value === 'fullwidth'" class="-mt-6"
+    [ngStyle]="{'width': (layoutCtrl.value === 'fullwidth')?'100%':'80%'}">
+
+    <nav mat-tab-nav-bar class="class-mat-tab-link" style="width: 100%;  ">
+      <a mat-tab-link *ngFor="let link of links" (click)="gotoTab(link)" class="class-mat-tab-link"
+        [ngStyle]="{'color': link.Index===this.activeLinkIndex?'white':'black'}">
+        {{ this.languageMap[link.name].labelName }}
+      </a>
+
+      <span fxFlex></span>
+
+
+    </nav>
+
+
+    <div div fxLayout="row" fxLayoutAlign="start" style=" width: 100%;" *ngIf="this.activeLinkIndex===0"
+      [ngStyle]="{'height': isMobileLayout?(this.subFooter?'calc(90vh - 70px)':'calc(90vh - 30px)'):null}">
+
+      <div class="card" style="width: 100%;overflow: hidden; ">
+
+        <as-split direction="vertical" [gutterSize]="5">
+
+          <as-split-area [size]="50" style=" overflow:hidden">
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" style="  margin-left: 5px; margin-top: 5px;">
+
+              <!-- *ngIf="this.pageauth.write" -->
+              <button mat-raised-button color="primary" style=" width: 120px; height: 35px; font-size: 12px;"
+                (click)="add()">
+                <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+                {{this.languageMap['Yeni Kayıt'].labelName}}
+              </button>
+
+              <span fxFlex></span>
+
+
+              <button mat-raised-button color="primary" (click)="save()" [disabled]="this.formAbsence.invalid"
+                style="margin-right: 3px; width: 90px;">
+                <span>{{
+                  this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+            </div>
+
+
+            <mat-dialog-content fxLayout="row" style="margin-left: 5px; margin-top: 10px;">
+
+
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+
+
+
+                <form [formGroup]="formAbsence">
+
+                  <input hidden formControlName="ID" matInput>
+                  <input hidden formControlName="FlexPersonnelGroupID" matInput>
+
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['Esnek Personel Grup Kodu'].labelName}}</mat-label>
+                    <input readonly formControlName="FlexPersonnelGroupCode" matInput>
+
+                    <mat-icon style="margin-top: -5px;" [icIcon]="icMoreHoriz" inline="true" matSuffix
+                      style="font-size: 24px;" (click)="openDefinition('flex',1)">
+                    </mat-icon>
+
+                  </mat-form-field>
+
+
+                  <input hidden formControlName="WorkingTypeID" matInput>
+                  <input hidden formControlName="WorkingTypeCode" matInput>
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+                    <input readonly formControlName="WorkingTypeName" matInput>
+
+                    <mat-icon style="margin-top: -5px;" [icIcon]="icMoreHoriz" inline="true" matSuffix
+                      style="font-size: 24px;" (click)="openDefinition('working',2)">
+                    </mat-icon>
+
+                  </mat-form-field>
+
+
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['Gün'].labelName}}</mat-label>
+                    <input type="number" formControlName="Day" matInput>
+                  </mat-form-field>
+
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['Süre'].labelName}}</mat-label>
+                    <input format="HH:mm" type="time" formControlName="Time" matInput>
+                  </mat-form-field>
+
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['İşlem'].labelName}}</mat-label>
+                    <!-- <input type="number" formControlName="Process" matInput> -->
+
+
+                    <mat-select style="width: 100%;" formControlName="Process">
+                      <mat-option *ngFor="let services of processList" [value]="services.Code">
+                        {{services.Name}}
+                      </mat-option>
+                    </mat-select>
+
+                  </mat-form-field>
+
+                  <input hidden formControlName="WeekendWorkingTypeID" matInput>
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['Hafta Tatili Kodu'].labelName}}</mat-label>
+                    <input readonly formControlName="WeekendWorkingTypeCode" matInput>
+
+                    <mat-icon style="margin-top: -5px;" [icIcon]="icMoreHoriz" inline="true" matSuffix
+                      style="font-size: 24px;" (click)="openDefinition('working',3)">
+                    </mat-icon>
+
+                  </mat-form-field>
+
+
+                </form>
+              </div>
+
+            </mat-dialog-content>
+
+
+            <!-- <mat-dialog-content fxLayout="row"> -->
+            <!-- height: 22vh; -->
+            <div style=" overflow:auto; width: 100%; "
+              [ngStyle]="{'height': isMobileLayout? (this.subFooter?'calc(25vh - 100px)':'calc(25vh - 50px)'): (this.subFooter?'calc(38vh - 80px)':'calc(38vh - 30px)')}">
+              <table @stagger [dataSource]="dataSource" class="w-full" mat-table>
+
+                <ng-container matColumnDef="Checkbox">
+                  <th hidden *matHeaderCellDef mat-header-cell>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                    </mat-checkbox>
+                  </th>
+                  <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                    <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                      [checked]="selection.isSelected(row)" color="primary">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="ID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.ID }}</span>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="FlexPersonnelGroupID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.FlexPersonnelGroupID
+                      }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="FlexPersonnelGroupCode">
+                  <th *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Esnek Personel Grup Kodu'].labelName}}
+                  </th>
+                  <td *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.FlexPersonnelGroupCode }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="FlexPersonnelGroupName">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{
+                      row.FlexPersonnelGroupName }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="WorkingTypeID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.WorkingTypeID
+                      }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="WorkingTypeCode">
+                  <th hidden *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Çalışma Türü'].labelName}}
+                  </th>
+                  <td hidden *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.WorkingTypeCode }}</span>
+                  </td>
+
+                </ng-container>
+ 
+                <ng-container matColumnDef="WorkingTypeName">
+                  <th  *matHeaderCellDef mat-header-cell> {{this.languageMap['Çalışma Türü'].labelName}}</th>
+                  <td  *matCellDef="let row" mat-cell> <span style="font-size: 11px; ">{{ row.WorkingTypeName
+                      }}</span>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Day">
+                  <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Gün'].labelName}}
+                  </th>
+                  <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.Day }}</span>
+                  </td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="Time">
+                  <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Süre'].labelName}}
+                  </th>
+                  <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.Time | date : "HH:mm" }}</span>
+                  </td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="Process">
+                  <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['İşlem'].labelName}}
+                  </th>
+                  <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                    <!-- <span style="font-size: 11px; ">{{ row.Process }}</span> -->
+
+                    <mat-select style="width: 100%;" [value]="row.Process.toString()" disabled>
+                      <mat-option *ngFor="let services of processList" [value]="services.Code">
+                        {{services.Name}}
+                      </mat-option>
+                    </mat-select>
+
+                  </td>
+
+                </ng-container>
+
+
+                <ng-container matColumnDef="WeekendWorkingTypeID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.WeekendWorkingTypeID
+                      }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="WeekendWorkingTypeCode">
+                  <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Hafta Tatili Kodu'].labelName}}
+                  </th>
+                  <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.WeekendWorkingTypeCode }}</span>
+                  </td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="WeekendWorkingTypeName">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{
+                      row.WeekendWorkingTypeName }}</span>
+                  </td>
+                </ng-container>
+                <ng-container matColumnDef="Actions" sticky>
+                  <th *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Aksiyon'].labelName}}</th>
+                  <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                    <button (click)="delete(row)" mat-icon-button type="button">
+                      <mat-icon [icIcon]="icDelete"></mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+
+
+                <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+                <tr (click)="selectRow(row)" *matRowDef="let row; columns: columns;" @fadeInUp
+                  [ngClass]=" {'highlight': selectedRowIndex == row.ID}" style="max-height: 120px;" mat-row></tr>
+              </table>
+            </div>
+            <!-- </mat-dialog-content> -->
+
+          </as-split-area>
+
+          <as-split-area [size]="50" style=" overflow:hidden">
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" style="  margin-left: 5px; margin-top: 5px;"
+              *ngIf="this.selectedRowIndex!==0">
+
+              <!-- *ngIf="this.pageauth.write" -->
+              <button mat-raised-button color="primary" style=" width: 120px; height: 35px; font-size: 12px;"
+                (click)="addDetail()">
+                <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+                {{this.languageMap['Yeni Kayıt'].labelName}}
+              </button>
+
+              <span fxFlex></span>
+
+
+              <button mat-raised-button color="primary" (click)="saveDetail()"
+                [disabled]="this.formAbsenceDetail.invalid" style="margin-right: 3px; width: 90px;">
+                <span>{{
+                  this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+            </div>
+
+            <mat-dialog-content fxLayout="row" style="margin-left: 5px; margin-top: 10px;">
+
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+
+                <form [formGroup]="formAbsenceDetail">
+
+                  <input hidden formControlName="ID" matInput>
+                  <input hidden formControlName="SyndicateAbsenceID" matInput>
+
+
+                  <input hidden formControlName="WorkingTypeID" matInput>
+                  <input hidden formControlName="WorkingTypeCode" matInput>
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+                    <input readonly formControlName="WorkingTypeName" matInput>
+
+                    <mat-icon style="margin-top: -5px;" [icIcon]="icMoreHoriz" inline="true" matSuffix
+                      style="font-size: 24px;" (click)="openDefinition('working',4)">
+                    </mat-icon>
+
+                  </mat-form-field>
+
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['İşlem Türü'].labelName}}</mat-label>
+
+
+                    <mat-select style="width: 100%;" formControlName="ProcessType">
+                      <mat-option *ngFor="let services of processTypeList" [value]="services.Code">
+                        {{services.Name}}
+                      </mat-option>
+                    </mat-select>
+
+                  </mat-form-field>
+
+
+
+                </form>
+              </div>
+
+            </mat-dialog-content>
+
+
+            <div style=" overflow:auto; width: 100%; "
+              [ngStyle]="{'height': isMobileLayout? (this.subFooter?'calc(25vh - 100px)':'calc(25vh - 50px)'): (this.subFooter?'calc(38vh - 80px)':'calc(38vh - 30px)')}">
+              <table @stagger [dataSource]="dataSourceDetail" class="w-full" mat-table>
+
+                <ng-container matColumnDef="Checkbox">
+                  <th hidden *matHeaderCellDef mat-header-cell>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                    </mat-checkbox>
+                  </th>
+                  <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                    <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                      [checked]="selection.isSelected(row)" color="primary">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="ID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.ID }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="SyndicateAbsenceID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.SyndicateAbsenceID
+                      }}</span>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="WorkingTypeID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.WorkingTypeID
+                      }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="WorkingTypeCode">
+                  <th hidden *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Çalışma Türü'].labelName}}
+                  </th>
+                  <td hidden *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.WorkingTypeCode }}</span>
+                  </td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="WorkingTypeName">
+                  <th  *matHeaderCellDef mat-header-cell> {{this.languageMap['Çalışma Türü'].labelName}}</th>
+                  <td  *matCellDef="let row" mat-cell> <span style="font-size: 11px; ">{{ row.WorkingTypeName
+                      }}</span>
+                  </td>
+                </ng-container>
+
+
+
+
+                <ng-container matColumnDef="ProcessType">
+                  <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['İşlem Türü'].labelName}}
+                  </th>
+                  <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                    <!-- <span style="font-size: 11px; ">{{ row.Process }}</span> -->
+
+                    <mat-select style="width: 100%;" [value]="row.ProcessType.toString()" disabled>
+                      <mat-option *ngFor="let services of processTypeList" [value]="services.Code">
+                        {{services.Name}}
+                      </mat-option>
+                    </mat-select>
+
+                  </td>
+
+                </ng-container>
+
+
+                <ng-container matColumnDef="Actions" sticky>
+                  <th *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Aksiyon'].labelName}}</th>
+                  <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                    <button (click)="deleteDetail(row)" mat-icon-button type="button">
+                      <mat-icon [icIcon]="icDelete"></mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+
+
+                <tr *matHeaderRowDef="columnsDetail;sticky: true;" mat-header-row></tr>
+                <tr (click)="selectRowDetail(row)" *matRowDef="let row; columns: columnsDetail;" @fadeInUp
+                  [ngClass]=" {'highlight': selectedDetailRowIndex == row.ID}" style="max-height: 120px;" mat-row></tr>
+              </table>
+            </div>
+
+          </as-split-area>
+        </as-split>
+
+      </div>
+    </div>
+
+
+    <div div fxLayout="row" fxLayoutAlign="start" style=" width: 100%;" *ngIf="this.activeLinkIndex===1"
+      [ngStyle]="{'height': isMobileLayout?(this.subFooter?'calc(90vh - 70px)':'calc(90vh - 30px)'):null}">
+
+      <div class="card" style="width: 100%;overflow: hidden; ">
+
+        <as-split direction="vertical" [gutterSize]="5">
+
+          <as-split-area [size]="50" style=" overflow:hidden">
+
+            <mat-dialog-content fxLayout="row" style="margin-left: 5px; margin-top: 3px;">
+
+              <div fxLayout="row" fxLayoutAlign="space-between center" style=" width: 100%;"  class="class-mat-tab-link">
+                <label style="font-size: 10px;">{{this.languageMap['Esnek Çalışma Tanımları'].labelName }}</label>
+              </div>
+
+            </mat-dialog-content>
+
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" style="  margin-left: 5px; margin-top: 5px;">
+
+              <!-- *ngIf="this.pageauth.write" -->
+              <button mat-raised-button color="primary" style=" width: 120px; height: 35px; font-size: 12px;"
+                (click)="addOvertime()">
+                <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+                {{this.languageMap['Yeni Kayıt'].labelName}}
+              </button>
+
+              <span fxFlex></span>
+
+
+              <button mat-raised-button color="primary" (click)="saveOvertime()" [disabled]="this.formOvertime.invalid"
+                style="margin-right: 3px; width: 90px;">
+                <span>{{
+                  this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+            </div>
+
+
+        
+
+            <mat-dialog-content fxLayout="row" style="margin-left: 5px; margin-top: 5px;">
+
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+
+                <form [formGroup]="formOvertime">
+
+                  <input hidden formControlName="ID" matInput>
+                  <input hidden formControlName="FlexPersonnelGroupID" matInput>
+
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['Esnek Personel Grup Kodu'].labelName}}</mat-label>
+                    <input readonly formControlName="FlexPersonnelGroupCode" matInput>
+
+                    <mat-icon style="margin-top: -5px;" [icIcon]="icMoreHoriz" inline="true" matSuffix
+                      style="font-size: 24px;" (click)="openDefinition('flex',5)">
+                    </mat-icon>
+
+                  </mat-form-field>
+
+
+                  <input hidden formControlName="WorkingTypeID" matInput>
+                  <input hidden formControlName="WorkingTypeCode" matInput>
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+                   
+                    <input  formControlName="WorkingTypeName" matInput>
+                    <mat-icon style="margin-top: -5px;" [icIcon]="icMoreHoriz" inline="true" matSuffix
+                      style="font-size: 24px;" (click)="openDefinition('working',6)">
+                    </mat-icon>
+
+                  </mat-form-field>
+
+
+
+                  <mat-form-field>
+                    <mat-label>{{this.languageMap['Üst Limit'].labelName}}</mat-label>
+                    <input format="HH:mm" type="time" formControlName="UpperLimit" matInput>
+                  </mat-form-field>
+
+
+
+
+                </form>
+              </div>
+
+            </mat-dialog-content>
+
+
+            <!-- <mat-dialog-content fxLayout="row"> -->
+            <!-- height: 22vh; -->
+            <div style=" overflow:auto; width: 100%; "
+              [ngStyle]="{'height': isMobileLayout? (this.subFooter?'calc(25vh - 100px)':'calc(25vh - 50px)'): (this.subFooter?'calc(38vh - 80px)':'calc(38vh - 30px)')}">
+              <table @stagger [dataSource]="dataSourceOvertime" class="w-full" mat-table>
+
+                <ng-container matColumnDef="Checkbox">
+                  <th hidden *matHeaderCellDef mat-header-cell>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                    </mat-checkbox>
+                  </th>
+                  <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                    <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                      [checked]="selection.isSelected(row)" color="primary">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="ID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.ID }}</span>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="FlexPersonnelGroupID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.FlexPersonnelGroupID
+                      }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="FlexPersonnelGroupCode">
+                  <th *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Esnek Personel Grup Kodu'].labelName}}
+                  </th>
+                  <td *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.FlexPersonnelGroupCode }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="FlexPersonnelGroupName">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{
+                      row.FlexPersonnelGroupName }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="WorkingTypeID">
+                  <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.WorkingTypeID
+                      }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="WorkingTypeCode">
+                  <th hidden *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Çalışma Türü'].labelName}}
+                  </th>
+                  <td hidden *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.WorkingTypeCode }}</span>
+                  </td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="WorkingTypeName">
+                  <th  *matHeaderCellDef mat-header-cell>{{this.languageMap['Çalışma Türü'].labelName}}</th>
+                  <td  *matCellDef="let row" mat-cell> <span style="font-size: 11px; ">{{ row.WorkingTypeName
+                      }}</span>
+                  </td>
+                </ng-container>
+
+
+
+                <ng-container matColumnDef="UpperLimit">
+                  <th [hidden]="isMobileLayout" *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Üst Limit'].labelName}}
+                  </th>
+                  <td [hidden]="isMobileLayout" *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.UpperLimit | date : "HH:mm" }}</span>
+                  </td>
+
+                </ng-container>
+
+
+                <ng-container matColumnDef="Actions" sticky>
+                  <th *matHeaderCellDef mat-header-cell>
+                    {{this.languageMap['Aksiyon'].labelName}}</th>
+                  <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                    <button (click)="deleteOvertime(row)" mat-icon-button type="button">
+                      <mat-icon [icIcon]="icDelete"></mat-icon>
+                    </button>
+                  </td>
+                </ng-container>
+
+
+
+                <tr *matHeaderRowDef="columnsOvertime;sticky: true;" mat-header-row></tr>
+                <tr (click)="selectOvertimeRow(row)" *matRowDef="let row; columns: columnsOvertime;" @fadeInUp
+                  [ngClass]=" {'highlight': selectedOvertimeRowIndex == row.ID}" style="max-height: 120px;" mat-row>
+                </tr>
+              </table>
+            </div>
+            <!-- </mat-dialog-content> -->
+
+          </as-split-area>
+
+          <as-split-area [size]="50" style=" overflow:hidden">
+
+            <as-split direction="horizontal" [gutterSize]="5">
+              <as-split-area [size]="50" style=" overflow:hidden">
+
+
+
+                
+                <mat-dialog-content fxLayout="row" style="margin-left: 5px; margin-top: 3px;">
+
+                  <div fxLayout="row" fxLayoutAlign="space-between center" style="width: 100%;"  class="class-mat-tab-link">
+                    <label style="font-size: 10px;">{{this.languageMap['Mesai Tanımları'].labelName}}</label>
+                  </div>
+
+                </mat-dialog-content>
+
+
+                <div fxLayout="row" fxLayoutAlign="space-between center" style="  margin-left: 5px; margin-top: 5px;"
+                  *ngIf="this.selectedOvertimeRowIndex!==0">
+
+                  <!-- *ngIf="this.pageauth.write" -->
+                  <button mat-raised-button color="primary" style=" width: 120px; height: 35px; font-size: 12px;"
+                    (click)="addDeduction()">
+                    <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+                    {{this.languageMap['Yeni Kayıt'].labelName}}
+                  </button>
+
+                  <span fxFlex></span>
+
+
+                  <button mat-raised-button color="primary" (click)="saveDeduction()"
+                    [disabled]="this.formDeduction.invalid" style="margin-right: 3px; width: 90px;">
+                    <span>{{this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+                </div>
+
+
+
+                <mat-dialog-content fxLayout="row" style="margin-left: 5px; margin-top: 3px;">
+
+                  <div fxLayout="row" fxLayoutAlign="space-between center">
+
+                    <form [formGroup]="formDeduction">
+
+                      <input hidden formControlName="ID" matInput>
+                      <input hidden formControlName="SyndicateOvertimeID" matInput>
+
+
+                      <input hidden formControlName="WorkingTypeID" matInput>
+                      <input hidden formControlName="WorkingTypeCode" matInput>
+                      <mat-form-field>
+                        <mat-label>{{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+                        <input readonly formControlName="WorkingTypeName" matInput>
+
+                        <mat-icon style="margin-top: -5px;" [icIcon]="icMoreHoriz" inline="true" matSuffix
+                          style="font-size: 24px;" (click)="openDefinition('working',7)">
+                        </mat-icon>
+
+                      </mat-form-field>
+
+
+
+                    </form>
+                  </div>
+
+                </mat-dialog-content>
+
+
+                <div style=" overflow:auto; width: 100%; "
+                  [ngStyle]="{'height': isMobileLayout? (this.subFooter?'calc(25vh - 100px)':'calc(25vh - 50px)'): (this.subFooter?'calc(38vh - 80px)':'calc(38vh - 30px)')}">
+                  <table @stagger [dataSource]="dataSourceDeduction" class="w-full" mat-table>
+
+                    <ng-container matColumnDef="Checkbox">
+                      <th hidden *matHeaderCellDef mat-header-cell>
+                        <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                        </mat-checkbox>
+                      </th>
+                      <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                        <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                          [checked]="selection.isSelected(row)" color="primary">
+                        </mat-checkbox>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="ID">
+                      <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                      <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.ID }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="SyndicateOvertimeID">
+                      <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                      <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{
+                          row.SyndicateOvertimeID
+                          }}</span>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="WorkingTypeID">
+                      <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                      <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.WorkingTypeID
+                          }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="WorkingTypeCode">
+                      <th hidden *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Çalışma Türü'].labelName}}
+                      </th>
+                      <td hidden *matCellDef="let row" mat-cell>
+                        <span style="font-size: 11px; ">{{ row.WorkingTypeCode }}</span>
+                      </td>
+
+                    </ng-container>
+
+                    <ng-container matColumnDef="WorkingTypeName">
+                      <th  *matHeaderCellDef mat-header-cell> {{this.languageMap['Çalışma Türü'].labelName}}</th>
+                      <td  *matCellDef="let row" mat-cell> <span style="font-size: 11px; ">{{ row.WorkingTypeName
+                          }}</span>
+                      </td>
+                    </ng-container>
+
+
+
+                    <ng-container matColumnDef="Actions" sticky>
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Aksiyon'].labelName}}</th>
+                      <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                        <button (click)="deleteDeduction(row)" mat-icon-button type="button">
+                          <mat-icon [icIcon]="icDelete"></mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+
+
+
+                    <tr *matHeaderRowDef="columnsDeduction;sticky: true;" mat-header-row></tr>
+                    <tr (click)="selectDeductionRow(row)" *matRowDef="let row; columns: columnsDeduction;" @fadeInUp
+                      [ngClass]=" {'highlight': selectedDeductionRowIndex == row.ID}" style="max-height: 120px;"
+                      mat-row></tr>
+                  </table>
+                </div>
+              </as-split-area>
+
+              <as-split-area [size]="50" style=" overflow:hidden">
+
+
+                <mat-dialog-content fxLayout="row" style="margin-left: 5px; margin-top: 3px;">
+
+                  <div fxLayout="row" fxLayoutAlign="space-between center" style=" width: 100%;"  class="class-mat-tab-link">
+                    <label style="font-size: 10px;">{{this.languageMap['Tamamlanacak Çalışma Türleri'].labelName}}</label>
+                  </div>
+
+                </mat-dialog-content>
+
+                <div fxLayout="row" fxLayoutAlign="space-between center" style="  margin-left: 5px; margin-top: 5px;"
+                  *ngIf="this.selectedOvertimeRowIndex!==0">
+
+                  <!-- *ngIf="this.pageauth.write" -->
+                  <button mat-raised-button color="primary" style=" width: 120px; height: 35px; font-size: 12px;"
+                    (click)="addPayment()">
+                    <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+                    {{this.languageMap['Yeni Kayıt'].labelName}}
+                  </button>
+
+                  <span fxFlex></span>
+
+
+                  <button mat-raised-button color="primary" (click)="savePayment()"
+                    [disabled]="this.formPayment.invalid" style="margin-right: 3px; width: 90px;">
+                    <span>{{
+                      this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+                </div>
+
+
+          
+
+                <mat-dialog-content fxLayout="row" style="margin-left: 5px; margin-top: 3px;">
+
+                  <div fxLayout="row" fxLayoutAlign="space-between center">
+
+                    <form [formGroup]="formPayment">
+
+                      <input hidden formControlName="ID" matInput>
+                      <input hidden formControlName="SyndicateOvertimeID" matInput>
+
+
+                      <input hidden formControlName="WorkingTypeID" matInput>
+                      <input hidden formControlName="WorkingTypeCode" matInput>
+
+                      <mat-form-field>
+                        <mat-label>{{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+                        <input readonly formControlName="WorkingTypeName" matInput>
+
+                        <mat-icon style="margin-top: -5px;" [icIcon]="icMoreHoriz" inline="true" matSuffix
+                          style="font-size: 24px;" (click)="openDefinition('working',8)">
+                        </mat-icon>
+
+                      </mat-form-field>
+
+
+
+                    </form>
+                  </div>
+
+                </mat-dialog-content>
+
+
+                <div style=" overflow:auto; width: 100%; "
+                  [ngStyle]="{'height': isMobileLayout? (this.subFooter?'calc(25vh - 100px)':'calc(25vh - 50px)'): (this.subFooter?'calc(38vh - 80px)':'calc(38vh - 30px)')}">
+                  <table @stagger [dataSource]="dataSourcePayment" class="w-full" mat-table>
+
+                    <ng-container matColumnDef="Checkbox">
+                      <th hidden *matHeaderCellDef mat-header-cell>
+                        <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                        </mat-checkbox>
+                      </th>
+                      <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                        <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                          [checked]="selection.isSelected(row)" color="primary">
+                        </mat-checkbox>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="ID">
+                      <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                      <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.ID }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="SyndicateOvertimeID">
+                      <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                      <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{
+                          row.SyndicateOvertimeID
+                          }}</span>
+                      </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="WorkingTypeID">
+                      <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                      <td hidden *matCellDef="let row" mat-cell> <span style="font-size: 20px; ">{{ row.WorkingTypeID
+                          }}</span>
+                      </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="WorkingTypeCode">
+                      <th hidden *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Çalışma Türü'].labelName}}
+                      </th>
+                      <td hidden *matCellDef="let row" mat-cell>
+                        <span style="font-size: 11px; ">{{ row.WorkingTypeCode }}</span>
+                      </td>
+
+                    </ng-container>
+
+                    <ng-container matColumnDef="WorkingTypeName">
+                      <th  *matHeaderCellDef mat-header-cell>  {{this.languageMap['Çalışma Türü'].labelName}}</th>
+                      <td  *matCellDef="let row" mat-cell> <span style="font-size: 11px; ">{{ row.WorkingTypeName
+                          }}</span>
+                      </td>
+                    </ng-container>
+
+
+
+                    <ng-container matColumnDef="Actions" sticky>
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{this.languageMap['Aksiyon'].labelName}}</th>
+                      <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                        <button (click)="deletePayment(row)" mat-icon-button type="button">
+                          <mat-icon [icIcon]="icDelete"></mat-icon>
+                        </button>
+                      </td>
+                    </ng-container>
+
+
+
+                    <tr *matHeaderRowDef="columnsPayment;sticky: true;" mat-header-row></tr>
+                    <tr (click)="selectPaymentRow(row)" *matRowDef="let row; columns: columnsPayment;" @fadeInUp
+                      [ngClass]=" {'highlight': selectedPaymentRowIndex == row.ID}" style="max-height: 120px;" mat-row>
+                    </tr>
+                  </table>
+                </div>
+              </as-split-area>
+
+            </as-split>
+
+
+          </as-split-area>
+
+        </as-split>
+
+      </div>
+    </div>
+
+
+  </vex-page-layout-content>
+
+</vex-page-layout>

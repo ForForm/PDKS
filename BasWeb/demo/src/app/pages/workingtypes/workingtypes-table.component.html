@@ -1,0 +1,293 @@
+<div class="bg-app-bar px-6 h-16 border-b sticky left-0" fxLayout="row" fxLayoutAlign="start center">
+
+
+   <nav mat-tab-nav-bar  >
+
+    <button [disabled]="newRecordD"  mat-raised-button color="primary" *ngIf="this.pageauth.write" (click)="createDefinition()"
+      style="width: 120px; height: 35px; margin-right: 10px; font-size: 12px; top: 7px;">
+      <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+      {{this.languageMap['Yeni Kayıt'].labelName}}
+    </button>
+
+    <a mat-tab-link *ngFor="let link of links"  (click)="openWorkingType(link.index)"  style="  margin: 2px;" 
+    [ngStyle]="{'color': link.index===this.selectedTypeIndex?'white':'black'}" class="class-mat-tab-link" >
+      <span>
+        {{ link.name }}
+      </span>
+    </a>
+
+  </nav>
+
+
+  <span fxFlex></span>
+
+  <div *ngIf="isMobileLayout" class="bg-card rounded-full border px-4" style="overflow: auto;" fxFlex.lt-md="auto"
+    fxLayout="row" fxLayoutAlign="start center">
+    <input [formControl]="searchCtrl" class="px-1 py-2 border-0 outline-none w-full bg-transparent" style="width: 60px;"
+      [placeholder]="this.languageMap['Ara'].labelName" type="search">
+  </div>
+
+  <div *ngIf="!isMobileLayout" class="bg-card rounded-full border px-4" style="overflow: auto;" fxFlex="320px"
+    fxFlex.lt-md="auto" fxHide.xs fxLayout="row" fxLayoutAlign="start center">
+    <ic-icon [icIcon]="icSearch" size="20px"></ic-icon>
+    <input [formControl]="searchCtrl" class="px-4 py-3 border-0 outline-none w-full bg-transparent"
+      [placeholder]="this.languageMap['Ara'].labelName" type="search">
+  </div>
+
+  <button color="primary" mat-icon-button type="button" (click)="openWorkingType(this.selectedTypeIndex)">
+    <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+  </button>
+
+
+</div>
+
+
+<div class="app-table-wrapper" style="  width: 100%; overflow-x: auto; overflow: auto;"
+  [ngStyle]="{'height': (this.subFooter?'70vh':'calc(70vh + 35px)')}">
+  <table [dataSource]="dataSource" mat-table>
+
+    <ng-container matColumnDef="Checkbox">
+      <th hidden *matHeaderCellDef mat-header-cell>
+        <!-- (change)="$event ? masterToggle() : null" -->
+        <!-- && isAllSelected() -->
+        <!-- && !isAllSelected() -->
+        <mat-checkbox [checked]="selection.hasValue() " [indeterminate]="selection.hasValue()" color="primary">
+        </mat-checkbox>
+      </th>
+      <td hidden *matCellDef="let row" class="w-4" mat-cell>
+        <!-- (change)="$event ? detailToggle(row) : null"  -->
+        <mat-checkbox (click)="$event.stopPropagation()" [checked]="selection.isSelected(row)" color="primary">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="ID" style="width: 10px;">
+      <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+      <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span style="font-size: 20px; ">{{ row.ID }}</span>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Code">
+      <th *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Kod'].labelName}}
+      </th>
+
+      <td *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span>{{ row.Code }}</span>
+      </td>
+      
+
+      <!-- <td *matCellDef="let row" style="width: 100px; font-size: x-small;" mat-cell>
+        <mat-select style="width: 100%;" [value]="row.Code" disabled>
+          <mat-option *ngFor="let services of this.workingTypesCode" [value]="services.kodu">
+            {{services.kodu}}
+          </mat-option>
+        </mat-select>
+
+      </td> -->
+    </ng-container>
+
+    <ng-container matColumnDef="Name">
+      <th *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Adı'].labelName}}
+      </th>
+      <td *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span>{{ row.Name }}</span>
+      </td>
+
+    </ng-container>
+    <ng-container matColumnDef="Type">
+      <th *matHeaderCellDef style="width: 80px;" mat-header-cell>
+        {{this.languageMap['Tip'].labelName}}
+      </th>
+      <td *matCellDef="let row" style="width: 80px; font-size: x-small;" mat-cell>
+
+        <mat-select style="width: 80px;" [value]="row.Type" disabled>
+          <mat-option *ngFor="let services of this.workingTypesType" [value]="services.kodu">
+
+            {{this.languageMap[services.adi].labelName}}
+          </mat-option>
+        </mat-select>
+
+
+      </td>
+
+    </ng-container>
+
+    <ng-container matColumnDef="RoundingHourID">
+      <th *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Saat Yuvarlama'].labelName}}
+      </th>
+      <td *matCellDef="let row" style="width: 10px;font-size: x-small;" mat-cell>
+        <mat-select style="width: 100%;" [value]="row.RoundingHourID" disabled>
+          <mat-option *ngFor="let services of roundingHours" [value]="services.kodu">
+            {{services.adi}}
+          </mat-option>
+        </mat-select>
+
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="RoundingDayID">
+      <th *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Gün Yuvarlama'].labelName}}
+      </th>
+      <td *matCellDef="let row" style="width: 10px;font-size: x-small;" mat-cell>
+        <mat-select style="width: 100%;" [value]="row.RoundingDayID" disabled>
+          <mat-option *ngFor="let services of roundingDays" [value]="services.kodu">
+            {{services.adi}}
+          </mat-option>
+        </mat-select>
+
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Multiplier">
+      <th [hidden]="isMobileLayout" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Çarpan'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span>{{ row.Multiplier }}</span>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="LowerLimit">
+      <th [hidden]="isMobileLayout" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Alt Limit'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span>{{ row.LowerLimit | date : "HH:mm" }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="UpperLimit">
+      <th [hidden]="isMobileLayout" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Üst Limit'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span>{{ row.UpperLimit | date : "HH:mm" }}</span>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Compulsory">
+      <th [hidden]="isMobileLayout || (this.selectedTypeIndex==1 || this.selectedTypeIndex==3 || this.selectedTypeIndex==4 || this.selectedTypeIndex==7)" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Zorunlu'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout || (this.selectedTypeIndex==1 || this.selectedTypeIndex==3 || this.selectedTypeIndex==4  || this.selectedTypeIndex==7)" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <mat-checkbox (click)="$event.stopPropagation()" [checked]="row.Compulsory" disabled></mat-checkbox>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Confirmation">
+      <th [hidden]="isMobileLayout" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Onay'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <mat-checkbox (click)="$event.stopPropagation()" [checked]="row.Confirmation" disabled></mat-checkbox>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Saturday">
+      <th [hidden]="isMobileLayout || (this.selectedTypeIndex==0 || this.selectedTypeIndex==1 || this.selectedTypeIndex==3 || this.selectedTypeIndex==4 || this.selectedTypeIndex==5 
+      || this.selectedTypeIndex==6  || this.selectedTypeIndex==7)" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Cumartesi'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout || (this.selectedTypeIndex==0 || this.selectedTypeIndex==1 || this.selectedTypeIndex==3 || this.selectedTypeIndex==4 || this.selectedTypeIndex==5 
+      || this.selectedTypeIndex==6  || this.selectedTypeIndex==7)" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <mat-checkbox (click)="$event.stopPropagation()" [checked]="row.Saturday" disabled></mat-checkbox>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Weekend">
+      <th [hidden]="isMobileLayout || (this.selectedTypeIndex==0 || this.selectedTypeIndex==1 || this.selectedTypeIndex==3 || this.selectedTypeIndex==4 || this.selectedTypeIndex==5 
+      || this.selectedTypeIndex==6  || this.selectedTypeIndex==7)" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Hafta Tatili'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout || (this.selectedTypeIndex==0 || this.selectedTypeIndex==1 || this.selectedTypeIndex==3 || this.selectedTypeIndex==4 || this.selectedTypeIndex==5 
+      || this.selectedTypeIndex==6  || this.selectedTypeIndex==7)" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <mat-checkbox (click)="$event.stopPropagation()" [checked]="row.Weekend" disabled></mat-checkbox>
+      </td>
+    </ng-container>
+
+
+
+    <ng-container matColumnDef="GeneralHoliday">
+      <th [hidden]="isMobileLayout || (this.selectedTypeIndex==0 || this.selectedTypeIndex==1 || this.selectedTypeIndex==3 || this.selectedTypeIndex==4 || this.selectedTypeIndex==5 
+      || this.selectedTypeIndex==6  || this.selectedTypeIndex==7)" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Genel Tatil'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout || (this.selectedTypeIndex==0 || this.selectedTypeIndex==1 || this.selectedTypeIndex==3 || this.selectedTypeIndex==4 || this.selectedTypeIndex==5 
+      || this.selectedTypeIndex==6  || this.selectedTypeIndex==7)" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <mat-checkbox (click)="$event.stopPropagation()" [checked]="row.GeneralHoliday" disabled></mat-checkbox>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="ReportCode">
+      <th [hidden]="isMobileLayout" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Rapor Kodu'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span>{{ row.ReportCode }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="IntegrationCode">
+      <th [hidden]="isMobileLayout" *matHeaderCellDef style="width: 10px;" mat-header-cell>
+        {{this.languageMap['Entegrasyon Kodu'].labelName}}
+      </th>
+      <td [hidden]="isMobileLayout" *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span>{{ row.IntegrationCode }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Actions" sticky>
+      <th [hidden]="(!this.pageauth.write && !this.pageauth.update && !this.pageauth.delete)" *matHeaderCellDef
+        mat-header-cell>{{this.languageMap['Aksiyon'].labelName}}</th>
+      <td [hidden]="(!this.pageauth.write && !this.pageauth.update && !this.pageauth.delete)" *matCellDef="let row"
+        class="w-10 text-secondary" mat-cell>
+        <button (click)="$event.stopPropagation()" [matMenuTriggerData]="{ definition: row }"
+          [matMenuTriggerFor]="actionsMenu" mat-icon-button type="button">
+          <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <!-- [ngStyle]="{'backgroundColor':this.backgroundColor}" -->
+    <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+
+    <tr (dblclick)="updateDefinition(row,false)" (click)="this.selectedRowIndex = row.ID"
+      *matRowDef="let row; columns: columns;" @fadeInUp [ngClass]="{'highlight': selectedRowIndex == row.ID}"
+      style="max-height: 120px;" mat-row></tr>
+  </table>
+
+
+</div>
+
+
+
+
+
+<mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+  <ng-template let-definition="definition" matMenuContent>
+
+
+    <button (click)="updateDefinition(definition,true)" *ngIf="this.pageauth.update" mat-menu-item>
+      <mat-icon [icIcon]="icEdit"></mat-icon>
+      <span>{{this.languageMap['Güncelle'].labelName}}</span>
+    </button>
+    <button (click)="deleteDefinition(definition)" *ngIf="this.pageauth.delete" mat-menu-item>
+      <mat-icon [icIcon]="icDelete"></mat-icon>
+      <span>{{this.languageMap['Sil'].labelName}}</span>
+    </button>
+  </ng-template>
+</mat-menu>

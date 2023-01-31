@@ -1,0 +1,148 @@
+<div class="w-full h-full p-gutter container" fxLayout="column">
+
+  <div class="bg-primary w-full h-64 absolute top-0 left-0 right-0"></div>
+
+  <mat-drawer-container class="card overflow-hidden" fxFlex="auto">
+    <mat-drawer [mode]="mobileQuery.matches ? 'over' : 'side'" (openedChange)="drawerChange($event)"
+      [opened]="drawerOpen$ | async" class="drawer" position="start">
+      <div class="h-full" fxLayout="column">
+        <div class="p-4 border-b bg-app-bar" fxFlex="none" fxLayout="row" fxLayoutAlign="start center"
+          fxLayoutGap="16px">
+          <!-- <div [matMenuTriggerFor]="statusMenu" class="relative cursor-pointer">
+            <img class="avatar bg-card" fxFlex="none" src="assets/img/avatars/default.jpg">
+            <ic-icon [icon]="activeStatus.icon" [ngClass]="activeStatus.colorClass"
+              class="bg-card absolute -bottom-1 -right-1 rounded-full"></ic-icon>
+          </div> -->
+
+          <div class="border rounded-full text-hint overflow-hidden bg-card" fxFlex="auto" fxLayout="row"
+            fxLayoutAlign="start center">
+            <ic-icon [icon]="icSearch" class="ml-4 mr-3" height="18px" width="18px"></ic-icon>
+            <input  #searchInput (keyup)="search()" [formControl]="searchCtrl" class="outline-none border-0 h-10 w-full placeholder:text-secondary caption bg-card" fxFlex="auto"
+              [placeholder]="this.languageMap['Ara'].labelName" type="text"> 
+          </div>
+        </div>
+
+        <h2 class="headline font-normal m-0 p-4 text-primary border-b" fxFlex="none" fxLayout="row">
+          <span class="block">
+            <ic-icon [icon]="icChat" class="mr-5 ml-1" height="28px" inline="true" width="28px"></ic-icon>
+          </span>
+          <span class="block">{{this.languageMap['Mesaj'].labelName}}</span>
+        </h2>
+
+        <!-- [routerLink]="[chat.id]" -->
+        <!-- [routerLink]="[chat.id]" -->
+        <vex-scrollbar [@stagger]="this.chats===undefined?0:this.chats.length" class="flex-auto">
+          <div (click)="postUserMessagesRead(chat.id,chat.from,(chat.imageSrc==null?'assets/img/avatars/who.png':chat.imageSrc))"
+            *ngFor="let chat of chats; trackBy: trackById" @fadeInUp
+            class="border-b px-4 py-6 hover:bg-hover cursor-pointer relative select-none block no-underline text-dark"
+            matRipple routerLinkActive="bg-hover">
+
+            <!-- <input hidden formControlName="CodePath" matInput> -->
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+              <div class="relative" fxFlex="none">
+                <img [src]="chat.imageSrc==null?'assets/img/avatars/who.png':chat.imageSrc" class="avatar">
+                <ic-icon *ngIf="chat.status === 'Online'" [icon]="icCheckCircle"
+                  class="bg-card absolute -bottom-1 -right-1 rounded-full text-green"></ic-icon>
+              </div>
+              <div class="overflow-hidden" fxFlex="auto">
+                <div [class.font-medium]="chat.unreadCount > 0" class="subheading-2 leading-snug">{{ chat.from }}</div>
+                <div [class.font-medium]="chat.unreadCount > 0" class="body-1 text-secondary truncate">{{ chat.message
+                  }}</div>
+              </div>
+              <div fxFlex="none" fxLayout="column" fxLayoutAlign="center end">
+                <div class="caption font-medium text-secondary">{{ chat.timestamp | date : "dd.MM.y HH:mm" }}</div>
+                <div *ngIf="chat.isread == 0"
+                  class="w-5 h-5 bg-primary text-primary-contrast rounded-full caption text-center mt-1">
+                  {{ chat.unreadCount }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </vex-scrollbar>
+      </div>
+    </mat-drawer>
+
+    <!-- <router-outlet></router-outlet> -->
+    <mat-drawer-content class="chat-pattern relative">
+
+
+      <!-- (click)="openDrawer()" -->
+      <div class="w-full h-full overflow-hidden" fxLayout="column">
+        <div class="bg-app-bar p-4 border-b" fxFlex="none" fxLayout="row" fxLayoutAlign="start center"
+          fxLayoutGap="16px">
+          <button class="block md:hidden" color="primary" mat-icon-button type="button">
+            <mat-icon [icIcon]="icMenu" size="24px"></mat-icon>
+          </button>
+
+
+          <div class="relative">
+            <img [src]="chatImage" class="avatar" fxFlex="none">
+            <ic-icon *ngIf="'Online'" [icon]="icCheckCircle"
+              class="bg-card absolute -bottom-1 -right-1 rounded-full text-green"></ic-icon>
+          </div>
+
+          <div fxFlex="auto">
+            <div class="subheading-1">{{ chatFrom }}</div>
+            <div [class.text-green]="'Online'" class="caption leading-none text-secondary"></div>
+          </div>
+
+
+        </div>
+        <div class="p-4 bg-app-bar border-t">
+
+          <form [formGroup]="formC" (ngSubmit)="postUserMessage()">
+            <div class="border rounded-full text-hint overflow-hidden bg-card ltr:pl-6 rtl:pr-6" fxFlex="auto"
+              fxLayout="row" fxLayoutAlign="start center">
+              <!-- [disabled]="!formC.get('message').value" -->
+              <input hidden formControlName="userId" matInput>
+              <input class="outline-none border-0 h-12 w-240 placeholder:text-secondary body-1 bg-card"
+                [disabled]="!formC.get('message').value" formControlName="message" fxFlex="auto"
+                [placeholder]="this.languageMap['Mesaj Yazınız...'].labelName" type="text">
+              <button [class.text-primary]="formC.get('message').value" class="ltr:mr-4 rtl:ml-4 ltr:ml-3 rtl:mr-3"
+                [disabled]="!formC.get('message').value" mat-icon-button type="submit">
+                <mat-icon [icIcon]="icSend"></mat-icon>
+              </button>
+            </div>
+          </form>
+        </div>
+        <vex-scrollbar class="p-4 flex-auto" [@stagger]="messages===undefined?0:this.messages.length">
+
+          <ng-container *ngFor="let message of messages;trackBy: trackById">
+
+
+            <ng-container *ngIf="message.from === 'me'">
+
+              <div @fadeInUp class="max-w-3/4 me" fxFlexAlign="end" fxLayout="row">
+                <span fxFlex></span>
+                <div class="m-1 mr-0 py-2 px-4 shadow-1 rounded-full bg-primary text-primary-contrast">
+                  {{ message.message }}
+                </div>
+              </div>
+              <div style="font-size: 11px; "><span fxFlex></span>{{message.TranDate  | date : "dd.MM.y HH:mm:ss"}}</div>
+            </ng-container>
+            <ng-container *ngIf="message.from === 'partner'">
+              <div @fadeInUp class="max-w-3/4 partner" fxFlexAlign="start" fxLayout="row">
+                <div class="m-1 mr-0 py-2 px-4 shadow-1 rounded-full bg-card" >
+                  {{message.message }}</div>
+              </div>
+              <div style="font-size: 11px; margin-left: 20px;">{{message.TranDate | date : "dd.MM.y HH:mm:ss"}}<span fxFlex></span></div>
+            </ng-container>
+          </ng-container>
+        </vex-scrollbar>
+
+
+
+      </div>
+
+
+
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>
+
+<mat-menu #statusMenu="matMenu" xPosition="after" yPosition="below">
+  <button (click)="setStatus(status)" *ngFor="let status of statuses; trackBy: trackById" mat-menu-item>
+    <ic-icon [icon]="status.icon" [ngClass]="status.colorClass" inline="true" size="24px"></ic-icon>
+    <span>{{ status.label }}</span>
+  </button>
+</mat-menu>

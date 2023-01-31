@@ -1,0 +1,1943 @@
+info: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[0]
+      User profile is available. Using 'C:\Users\Dell\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+Hosting environment: Development
+Content root path: D:\Projects\BasApp\BASApp
+Now listening on: http://127.0.0.1:18988
+Application started. Press Ctrl+C to shut down.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost:44312/BasApp/cache  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 DEBUG http://localhost/BasApp  0
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 38.3513ms 200 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 73.174ms 404 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4830.3653ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 4879.8431ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 4949.9093ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/login  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 8.9282ms 204 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/login application/json 70
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.Login (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "Login", controller = "Login"}. Executing action BASApp.Controllers.LoginController.Login (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.Login (BASApp) with arguments (BASApp.LoginModel.GetLoginRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.Login (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 511.0564ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.Login (BASApp) in 604.9693ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.Login (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 626.8411ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/userlog/1/28/1  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetUserLog", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetUserLog (BASApp) with arguments (1, 28, 1) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetUserLog (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 3011.4102ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetUserLog (BASApp) in 3020.3502ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 3040.6815ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization/session  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/login/menu/1/28/tr-TR  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 5.6919ms 204 
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.LoginGetMenu (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/authorization/session application/json 47
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "LoginGetMenu", controller = "Login"}. Executing action BASApp.Controllers.LoginController.LoginGetMenu (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PostUserSession", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.LoginGetMenu (BASApp) with arguments (1, 28, tr-TR) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) with arguments (BASApp.AuthorizationModel.PostUserSessionRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 73.0994ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) in 83.1096ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 96.3287ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.LoginGetMenu (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 764.6513ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.LoginModel.TotalGetMenuInfo, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.LoginGetMenu (BASApp) in 785.8837ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.LoginGetMenu (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 804.564ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/login/label/1/28/tr-TR  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.LoginGetLabel (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "LoginGetLabel", controller = "Login"}. Executing action BASApp.Controllers.LoginController.LoginGetLabel (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.LoginGetLabel (BASApp) with arguments (1, 28, tr-TR) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.LoginGetLabel (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 318.9047ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.LoginGetLabel (BASApp) in 327.8654ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.LoginGetLabel (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 345.1744ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/definition/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReportDefinition", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 1557.2731ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 1621.0047ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 1633.7092ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 176.2761ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) in 269.1052ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 443.3665ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 61.3423ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 71.8139ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 114.2419ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 138.8637ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 148.5531ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 163.2545ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 10.6039ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 20.4275ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 35.2218ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 47.7601ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 55.2641ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 69.1435ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 1302.344ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 1318.7794ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 1371.197ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/login  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 7.0306ms 204 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/login application/json 70
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.Login (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "Login", controller = "Login"}. Executing action BASApp.Controllers.LoginController.Login (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.Login (BASApp) with arguments (BASApp.LoginModel.GetLoginRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.Login (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 304.3967ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.Login (BASApp) in 313.2611ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.Login (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 328.7439ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/userlog/1/28/1  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetUserLog", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetUserLog (BASApp) with arguments (1, 28, 1) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetUserLog (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 3379.8076ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetUserLog (BASApp) in 3388.6568ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 3403.6937ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization/session  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/login/menu/1/28/tr-TR  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 5.324ms 204 
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.LoginGetMenu (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/authorization/session application/json 47
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "LoginGetMenu", controller = "Login"}. Executing action BASApp.Controllers.LoginController.LoginGetMenu (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.LoginGetMenu (BASApp) with arguments (1, 28, tr-TR) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PostUserSession", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) with arguments (BASApp.AuthorizationModel.PostUserSessionRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 54.5878ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) in 63.4096ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 107.4613ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.LoginGetMenu (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 764.8687ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.LoginModel.TotalGetMenuInfo, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.LoginGetMenu (BASApp) in 809.4578ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.LoginGetMenu (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 840.1899ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/login/label/1/28/tr-TR  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.LoginGetLabel (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "LoginGetLabel", controller = "Login"}. Executing action BASApp.Controllers.LoginController.LoginGetLabel (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.LoginGetLabel (BASApp) with arguments (1, 28, tr-TR) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.LoginGetLabel (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 303.1234ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.LoginGetLabel (BASApp) in 313.5829ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.LoginGetLabel (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 329.8727ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/definition/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReportDefinition", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 930.7541ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 937.1574ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 950.9417ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 210.8761ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) in 218.6471ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 228.8826ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 176.4137ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 183.9825ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 196.7646ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4.9576ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 13.251ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 26.3026ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4.2551ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 11.9511ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 56.1484ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 168.3733ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 177.8487ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 224.442ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 1191.6011ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 1201.4039ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 1218.3611ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/login  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 6.6194ms 204 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/login application/json 70
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.Login (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "Login", controller = "Login"}. Executing action BASApp.Controllers.LoginController.Login (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.Login (BASApp) with arguments (BASApp.LoginModel.GetLoginRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.Login (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 295.7691ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.Login (BASApp) in 303.6076ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.Login (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 327.4306ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/userlog/1/28/1  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetUserLog", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetUserLog (BASApp) with arguments (1, 28, 1) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetUserLog (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 1458.8243ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetUserLog (BASApp) in 1472.8645ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 1497.1635ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization/session  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/login/menu/1/28/tr-TR  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 6.7557ms 204 
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.LoginGetMenu (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "LoginGetMenu", controller = "Login"}. Executing action BASApp.Controllers.LoginController.LoginGetMenu (BASApp)
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/authorization/session application/json 47
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.LoginGetMenu (BASApp) with arguments (1, 28, tr-TR) - Validation state: Valid
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PostUserSession", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) with arguments (BASApp.AuthorizationModel.PostUserSessionRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 54.0663ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) in 60.8278ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 106.2107ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.LoginGetMenu (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 722.5408ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.LoginModel.TotalGetMenuInfo, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.LoginGetMenu (BASApp) in 765.7259ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.LoginGetMenu (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 791.8427ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/login/label/1/28/tr-TR  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.LoginGetLabel (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "LoginGetLabel", controller = "Login"}. Executing action BASApp.Controllers.LoginController.LoginGetLabel (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.LoginGetLabel (BASApp) with arguments (1, 28, tr-TR) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.LoginGetLabel (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 427.7642ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.LoginGetLabel (BASApp) in 441.7947ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.LoginGetLabel (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 465.7757ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/definition/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReportDefinition", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 1166.7353ms.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 1175.0581ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 1187.5869ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 222.0756ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) in 230.4798ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 241.0914ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 73.2128ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 80.5262ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 94.099ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4.6023ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 13.5528ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 31.5909ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 3.9194ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 12.5458ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 30.3688ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 12.0862ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 21.2814ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 36.0233ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization/session  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization/session  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 27.3386ms 204 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 18.0164ms 204 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/authorization/session application/json 46
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/authorization/session application/json 46
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PostUserSession", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PostUserSession", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) with arguments (BASApp.AuthorizationModel.PostUserSessionRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) with arguments (BASApp.AuthorizationModel.PostUserSessionRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 69.4949ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) in 93.8166ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 132.5294ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 100.1551ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) in 118.0121ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 162.9978ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/definition/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 2408.7606ms.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReportDefinition", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 2428.2344ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 2457.0892ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 958.3628ms.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 931.8007ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) in 988.1044ms
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 946.6805ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 1020.1378ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/definition/1/28  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 969.7333ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReportDefinition", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 18.8627ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) in 27.449ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 46.3423ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 71.9142ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 79.8649ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 92.3474ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4.0753ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 12.7139ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 26.1878ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 2.8398ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 10.4175ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 23.7662ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4.2749ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 13.1086ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 26.0389ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4.6142ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 13.3898ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 26.5536ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4.192ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 12.9841ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 27.208ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 35.4782ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 44.2711ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 58.3596ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 13.007ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 22.0775ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 37.9089ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/1/28/@apps@leaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/personnel/filter/columns/1/28/BAS_Employee  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization  
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetUser (BASApp)'
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp)'
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/personnel/query  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 12.321ms 204 
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/authorization application/json 229
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 39.1966ms 204 
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PersonnelGetFilterColumns", controller = "Personnel"}. Executing action BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetUser", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetUser (BASApp)
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp)'
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp) with arguments (1, 28, BAS_Employee) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetUser (BASApp) with arguments (1, 28, @apps@leaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/personnel/query application/json 31
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetUserTabs", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.PersonnelController.PersonnelGet (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PersonnelGet", controller = "Personnel"}. Executing action BASApp.Controllers.PersonnelController.PersonnelGet (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp) with arguments (System.Collections.Generic.List`1[BASApp.AuthorizationModel.GetUserTabsRequest]) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.PersonnelController.PersonnelGet (BASApp) with arguments (BASApp.PersonnelModel.GetAttendanceRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetUser (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4325.5113ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetUser (BASApp) in 4338.3388ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetUser (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 4402.9524ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 10486.9053ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.AuthorizationModel.Auth, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp) in 10514.1995ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 13477.9974ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 29064.8383ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp) in 29085.1893ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 29141.1846ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 56.7897ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 67.156ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 84.4762ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 1.6134ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 20.6676ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 43.7703ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/login  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 5.3416ms 204 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/login application/json 70
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.Login (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "Login", controller = "Login"}. Executing action BASApp.Controllers.LoginController.Login (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.Login (BASApp) with arguments (BASApp.LoginModel.GetLoginRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.Login (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 126.8952ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.Login (BASApp) in 134.9416ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.Login (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 153.501ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/userlog/1/28/1  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetUserLog", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetUserLog (BASApp) with arguments (1, 28, 1) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetUserLog (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 157.6363ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetUserLog (BASApp) in 173.4461ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetUserLog (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 189.7254ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization/session  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/login/menu/1/28/tr-TR  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 11.0618ms 204 
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.LoginGetMenu (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "LoginGetMenu", controller = "Login"}. Executing action BASApp.Controllers.LoginController.LoginGetMenu (BASApp)
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/authorization/session application/json 47
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.LoginGetMenu (BASApp) with arguments (1, 28, tr-TR) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PostUserSession", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) with arguments (BASApp.AuthorizationModel.PostUserSessionRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 16.4317ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) in 30.9922ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 58.2715ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.LoginGetMenu (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 594.7125ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.LoginModel.TotalGetMenuInfo, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.LoginGetMenu (BASApp) in 617.0224ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.LoginGetMenu (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 639.8425ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/login/label/1/28/tr-TR  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.LoginController.LoginGetLabel (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "LoginGetLabel", controller = "Login"}. Executing action BASApp.Controllers.LoginController.LoginGetLabel (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.LoginController.LoginGetLabel (BASApp) with arguments (1, 28, tr-TR) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.LoginController.LoginGetLabel (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 327.1042ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.LoginController.LoginGetLabel (BASApp) in 338.1373ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.LoginController.LoginGetLabel (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 357.5471ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/definition/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReportDefinition", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 75.0619ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 89.8102ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 101.3698ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReportDefinition (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 80.5033ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReportDefinition (BASApp) in 88.5963ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReportDefinition (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 105.0437ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 83.7355ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 97.5195ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 137.3053ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 22.498ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 38.5641ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 65.5348ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 4.5111ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 19.7349ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/dashboard/report/1/28/BAS_Dash_EmployeeLeaves  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 45.1408ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetReport", controller = "Dashboard"}. Executing action BASApp.Controllers.DashboardController.GetReport (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.DashboardController.GetReport (BASApp) with arguments (1, 28, BAS_Dash_EmployeeLeaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.DashboardController.GetReport (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 70.8323ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.ReportingModel.Series, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.DashboardController.GetReport (BASApp) in 81.3331ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.DashboardController.GetReport (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 106.4103ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/1/28/@apps@leaves  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/personnel/filter/columns/1/28/BAS_Employee  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 13.8948ms 204 
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetUser (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/personnel/query  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/authorization application/json 229
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp)'
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PersonnelGetFilterColumns", controller = "Personnel"}. Executing action BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp)
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 15.9248ms 204 
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/personnel/query application/json 31
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetUserTabs", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp)
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp) with arguments (1, 28, BAS_Employee) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetUser", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetUser (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.PersonnelController.PersonnelGet (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PersonnelGet", controller = "Personnel"}. Executing action BASApp.Controllers.PersonnelController.PersonnelGet (BASApp)
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp) with arguments (System.Collections.Generic.List`1[BASApp.AuthorizationModel.GetUserTabsRequest]) - Validation state: Valid
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetUser (BASApp) with arguments (1, 28, @apps@leaves) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.PersonnelController.PersonnelGet (BASApp) with arguments (BASApp.PersonnelModel.GetAttendanceRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 168.4732ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[BASApp.AuthorizationModel.Auth, BASApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp) in 182.6899ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetUserTabs (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 229.3802ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetUser (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 259.3537ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetUser (BASApp) in 272.517ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetUser (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 346.9552ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 GET http://localhost/BasApp/authorization/companies/1/28  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "GetCompanies", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) with arguments (1, 28) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.GetCompanies (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 119.2036ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.GetCompanies (BASApp) in 128.3323ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.GetCompanies (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 146.1276ms 200 application/json; charset=utf-8
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.PersonnelController.PersonnelGet (BASApp) in 83278.1595ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.PersonnelController.PersonnelGet (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 39089.0847ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp) in 39112.1016ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.PersonnelController.PersonnelGetFilterColumns (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 39136.7472ms 200 application/json; charset=utf-8
+fail: Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware[1]
+      An unhandled exception has occurred while executing the request.
+System.Data.SqlClient.SqlException (0x80131904): Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding. ---> System.ComponentModel.Win32Exception (258): Bekleme i?lem zaman? a??ld?
+   at BASApp.Controllers.PersonnelController.PersonnelGet(GetAttendanceRequest model) in D:\Projects\BasApp\BASApp\Controllers\PersonnelController.cs:line 202
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Internal.ActionMethodExecutor.SyncActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeNextActionFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Rethrow(ActionExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker.InvokeInnerFilterAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeNextResourceFilter()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Rethrow(ResourceExecutedContext context)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeFilterPipelineAsync()
+   at Microsoft.AspNetCore.Mvc.Internal.ResourceInvoker.InvokeAsync()
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Routing.EndpointRoutingMiddleware.Invoke(HttpContext httpContext)
+   at Microsoft.AspNetCore.Cors.Infrastructure.CorsMiddleware.InvokeCore(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+ClientConnectionId:81fafcb2-1572-4c26-8f40-13f49194698a
+Error Number:-2,State:0,Class:11
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 86480.9818ms 500 text/html; charset=utf-8
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization/session  
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 OPTIONS http://localhost/BasApp/authorization/session  
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 8.9573ms 204 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 29.5978ms 204 
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[1]
+      Request starting HTTP/1.1 POST http://localhost/BasApp/authorization/session application/json 46
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[0]
+      Executing endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Route matched with {action = "PostUserSession", controller = "Authorization"}. Executing action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)
+info: Microsoft.AspNetCore.Cors.Infrastructure.CorsService[4]
+      CORS policy execution successful.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[1]
+      Executing action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) with arguments (BASApp.AuthorizationModel.PostUserSessionRequest) - Validation state: Valid
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action method BASApp.Controllers.AuthorizationController.PostUserSession (BASApp), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 151.5582ms.
+info: Microsoft.AspNetCore.Mvc.Infrastructure.ObjectResultExecutor[1]
+      Executing ObjectResult, writing value of type 'System.Collections.Generic.List`1[[System.Object, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+info: Microsoft.AspNetCore.Mvc.Internal.ControllerActionInvoker[2]
+      Executed action BASApp.Controllers.AuthorizationController.PostUserSession (BASApp) in 166.9393ms
+info: Microsoft.AspNetCore.Routing.EndpointMiddleware[1]
+      Executed endpoint 'BASApp.Controllers.AuthorizationController.PostUserSession (BASApp)'
+info: Microsoft.AspNetCore.Hosting.Internal.WebHost[2]
+      Request finished in 198.664ms 200 application/json; charset=utf-8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,51 @@
+<div fxLayout="row" fxLayoutAlign="start end" style="background-color: #D2D2DB;">
+  <span fxFlex></span>
+  <mat-icon [icIcon]="icClose1" (click)="closeDialog()" style="color:red; background-color: black;" matPrefix>
+  </mat-icon>
+
+</div>
+
+
+<div   style="padding: 10px;background-color: #D2D2DB;">
+  <span fxFlex></span>
+  <button color="primary" mat-button type="submit" (click)="save()"><span class="material-icons md-48" style="font-size: 38px;">
+      save
+    </span></button>
+</div>
+
+<!-- <div class="container py-gutter" style="padding: 0px; height: 500px; overflow: auto; width: 95%;"> -->
+<!-- <div class="bg-app-bar p-2" fxLayout="row" fxLayoutAlign="space-around center">
+    <div [ngClass.gt-xs]="['ltr:ml-6 rtl:mr-6']" class="max-w-full" fxFlex="none"> -->
+
+
+<div class="card" style="overflow-y: auto;height: 60vh;">
+
+  <table>
+    <mat-dialog-content fxLayout="row" fxLayoutAlign="start" *ngFor="let item of this.columns"
+      style="overflow: hidden; padding: 3px; margin-left: 10px;">
+      <tr>
+        <td style="width:200px">
+          <mat-checkbox #checkbox (change)="check(checkbox)" [value]="item.ColumnName" [checked]="item.Active">
+            {{item.ColumnName}}
+          </mat-checkbox>
+        </td>
+        <td style="border: 1px solid black;">
+          <input style="width:150px" matInput name="{{item.ColumnName}}" value="{{item.Label}}" (change)="change($event)">
+        </td>
+      </tr>
+    </mat-dialog-content>
+
+  </table>
+</div>
+
+<!-- <mat-checkbox #checkbox *ngFor="let item of this.columns" (change)="check(checkbox)"   [value]="item.ColumnName" [checked]="item.Active">
+        {{item.ColumnName}}
+        <span fxFlex></span>
+        <input matInput name="{{item.ColumnName}}" value="{{item.Label}}" (change)="change($event)">        
+      </mat-checkbox> -->
+
+<!-- 
+    </div>
+  </div> -->
+
+<!-- </div> -->

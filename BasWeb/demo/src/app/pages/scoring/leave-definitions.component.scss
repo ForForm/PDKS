@@ -1,0 +1,67 @@
+table {
+  width: 100%;
+  height: 10px;
+}
+
+
+
+.mat-form-field{
+  padding: 0px !important;
+  margin: 0px !important;
+  font-size: smaller;
+}
+  
+
+.mat-class {
+font-size: 14px;transform: scale(-1);
+
+}
+
+.highlight{
+  font-weight:bolder;
+  @apply bg-primary text-primary-contrast ;
+   filter: brightness(1.75);
+ }
+
+ 
+.mat-success {
+  background-color: green;
+  color: #fff;
+}
+
+ 
+
+// .mat-form-field:focus {
+//   // background-color: #dfeade;
+//   border: 3px solid #dfeade;
+//   // color:#000000;
+//  }
+ 
+ 
+.mat-cell {
+  font-size: smaller;
+  padding: 0px;
+  // color: white;
+}
+
+.mat-header-cell {
+  font-size: smaller;
+  padding: 0px;
+
+}
+.mat-row {
+// background-color: #e5e5f9;
+height: 30px !important;
+// font-weight: bolder;
+font-size: smaller;
+
+}
+
+.mat-row:hover {
+  cursor: pointer;
+  font-size:11pt;
+}
+
+.mat-icon.mat-icon-inline {
+  font-size: 24px;
+}

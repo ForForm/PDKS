@@ -1,0 +1,1279 @@
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="start end" cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+  cdkDragHandle>
+
+  <span fxFlex></span>
+  <button mat-button style="width: 90px;color:black;" (click)="closeDialog()">
+    <span> {{this.languageMap['Çıkış'].labelName.toUpperCase() }}</span> </button>
+
+  <button mat-raised-button color="primary" style="margin-right: 3px; width: 90px;"
+    [disabled]="!(this.saveEnabled && !(this.activeLinkIndex===0?this.form.invalid:(this.activeLinkIndex===1?this.formChief.invalid:(this.activeLinkIndex===3?this.formID.invalid:(this.activeLinkIndex===4?this.formContact.invalid:null))))) "
+    (click)="this.activeLinkIndex===0?save():(this.activeLinkIndex===1?saveChief():(this.activeLinkIndex===3?saveID():(this.activeLinkIndex===4?saveContact():closeDialog())))"
+    *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+    <span>{{
+      this.languageMap['Kaydet'].labelName.toUpperCase() }}
+    </span> </button>
+
+</div>
+<div class="container py-gutter" style="padding: 0px; height: 95%; overflow: hidden; min-width: 100%;">
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxLayoutAlign.lt-md="start stretch">
+    <nav mat-tab-nav-bar  class="class-mat-tab-link" style="width: 100%; ">
+      <a mat-tab-link *ngFor="let link of links" (click)="gotoTab(link)"
+        [disabled]="(link.index!==0?this.tabDisabled:false)" [ngStyle]="{'color': link.index===this.activeLinkIndex?'white':'black'}" 
+        class="class-mat-tab-link">
+        <span [ngStyle]="{'opacity': (link.index!==0 && this.tabDisabled) ?'0.2':'1'}">
+          {{ this.languageMap[link.name].labelName }}
+        </span>
+      </a>
+
+
+    </nav>
+  </div>
+
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="start start" fxLayoutAlign.lt-md="start stretch"
+    fxLayoutGap="24px" [ngStyle]="{'height': isMobileLayout?'90vh':'80vh'}">
+
+    <div label="TemelBilgiler" *ngIf="this.activeLinkIndex===0" style=" width: 100%; overflow: hidden; ">
+      <form [formGroup]="form" novalidate>
+
+
+
+        <div div fxLayout="row" fxLayoutAlign="center" [ngStyle]="{'height': isMobileLayout?'180px':null}">
+
+          <as-split direction="horizontal" [gutterSize]="isMobileLayout?20:5" style="height: unset;">
+
+            <as-split-area [size]="isMobileLayout?'100':'80'" style="overflow:hidden; ">
+              <!-- [ngStyle]="{'margin':isMobileLayout?'5px':'5px'}" -->
+              <div fxFlex.lt-md="auto" class="card">
+                <mat-dialog-content fxLayout="row"
+                  [ngStyle]="{'margin': isMobileLayout?'0px':'0px 0px -15px 0px', 'padding': isMobileLayout?'0px':'8px', 'height': isMobileLayout?'60px':'none'}"
+                  style="overflow: hidden; ">
+                  <mat-form-field [ngStyle]="{'width': isMobileLayout?'80px':'150px'}">
+                    <mat-label [ngStyle]="{'color': this.form.controls['Code'].invalid?'red':'gray'}">{{this.languageMap['SicilNo'].labelName}}
+                      <!-- <span [ngStyle]="{'color': this.form.controls['Code'].invalid?'red':'none'}">*</span> -->
+                    </mat-label>
+                    <input formControlName="Code" matInput cdkFocusInitial (focusout)="onFocusOutCode($event)">
+                  </mat-form-field>
+                  &nbsp;&nbsp;&nbsp;
+                  <mat-form-field [ngStyle]="{'width': isMobileLayout?'90px':'250px'}">
+                    <mat-label [ngStyle]="{'color': this.form.controls['Name'].invalid?'red':'gray'}">{{this.languageMap['Adı'].labelName}}
+                      <!-- <span [ngStyle]="{'color': this.form.controls['Name'].invalid?'red':'none'}">*</span> -->
+                    </mat-label>
+
+                    <input formControlName="Name" #name matInput>
+                  </mat-form-field>
+                  &nbsp;&nbsp;&nbsp;
+                  <mat-form-field [ngStyle]="{'width': isMobileLayout?'90px':'250px'}">
+                    <mat-label [ngStyle]="{'color': this.form.controls['Surname'].invalid?'red':'gray'}"> {{this.languageMap['Soyadı'].labelName}}
+                      <!-- <span [ngStyle]="{'color': this.form.controls['Surname'].invalid?'red':'none'}">*</span> -->
+                    </mat-label>
+                    <input formControlName="Surname" matInput>
+                  </mat-form-field>
+                  &nbsp;&nbsp;&nbsp;
+                  <mat-form-field [ngStyle]="{'width': isMobileLayout?'90px':'150px'}">
+                    <mat-label [ngStyle]="{'color': this.form.controls['StartingDate'].invalid?'red':'gray'}">{{this.languageMap['İşe Giriş'].labelName}}
+                      <!-- <span [ngStyle]="{'color': this.form.controls['StartingDate'].invalid?'red':'none'}">*</span> -->
+                    </mat-label>
+                    <input format="DD/MM/YYYY" formControlName="StartingDate" [matDatepicker]="datepickerStartingDate"
+                      matInput>
+                    <mat-datepicker-toggle [for]="datepickerStartingDate" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerStartingDate></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin:0px; overflow: hidden;"
+                  [ngStyle]="{'padding-left': isMobileLayout?'0px':'8px'}">
+
+
+                  <mat-form-field [ngStyle]="{'width': isMobileLayout?'80px':'150px'}">
+                    <mat-label  [ngStyle]="{'color': this.form.controls['PassID'].invalid?'red':'gray'}"> {{this.languageMap['KartNo'].labelName}}
+                      <!-- <span [ngStyle]="{'color': this.form.controls['PassID'].invalid?'red':'none'}">*</span> -->
+                    </mat-label>
+                    <input formControlName="PassID" matInput>
+                  </mat-form-field>
+                  &nbsp;&nbsp;&nbsp;
+
+
+                  <div [ngStyle]="{'width': isMobileLayout?'90px':'250px'}">
+                    <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'90px':'250px'}">
+                      <mat-label>
+                        {{this.languageMap['Gömlek Yaka'].labelName}}</mat-label>
+                      <mat-select style="width: 100%;" formControlName="CollarColor">
+                        <mat-option *ngFor="let item of this.Collarcolors" [value]="item.Code">
+                          {{ item.Code +' - '+ this.languageMap[item.Name].labelName }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  &nbsp;&nbsp;&nbsp;
+
+                  <div [ngStyle]="{'width': isMobileLayout?'90px':'250px'}">
+                    <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'90px':'120px'}">
+                      <mat-label>
+                        {{this.languageMap['Ücret Türü'].labelName}}</mat-label>
+                      <mat-select style="width: 100%;" formControlName="FeeType">
+                        <mat-option *ngFor="let item of this.Feetypes" [value]="item.Code">
+                          {{ item.Code +' - '+ item.Name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'90px':'115px'}">
+                      <mat-label>
+                        {{this.languageMap['Topluluk Giriş'].labelName}}</mat-label>
+                      <input format="DD/MM/YYYY" formControlName="CommunityDate" [matDatepicker]="datepickerCommDate"
+                        matInput>
+                      <mat-datepicker-toggle [for]="datepickerCommDate" matSuffix></mat-datepicker-toggle>
+                      <mat-datepicker #datepickerCommDate></mat-datepicker>
+                    </mat-form-field>
+
+                    
+                  </div>
+                  &nbsp;&nbsp;&nbsp;
+
+                  <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'90px':'150px'}">
+                    <mat-label>
+                      {{this.languageMap['İşten Çıkış'].labelName}}</mat-label>
+                    <input format="DD/MM/YYYY" formControlName="LeavingDate" [matDatepicker]="datepickerLeavingDate"
+                      matInput>
+                    <mat-datepicker-toggle [for]="datepickerLeavingDate" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerLeavingDate></mat-datepicker>
+                  </mat-form-field>
+
+
+
+
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="margin:0px; overflow: hidden;"
+                  [ngStyle]="{'padding-left': isMobileLayout?'0px':'8px'}">
+
+
+                  <mat-form-field [ngStyle]="{'width': isMobileLayout?'90px':'150px'}">
+                    <mat-label> {{this.languageMap['Kart Tarih'].labelName}}
+                      <span [ngStyle]="{'color': this.form.controls['PassDate'].invalid?'red':'gray'}">*
+                      </span>
+                    </mat-label>
+                    <input format="DD/MM/YYYY" formControlName="PassDate" [matDatepicker]="datepickerPass" matInput>
+                    <mat-datepicker-toggle [for]="datepickerPass" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerPass></mat-datepicker>
+                  </mat-form-field>
+
+                  &nbsp;&nbsp;&nbsp;
+                  <div [ngStyle]="{'width': isMobileLayout?'90px':'250px'}">
+                    <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'90px':'120px'}">
+                      <mat-label>
+                        {{this.languageMap['Gömlek Yaka Tarih'].labelName}}</mat-label>
+                      <input format="DD/MM/YYYY" formControlName="CollarColorDate" [matDatepicker]="datepickerCollar"
+                        matInput>
+                      <mat-datepicker-toggle [for]="datepickerCollar" matSuffix></mat-datepicker-toggle>
+                      <mat-datepicker #datepickerCollar></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'90px':'120px'}">
+                      <mat-label>
+                        {{this.languageMap['Kıdem Tarihi'].labelName}}</mat-label>
+                      <input format="DD/MM/YYYY" formControlName="SeniorityDate" [matDatepicker]="datepickerSeniority"
+                        matInput>
+                      <mat-datepicker-toggle [for]="datepickerSeniority" matSuffix></mat-datepicker-toggle>
+                      <mat-datepicker #datepickerSeniority></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  &nbsp;&nbsp;&nbsp;
+                  <!-- [ngStyle]="{'width': isMobileLayout?'90px':'150px'}" -->
+                  <div [ngStyle]="{'width': isMobileLayout?'90px':'250px'}">
+                    <mat-form-field appearance="outline">
+                      <mat-label>
+                        {{this.languageMap['Ücret Türü Tarih'].labelName}}</mat-label>
+                      <input format="DD/MM/YYYY" formControlName="FeeTypeDate" [matDatepicker]="datepickerFee" matInput>
+                      <mat-datepicker-toggle [for]="datepickerFee" matSuffix></mat-datepicker-toggle>
+                      <mat-datepicker #datepickerFee></mat-datepicker>
+                    </mat-form-field>
+                    &nbsp;
+                    <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'90px':'115px'}">
+                      <mat-label>
+                        {{this.languageMap['Yıllık İzin'].labelName}}</mat-label>
+                      <input format="DD/MM/YYYY" formControlName="YearlyLeaveDate" [matDatepicker]="datepickerYearlyLeaveDate"
+                        matInput>
+                      <mat-datepicker-toggle [for]="datepickerYearlyLeaveDate" matSuffix></mat-datepicker-toggle>
+                      <mat-datepicker #datepickerYearlyLeaveDate></mat-datepicker>
+                    </mat-form-field>
+
+                  </div>
+                  &nbsp;&nbsp;&nbsp;
+                  <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'80px':'150px'}">
+                    <mat-label>
+                      {{this.languageMap['Çıkış Nedeni'].labelName}}</mat-label>
+                    <mat-select style="width: 100%;" formControlName="ExitReasonID">
+                      <mat-option *ngFor="let item of this.ExitReasons" [value]="item.Code">
+                        {{ item.Code +' - '+ item.Name }}                        
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+              </div>
+            </as-split-area>
+
+            <as-split-area [size]="isMobileLayout?'0':'20'" style="overflow:hidden; ">
+
+              <div fxFlex.lt-md="auto" class="card" style="margin:5px">
+
+                <mat-dialog-content fxLayout="row" style="overflow: hidden; "
+                  [ngStyle]="{'padding-top': isMobileLayout?'5px':'10px'}">
+
+                  <mat-checkbox color="primary" style="margin: 10px 0 0 10px;" formControlName="Chief"
+                    [checked]="this.form.value.Chief">{{this.languageMap['Amir'].labelName}}
+                  </mat-checkbox>
+
+                </mat-dialog-content>
+                <mat-dialog-content fxLayout="row" style="overflow: hidden;"
+                  [ngStyle]="{'margin-top': isMobileLayout?'3px':'6px'}">
+
+                  <mat-checkbox color="primary" style="margin: 10px 0 0 10px;" formControlName="PayrollCalculation"
+                    [checked]="this.form.value.PayrollCalculation">
+                    {{this.languageMap['Puantaj Hesapla'].labelName}}</mat-checkbox>
+                </mat-dialog-content>
+                <mat-dialog-content fxLayout="row" style=" overflow: hidden;"
+                  [ngStyle]="{'margin-top': isMobileLayout?'px':'6px'}">
+
+                  <mat-checkbox color="primary" style="margin: 10px 0 0 10px;" formControlName="Overtime"
+                    [checked]="this.form.value.Overtime" class="example-margin">
+                    {{this.languageMap['Fazla
+                    Mesai Alır'].labelName}}
+                  </mat-checkbox>
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="overflow: hidden;"
+                  [ngStyle]="{'margin-top': isMobileLayout?'3px':'10px'}">
+
+                  <div style="margin-left: 10px;">
+                    <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'100px':'150px'}">
+                      <mat-label>
+                        {{this.languageMap['Fazla Mesai Tarih'].labelName}}</mat-label>
+                      <input matInput [matDatepicker]="datepickerOvertime" formControlName="OvertimeDate">
+                      <mat-datepicker-toggle [for]="datepickerOvertime" matSuffix></mat-datepicker-toggle>
+                      <mat-datepicker #datepickerOvertime></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </mat-dialog-content>
+              </div>
+            </as-split-area>
+
+          </as-split>
+
+
+        </div>
+
+        <div div fxLayout="row" fxLayoutAlign="center">
+
+          <as-split direction="horizontal" [gutterSize]="isMobileLayout?20:5" style="height: unset;">
+
+            <as-split-area [size]="isMobileLayout?'100':'50'" style="overflow:hidden; ">
+
+
+              <div class="card" [ngStyle]="{'margin': isMobileLayout?'unset':'5px'}">
+
+
+                <mat-dialog-content fxLayout="row" style="height: 274px;">
+                  <span fxFlex></span>
+                  <div style="width: 200px;">
+
+                    <!-- [src]="(selectedFile!==undefined?selectedFile.src:(contact!==undefined?contact.Photo:defaultPath))" -->
+                    <img *ngIf="!isMobileLayout" @scaleIn class="avatar h-48 w-48" fxFlex="none" fxFlexAlign="center"
+                      fxHide.xs 
+                      [src]="(selectedFile!==undefined?selectedFile.src:(this.form.value.Photo!==undefined?this.form.value.Photo:defaultPath))" >
+
+                      <!-- [src]="(selectedFile!==undefined?selectedFile.src:(contact!==undefined?contact.Photo:defaultPath))" -->
+                    <img *ngIf="isMobileLayout" @scaleIn class="avatar h-48 w-48" fxFlex="none" fxFlexAlign="center"
+                    [src]="(selectedFile!==undefined?selectedFile.src:(this.form.value.Photo!==undefined?this.form.value.Photo:defaultPath))"  >
+
+
+                    <div>
+                      <button style="padding: 5px;" (click)="fileInput.click()"
+                        *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)"
+                        [title]="this.languageMap['Resim Ekle'].labelName">
+                        <ic-icon [icon]="icAdd" size="20px">
+                        </ic-icon>
+                      </button>
+                    </div>
+                    <input #fileInput style="visibility:hidden; width: 0px;" type="file"
+                      (change)="onFileSelected($event); ">
+
+                  </div>
+                  <span fxFlex></span>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="height: 55px; overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px;">
+                    <mat-label [ngStyle]="{'color': this.form.controls['ShiftGroupCode'].invalid?'red':'gray'}">
+                      {{this.languageMap['Vardiya Grup Tipi'].labelName}}</mat-label>
+                    <input style="padding-top: 5px;" readonly formControlName="ShiftGroupCode"
+                      matTooltip="{{this.form.value.CodePath11}}" matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openShiftGroup('Outter')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+ 
+
+                  </mat-form-field>
+
+                  &nbsp;&nbsp;
+                  <input hidden formControlName="CodePath11" matInput>
+                  <input hidden formControlName="ShiftGroupID" matInput>
+
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px; " readonly formControlName="ShiftGroupName" matInput>
+
+                  </mat-form-field>
+
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px;" format="DD/MM/YYYY" formControlName="ShiftGroupDate"
+                      [matDatepicker]="datepickerShiftGroup" matInput>
+                    <mat-datepicker-toggle [for]="datepickerShiftGroup" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerShiftGroup></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="height: 55px;  overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+                    <mat-label [ngStyle]="{'color': this.form.controls['EmpTypeCode'].invalid?'red':'gray'}">
+                      {{this.languageMap['Personel Tipi'].labelName}}
+                    </mat-label>
+
+                    <input style="padding-top: 5px; " readonly formControlName="EmpTypeCode"
+                      matTooltip="{{this.form.value.CodePath}}" matInput>
+
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('Personnel')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+                  </mat-form-field>
+
+                  &nbsp;&nbsp;
+                  <input hidden formControlName="CodePath" matInput>
+                  <input hidden formControlName="EmployeeTypeID" matInput>
+
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px;" readonly formControlName="EmpTypeName" matInput>
+                  </mat-form-field>
+
+                  &nbsp;&nbsp;
+
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px; " formControlName="EmployeeTypeDate" [matDatepicker]="datepickerEmp"
+                      matInput>
+                    <mat-datepicker-toggle [for]="datepickerEmp" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerEmp></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="height: 55px; overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+
+                    <mat-label [ngStyle]="{'color': this.form.controls['DeptCode'].invalid?'red':'gray'}">
+                      {{this.languageMap['Departman Tipi'].labelName}}
+                    </mat-label>
+
+                    <input style="padding-top: 5px; " readonly formControlName="DeptCode" matInput
+                      matTooltip="{{this.form.value.CodePath2}}">
+
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('Department')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+                  </mat-form-field>
+                  &nbsp;&nbsp;
+                  <input hidden formControlName="CodePath2" matInput>
+                  <input hidden formControlName="DepartmentID" matInput>
+
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px; " readonly formControlName="DeptName" matInput>
+                  </mat-form-field>
+
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px;" format="DD/MM/YYYY" formControlName="DepartmentDate"
+                      [matDatepicker]="datepickerDept" matInput>
+                    <mat-datepicker-toggle [for]="datepickerDept" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerDept></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+              </div>
+
+            </as-split-area>
+
+
+            <as-split-area [size]="isMobileLayout?'0':'50'" style="overflow:hidden; ">
+
+
+              <div class="card" style="margin:5px">
+
+                <mat-dialog-content fxLayout="row" style="height: 55px; overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+                    <mat-label>
+                      {{this.languageMap['Kadro Tipi'].labelName}}
+                    </mat-label>
+                    <input style="padding-top: 5px; " readonly formControlName="CadreCode"
+                      matTooltip="{{this.form.value.CodePath4}}" matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('Cadre')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+
+                  </mat-form-field>
+                  <input hidden formControlName="CodePath4" matInput>
+                  <input hidden formControlName="CadreID" matInput>
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px; " readonly formControlName="CadreName" matInput>
+                  </mat-form-field>
+                  &nbsp;&nbsp;
+
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px; " format="DD/MM/YYYY" formControlName="CadreDate"
+                      [matDatepicker]="datepickerCadre" matInput>
+                    <mat-datepicker-toggle [for]="datepickerCadre" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerCadre></mat-datepicker>
+                  </mat-form-field>
+
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="height: 55px; overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+                    <mat-label>
+                      {{this.languageMap['Meslek Tipi'].labelName}}
+                    </mat-label>
+                    <input matTooltip="{{this.form.value.CodePath5}}" style="padding-top: 5px; " readonly
+                      formControlName="ProfCode" matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('Profession')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+                  </mat-form-field>
+                  <input hidden formControlName="CodePath5" matInput>
+                  <input hidden formControlName="ProfessionID" matInput>
+                  &nbsp;&nbsp;
+
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px; " readonly formControlName="ProfName" matInput>
+                  </mat-form-field>
+
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px;" format="DD/MM/YYYY" formControlName="ProfessionDate"
+                      [matDatepicker]="datepickerProf" matInput>
+                    <mat-datepicker-toggle [for]="datepickerProf" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerProf></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+
+                <mat-dialog-content fxLayout="row" style="height: 55px; overflow: hidden; ">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+                    <mat-label>
+                      {{this.languageMap['Gorev Tipi'].labelName}}
+                    </mat-label>
+                    <input matTooltip="{{this.form.value.CodePath6}}" style="padding-top: 5px; " readonly
+                      formControlName="TaskCode" matInput>
+
+
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('Task')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+
+                  </mat-form-field>
+                  <input hidden formControlName="TaskID" matInput>
+                  <input hidden formControlName="CodePath6" matInput>
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px; " readonly formControlName="TaskName" matInput>
+                  </mat-form-field>
+
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px; " format="DD/MM/YYYY" formControlName="TaskDate"
+                      [matDatepicker]="datepickerTask" matInput>
+                    <mat-datepicker-toggle [for]="datepickerTask" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerTask></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+
+                <mat-dialog-content fxLayout="row" style=" height: 55px; overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+                    <mat-label>
+                      {{this.languageMap['Grup Tipi'].labelName}}
+                    </mat-label>
+
+                    <input matTooltip="{{this.form.value.CodePath7}}" style="padding-top: 5px; " readonly
+                      formControlName="GroupCode" matInput>
+                    <!-- <mat-icon [icIcon]="icPerson" class="ltr:mr-3 rtl:ml-3" matPrefix></mat-icon> -->
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('Group')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+                  </mat-form-field>
+                  <input hidden formControlName="GroupID" matInput>
+                  <input hidden formControlName="CodePath7" matInput>
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px; " readonly formControlName="GroupName" matInput>
+                  </mat-form-field>
+                  &nbsp;&nbsp;
+
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px; " format="DD/MM/YYYY" formControlName="GroupDate"
+                      [matDatepicker]="datepickerGroup" matInput>
+                    <mat-datepicker-toggle [for]="datepickerGroup" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerGroup></mat-datepicker>
+                  </mat-form-field>
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="height: 55px; overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+                    <mat-label>
+                      {{this.languageMap['Şube Tipi'].labelName}}
+                    </mat-label>
+                    <input matTooltip="{{this.form.value.CodePath9}}" style="padding-top: 5px; " readonly
+                      formControlName="BranchCode" matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('Branch')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+                  </mat-form-field>
+                  <input hidden formControlName="BranchID" matInput>
+                  <input hidden formControlName="CodePath9" matInput>
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px; " readonly formControlName="BranchName" matInput>
+                  </mat-form-field>
+                  &nbsp;&nbsp;
+
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px; " format="DD/MM/YYYY" formControlName="BranchDate"
+                      [matDatepicker]="datepickerBranch" matInput>
+                    <mat-datepicker-toggle [for]="datepickerBranch" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerBranch></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+                <mat-dialog-content fxLayout="row" style="height: 55px; overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+                    <mat-label>
+                      {{this.languageMap['Birim Tipi'].labelName}}
+                    </mat-label>
+                    <input matTooltip="{{this.form.value.CodePath8}}" style="padding-top: 5px; " readonly
+                      formControlName="UnitCode" matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('Unit')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+                  </mat-form-field>
+                  <input hidden formControlName="UnitID" matInput>
+                  <input hidden formControlName="CodePath8" matInput>
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px; " readonly formControlName="UnitName" matInput>
+                  </mat-form-field>
+                  &nbsp;&nbsp;
+
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px; " format="DD/MM/YYYY" formControlName="UnitDate"
+                      [matDatepicker]="datepickerUnit" matInput>
+                    <mat-datepicker-toggle [for]="datepickerUnit" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerUnit></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+
+
+                <mat-dialog-content fxLayout="row" style="height: 55px; overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+                    <mat-label>
+                      {{this.languageMap['Masraf Tipi'].labelName}}
+                    </mat-label>
+                    <input matTooltip="{{this.form.value.CodePath3}}" style="padding-top: 5px; " readonly
+                      formControlName="CostCode" matInput>
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('CostCenter')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+
+                  </mat-form-field>
+                  <input hidden formControlName="CodePath3" matInput>
+                  <input hidden formControlName="CostCenterID" matInput>
+                  &nbsp;&nbsp;
+
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 5px; " readonly formControlName="CostName" matInput>
+                  </mat-form-field>
+
+
+                  &nbsp;&nbsp;
+
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px; " format="DD/MM/YYYY" formControlName="CostCenterDate"
+                      [matDatepicker]="datepickerCost" matInput>
+                    <mat-datepicker-toggle [for]="datepickerCost" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerCost></mat-datepicker>
+                  </mat-form-field>
+
+
+                </mat-dialog-content>
+
+
+                <mat-dialog-content fxLayout="row" style="height: 55px; overflow: hidden;">
+                  <mat-form-field appearance="outline" style="width: 200px; ">
+                    <mat-label>
+                      {{this.languageMap['Servis Tipi'].labelName}}
+                    </mat-label>
+
+                    <input matTooltip="{{this.form.value.CodePath10}}" style="padding-top: 5px; " readonly
+                      formControlName="ServiceStationCode" matInput>
+
+                    <mat-icon [icIcon]="icMoreHoriz" matSuffix (click)="openContact('ServiceStation')" inline="true"
+                      *ngIf="this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update)">
+                    </mat-icon>
+
+
+                  </mat-form-field>
+
+                  <input hidden formControlName="ServiceStationID" matInput>
+                  <input hidden formControlName="CodePath10" matInput>
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline" style="width: 230px;">
+                    <input style="padding-top: 3px; " readonly formControlName="ServiceStationName" matInput>
+                  </mat-form-field>
+                  &nbsp;&nbsp;
+                  <mat-form-field appearance="outline">
+                    <mat-label></mat-label>
+                    <input style="padding-top: 5px; " format="DD/MM/YYYY" formControlName="ServiceStationDate"
+                      [matDatepicker]="datepickerService" matInput>
+                    <mat-datepicker-toggle [for]="datepickerService" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerService></mat-datepicker>
+                  </mat-form-field>
+
+                </mat-dialog-content>
+              </div>
+
+            </as-split-area>
+          </as-split>
+
+        </div>
+      </form>
+    </div>
+
+
+    <div label="Amir Bilgileri" *ngIf="this.activeLinkIndex===1" style=" width: 100%; overflow: hidden;">
+
+      <form [formGroup]="formChief">
+
+        <div [fxFlex]="isMobileLayout?'calc(100% - 12px)':'calc(50% - 12px)'" fxFlex.lt-md="auto">
+
+          <div class="card" style="margin:5px; height: 660px;">
+
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+
+              <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto">
+                <div class="card" style="margin:5px;height: 50px;">
+
+                  <h2 class="title m-3">{{this.languageMap['Amir Tanımlama'].labelName}}</h2>
+                  <span fxFlex></span>
+                </div>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+
+              <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto">
+
+
+                <mat-dialog-content fxLayout="row"
+                  [ngStyle]="{'margin': isMobileLayout?'0px':'20px 0px 0px 0px','padding':isMobileLayout?'0px':'5px'}">
+
+                  <mat-form-field appearance="outline" style="width:250px; ">
+                    <mat-label>{{this.languageMap['Amir'].labelName}}</mat-label>
+                    <mat-select style="width: 100%;" formControlName="ChiefEmployeeID">
+                      <mat-option *ngFor="let services of Chiefs" [value]="services.kodu">
+                        {{services.adi}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" style="width:120px; ">
+                    <mat-label>{{this.languageMap['Derece'].labelName}}</mat-label>
+                    <mat-select style="width: 100%;" formControlName="Degree">
+                      <mat-option *ngFor="let services of Degrees" [value]="services.id">
+                        {{services.id}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+ 
+
+                </mat-dialog-content>
+
+
+                <mat-dialog-content fxLayout="row"
+                  [ngStyle]="{'margin': isMobileLayout?'0px ':'2px','padding':isMobileLayout?'0px':'5px','height':isMobileLayout?'100%':'660px'}">
+
+                  <div class="app-table-wrapper" style="width: 100%; ">
+
+
+                    <mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="height: 100%;">
+
+                      <ng-container *ngFor="let column of columns">
+
+                        <ng-container *ngIf="column.field!=='Delete'" matColumnDef="{{ column.field }}">
+                          <mat-header-cell
+                            [hidden]="column.field=='ID' || column.field=='ChiefEmployeeID' || column.field=='EmployeeID'"
+                            *matHeaderCellDef>{{ column.columnName }}
+
+
+                          </mat-header-cell>
+                          <mat-cell
+                            [hidden]="column.field=='Delete' || column.field=='ID' || column.field=='ChiefEmployeeID' || column.field=='EmployeeID'"
+                            *matCellDef="let row">{{ row[column.field] }}</mat-cell>
+
+
+
+                        </ng-container>
+
+
+                        <ng-container *ngIf="column.field==='Delete'" matColumnDef="Delete">
+                          <mat-header-cell *matHeaderCellDef>{{ column.columnName }} </mat-header-cell>
+
+                          <mat-cell *matCellDef="let row">
+                            <i *ngIf="(this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update))"
+                              class="material-icons orange600" (click)="deleteSelected(row.ID)">
+                              delete
+                            </i>
+                          </mat-cell>
+                        </ng-container>
+
+
+                      </ng-container>
+
+                      <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns;sticky: true"
+                        style="min-height: 26px;"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"
+                        [ngClass]="{'selected': userGroupSelection.isSelected(row)}"
+                        (click)="userGroupMasterToggle(row)" style="min-height: 30px;"></mat-row>
+
+                      <!-- Group header -->
+                      <ng-container matColumnDef="groupHeader">
+                        <mat-cell colspan="999" *matCellDef="let group">
+                          <mat-icon *ngIf="group.expanded">expand_less</mat-icon>
+                          <mat-icon *ngIf="!group.expanded">expand_more</mat-icon>
+                          Derece : {{group[groupByColumns[group.level-1]]}}
+                        </mat-cell>
+                      </ng-container>
+
+                      <mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup;" class="class-mat-tab-link"
+                        (click)="groupHeaderClick(row)" style="min-height: 30px;"> </mat-row>
+
+                    </mat-table>
+                  </div>
+
+                </mat-dialog-content>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+
+        </div>
+
+
+        <div *ngIf="!isMobileLayout" fxFlex="calc(50% - 12px)" fxFlex.lt-md="auto">
+
+          <div class="card" style="height: 660px; margin: 5px;">
+
+
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+
+              <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto">
+                <div class="card" style="margin:5px;height: 50px;">
+
+                  <h2 class="title m-3">{{this.languageMap['Onay Bilgileri'].labelName}}</h2>
+                  <span fxFlex></span>
+ 
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </form>
+
+    </div>
+
+    <div label="Amir Bağlı Personeller" *ngIf="this.activeLinkIndex===2 && this.data.chief"
+      style=" width: 100%; overflow: hidden;">
+
+      <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto" style=" height: 660px;  ">
+
+        <mat-dialog-content fxLayout="row" style="  height: 90%;">
+
+          <div class="app-table-wrapper" style="margin: auto;
+            width: 90%; padding: 5px;overflow-y:auto; height: 500px; margin-top: 20px;">
+
+            <mat-table [dataSource]="dataSourcePer" class="mat-elevation-z8">
+
+              <ng-container *ngFor="let column of columns">
+
+                <ng-container *ngIf="column.field!=='Delete'" matColumnDef="{{ column.field }}">
+                  <mat-header-cell
+                    [hidden]="column.field=='ID' || column.field=='ChiefEmployeeID' || column.field=='EmployeeID'"
+                    *matHeaderCellDef>{{ column.columnName }}
+
+
+                  </mat-header-cell>
+                  <mat-cell
+                    [hidden]="column.field=='Delete' || column.field=='ID' || column.field=='ChiefEmployeeID' || column.field=='EmployeeID'"
+                    *matCellDef="let row">{{ row[column.field] }}</mat-cell>
+
+
+
+                </ng-container>
+
+
+                <ng-container *ngIf="column.field==='Delete'" matColumnDef="Delete">
+                  <mat-header-cell *matHeaderCellDef>{{ column.columnName }} </mat-header-cell>
+
+                  <mat-cell *matCellDef="let row">
+                    <i *ngIf="(this.data.auth && (this.data.tabAuth[1].write || this.data.tabAuth[1].update))"
+                      class="material-icons orange600" (click)="deleteSelected(row.ID)">
+                      delete
+                    </i>
+                  </mat-cell>
+                </ng-container>
+
+
+              </ng-container>
+
+              <mat-header-row mat-header-row *matHeaderRowDef="displayedColumnsPer;sticky: true"></mat-header-row>
+              <mat-row *matRowDef="let row; columns: displayedColumnsPer;"
+                [ngClass]="{'selected': perGroupSelection.isSelected(row)}" (click)="perGroupMasterToggle(row)">
+              </mat-row>
+
+              <!-- Group header -->
+              <ng-container matColumnDef="groupHeader">
+                <mat-cell colspan="999" *matCellDef="let group">
+                  Derece : {{group[groupByColumnsPer[group.level-1]]}}
+                </mat-cell>
+              </ng-container>
+
+              <mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup;" (click)="groupPerHeaderClick(row)" class="class-mat-tab-link"
+                > </mat-row>
+
+            </mat-table>
+          </div>
+
+        </mat-dialog-content>
+
+        <!-- </div> -->
+
+      </div>
+
+    </div>
+    <div label="Kimlik Bilgileri" *ngIf="this.activeLinkIndex===3" style="width: 100%;">
+
+      <form [formGroup]="formID">
+
+        <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto" style=" height: 660px; padding: 5px; width: 100%;   ">
+          <div class="card" style="margin: auto; margin-top: 20px;
+          width: 90%;
+            padding: 10px;">
+            <!-- 
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+
+              <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto">
+                <div class="card" style="margin:5px;height: 50px;">
+
+                  <h2 class="title m-3">{{this.languageMap['Kimlik Bilgileri'].labelName}}</h2>
+                  <span fxFlex></span>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="px-gutter py-4" gdColumns="1fr 1fr 1fr 1fr" gdColumns.xs="1fr" gdGap="16px">
+
+              <div class="py-1" fxLayout="row" fxLayoutAlign="start center">
+                <div @fadeInRight style="margin: 0px; padding: 0px;">
+                  <mat-dialog-content fxLayout="row" style=" overflow: hidden; margin-top: 15px;">
+
+
+                    <mat-form-field appearance="outline" style="width: 200px;">
+                      <mat-icon matPrefix>perm_identity</mat-icon>
+                      <mat-label>{{this.languageMap['TCKN'].labelName}}</mat-label>
+                      <input type="tel" formControlName="CitizenshipNo" matInput maxlength="11">
+                      <mat-error *ngIf="formID.get('CitizenshipNo').errors">TCKN sayı ve 11 hane olmalı</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline">
+                      <mat-label>{{this.languageMap['Seri No'].labelName}}</mat-label>
+                      <input type="tel" formControlName="SerialNumber" matInput maxlength="5">
+                      <mat-error *ngIf="formID.get('SerialNumber').errors">SeriNo sayı olmalı</mat-error>
+                    </mat-form-field>
+                  </mat-dialog-content>
+
+                </div>
+
+
+              </div>
+            </div>
+
+            <div class="px-gutter py-1" gdColumns="1fr 1fr 1fr 1fr" gdColumns.xs="1fr">
+
+
+
+              <div class="py-1" fxLayout="row" fxLayoutAlign="start center">
+
+                <div @fadeInRight style="margin-top: 15px;">
+                  <mat-form-field appearance="outline" style="width: 180px;">
+                    <mat-icon matPrefix>cake</mat-icon>
+                    <mat-label>{{this.languageMap['Doğum Tarihi'].labelName}}</mat-label>
+                    <input format="DD/MM/YYYY" formControlName="DateOfBirth" [matDatepicker]="datepickerBrt" matInput>
+                    <mat-datepicker-toggle [for]="datepickerBrt" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerBrt></mat-datepicker>
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+
+
+              <div class="py-1" fxLayout="row" fxLayoutAlign="start center">
+
+                <div @fadeInRight style="margin-top: 15px;">
+                  <mat-form-field appearance="outline" style="width: 200px;">
+                    <mat-icon matPrefix>flag</mat-icon>
+                    <mat-label>{{this.languageMap['Uyruk'].labelName}}</mat-label>
+
+                    <mat-select style="width: 100%;" formControlName="Nationality">
+                      <mat-option *ngFor="let services of workingTypesCountry" [value]="services.kodu">
+                        {{services.adi}}
+                      </mat-option>
+                    </mat-select>
+
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="py-1" fxLayout="row" fxLayoutAlign="start center">
+
+
+                <div @fadeInRight style="margin-top: 15px;">
+                  <mat-form-field appearance="outline" style="width: 180px;">
+                    <mat-icon matPrefix>pan_tool</mat-icon>
+                    <mat-label>{{this.languageMap['Geçerlilik Tarihi'].labelName}}</mat-label>
+                    <input format="DD/MM/YYYY" formControlName="ValidUntil" [matDatepicker]="datepickerVld" matInput>
+                    <mat-datepicker-toggle [for]="datepickerVld" matSuffix></mat-datepicker-toggle>
+                    <mat-datepicker #datepickerVld></mat-datepicker>
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="px-gutter py-4" gdColumns="1fr 1fr 1fr 1fr" gdColumns.xs="1fr" gdGap="16px">
+
+              <div class="py-1" fxLayout="row" fxLayoutAlign="start center">
+                <div @fadeInRight>
+                  <mat-radio-group formControlName="Gender" color="primary">
+                    <mat-radio-button class="parameter-radio-group" style="padding-right: 10px;"
+                      *ngFor="let item of gender" [value]="item">
+                      {{item}}
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+
+              <div class="py-1" fxLayout="row" fxLayoutAlign="start center">
+
+                <div @fadeInRight style="margin-top: 15px;">
+                  <mat-form-field appearance="outline" style="width: 200px;">
+                    <mat-icon matPrefix>wc</mat-icon>
+
+                    <mat-label>{{this.languageMap['Anne Adı'].labelName}}</mat-label>
+                    <input type="text" formControlName="Mother" matInput>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+              <div class="py-1" fxLayout="row" fxLayoutAlign="start center">
+
+                <div @fadeInRight style="margin-top: 15px;">
+                  <mat-form-field appearance="outline" style="width: 200px;">
+                    <mat-icon matPrefix>wc</mat-icon>
+                    <mat-label>{{this.languageMap['Baba Adı'].labelName}}</mat-label>
+                    <input type="text" formControlName="Father" matInput>
+                  </mat-form-field>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </form>
+
+
+    </div>
+
+    <div label="İletişim Bilgileri" *ngIf="this.activeLinkIndex===4">
+
+      <form [formGroup]="formContact">
+
+        <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto" style=" height: 660px; padding: 5px; width: 100%;   ">
+
+          <div class="card" style="margin: auto; margin-top: 20px;
+          width: 90%;
+            padding: 10px;">
+
+
+            <!-- <div fxLayout="row" fxLayoutAlign="space-between center">
+
+              <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto">
+                <div class="card" style="margin:5px;height: 50px;">
+
+                  <h2 class="title m-3">{{this.languageMap['Adres Bilgileri'].labelName}}</h2>
+                  <span fxFlex></span>
+                </div>
+              </div>
+            </div>
+ -->
+
+            <div class="px-gutter py-1" gdColumns="1fr 1fr 1fr 1fr 1fr" gdColumns.xs="1fr" gdGap="16px">
+              <div class="py-1" fxLayout="row" fxLayoutAlign="start center">
+
+
+                <div @fadeInRight>
+
+                  <mat-form-field appearance="outline" style="width: 200px;">
+                    <mat-icon matPrefix>phone</mat-icon>
+                    <mat-label>{{this.languageMap['Telefon'].labelName}}</mat-label>
+                    <input type="tel" formControlName="Phone1" matInput placeholder="02** *******">
+                    <mat-error *ngIf="formContact.get('Phone1').errors">Tel format hatalı</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" style="width: 200px;">
+                    <mat-icon matPrefix>phone</mat-icon>
+                    <mat-label>{{this.languageMap['Telefon-2'].labelName}}</mat-label>
+                    <input type="tel" formControlName="Phone2" matInput placeholder="02** *******">
+                    <mat-error *ngIf="formContact.get('Phone2').errors">Tel format hatalı</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" style="width: 200px;">
+                    <mat-icon matPrefix>smartphone</mat-icon>
+                    <mat-label>{{this.languageMap['Mobil'].labelName}}</mat-label>
+                    <input type="tel" formControlName="MobilePhone" matInput placeholder="05** *******">
+                    <mat-error *ngIf="formContact.get('MobilePhone').errors">Mobil format hatalı</mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" style="width: 300px;">
+                    <mat-icon matPrefix>mail</mat-icon>
+                    <mat-label>{{this.languageMap['Email'].labelName}}</mat-label>
+                    <input type="email" formControlName="Email" matInput placeholder="Ex. pat@example.com">
+                    <mat-error *ngIf="formContact.get('Email').errors">Mail format hatalı</mat-error>
+                  </mat-form-field>
+
+
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class="px-gutter py-1" gdColumns="1fr" gdColumns.xs="1fr" gdGap="16px" style="margin-top: -40px;">
+
+              <div class="py-1" fxLayout="row" fxLayoutAlign="start center">
+
+                <div @fadeInRight style="width: 100%; margin-top: 15px;">
+                  <mat-form-field appearance="outline" style="width: 50%;">
+                    <mat-icon matPrefix>location_on</mat-icon>
+
+                    <mat-label>{{this.languageMap['Adres'].labelName}}</mat-label>
+                    <input type="text" formControlName="Address" matInput>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" style="width: 50%;">
+                    <mat-icon matPrefix>location_on</mat-icon>
+
+                    <mat-label>{{this.languageMap['İl'].labelName}}</mat-label>
+                    <input type="text" formControlName="Province" matInput>
+                  </mat-form-field>
+
+
+                  <mat-form-field appearance="outline">
+                    <mat-icon matPrefix>flag</mat-icon>
+
+                    <mat-label>{{this.languageMap['Ülke'].labelName}}</mat-label>
+                    <!-- <input type="text"  formControlName="Nationality" matInput> -->
+
+                    <mat-select style="width: 100%;" formControlName="Country">
+                      <mat-option *ngFor="let services of workingTypesCountry" [value]="services.kodu">
+                        {{services.adi}}
+                      </mat-option>
+                    </mat-select>
+
+                  </mat-form-field>
+
+                  <mat-form-field appearance="outline" style="width: 50%;">
+
+                    <mat-icon matPrefix>local_post_office</mat-icon>
+                    <mat-label>{{this.languageMap['Posta Kodu'].labelName}}</mat-label>
+                    <input type="text" formControlName="PostCode" matInput>
+                  </mat-form-field>
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+
+        </div>
+
+
+
+      </form>
+
+    </div>
+
+
+    <div label="Arşiv" *ngIf="this.activeLinkIndex===5" style=" width: 100%; overflow: hidden; ">
+
+      <div fxFlex="calc(50% - 12px)" fxFlex.lt-md="auto">
+
+        <div class="card" style=" height: 660px;  ">
+
+
+          <mat-dialog-content fxLayout="row">
+
+            <mat-form-field appearance="outline" style="width: 100%;">
+              <input matInput (keyup)="applyFilter($event.target.value)"
+                placeholder="{{this.languageMap['Filtre'].labelName}}">
+            </mat-form-field>
+
+          </mat-dialog-content>
+
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div class="app-table-wrapper" style=" margin: auto;
+            width: 90%; padding: 5px;overflow-y:auto; height: 600px;">
+
+              <mat-table [dataSource]="dataSourceArv" class="mat-elevation-z8">
+
+                <ng-container *ngFor="let column of columnsArv">
+
+
+                  <ng-container *ngIf="column.field=='Type'  " matColumnDef="{{ column.field }}">
+                    <mat-header-cell *matHeaderCellDef>{{ column.columnName }}
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row">{{ this.languageMap[row[column.field]].labelName }}</mat-cell>
+                  </ng-container>
+
+
+                  <ng-container
+                    *ngIf="column.field=='ID' || column.field=='EmployeeID' || column.field=='NewValue' || column.field=='ReasonID' "
+                    matColumnDef="{{ column.field }}">
+                    <mat-header-cell [hidden]="column.field=='ID' || column.field=='EmployeeID'" *matHeaderCellDef>
+                      {{ column.columnName }}
+                    </mat-header-cell>
+                    <mat-cell [hidden]=" column.field=='ID' ||   column.field=='EmployeeID'" *matCellDef="let row">
+                      {{ row[column.field] }}</mat-cell>
+                  </ng-container>
+
+
+                  <ng-container
+                    *ngIf="column.field=='StartDate' || column.field=='BeginDate' || column.field=='LeaveDate'"
+                    matColumnDef="{{ column.field }}">
+                    <mat-header-cell
+                      [hidden]="isMobileLayout && (column.field=='StartDate' || column.field=='BeginDate' || column.field=='LeaveDate')"
+                      *matHeaderCellDef>{{ column.columnName }}
+                    </mat-header-cell>
+                    <mat-cell
+                      [hidden]="isMobileLayout && (column.field=='StartDate' || column.field=='BeginDate' || column.field=='LeaveDate')"
+                      *matCellDef="let row">
+
+                      <!-- [matDatepicker]="datepickerRef"  -->
+                      <span>{{row[column.field] | date : "dd.MM.y"}}</span>
+                      <!-- <span><input readonly format="DD/MM/YYYY" matInput
+                          [value]="row[column.field]"></span> -->
+                    </mat-cell>
+
+
+
+                  </ng-container>
+
+
+
+                </ng-container>
+
+                <mat-header-row mat-header-row *matHeaderRowDef="displayedColumnsArv;sticky: true"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumnsArv;"
+                  [ngClass]="{'selected': arvGroupSelection.isSelected(row)}" style="min-height: 30px;"
+                  (click)="arvGroupMasterToggle(row)">
+                </mat-row>
+
+                <ng-container matColumnDef="groupHeader">
+                  <mat-cell colspan="999" *matCellDef="let group">
+                    {{this.languageMap['Tip'].labelName}} :
+                    {{this.languageMap[group[groupByColumnsArv[group.level-1]]].labelName}}
+
+                  </mat-cell>
+                </ng-container>
+                <mat-row *matRowDef="let row; columns: ['groupHeader']; when: isGroup;" class="class-mat-tab-link"
+                  style=" min-height: 30px;"> </mat-row>
+
+              </mat-table>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

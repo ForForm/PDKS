@@ -1,0 +1,154 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+  // height: 5px;
+}
+
+ 
+.my-dialog-container-class{
+  height: 100%;
+}
+
+::ng-deep .mat-menu-content {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+}
+
+.mat-menu-item{
+  line-height:35px;
+  height:35px;
+}
+ 
+ 
+.user-photo__btn {
+  opacity: 0.8;
+  margin: 3px;  
+ 
+}
+
+.opened {
+  background: darkcyan;
+  color: white;
+  opacity: 1;
+}
+
+
+.highlight{
+  font-weight:bolder;
+  @apply bg-primary text-primary-contrast ;
+   filter: brightness(1.75);
+ }
+
+
+.mat-header-row {
+  width: 100%;
+  min-height: 10px;
+  height: 10px;
+  padding: 0px 0px 0px 4px;
+}
+
+.mat-row, .mat-footer-row {
+  width: 100%;
+  min-height: 10px;
+  height: 10px;
+  padding: 0px 0px 0px 4px;
+}
+
+
+
+
+.class-mat-tab-link
+{
+  @apply bg-primary text-primary-contrast;
+  
+}
+
+.mat-header-row {
+  height: 0px;
+  padding: 0px;
+  justify-content: left;
+  text-align: left; 
+  
+}
+
+.mat-header-cell {
+  font-size: 10px;
+}
+
+// .mat-header-cell {
+//   height: 0px;
+//   padding: 0px;
+//   justify-content: left;
+//   font-weight: bolder;
+//   font-size: 10px;
+//   text-align: left;
+// }
+
+ 
+ 
+ 
+.mat-form-field-appearance-outline .mat-form-field-wrapper {
+  margin: unset;
+}
+
+ 
+.mat-dialog-content {
+  overflow: hidden;
+  padding-right: 0px;
+  padding-left: 0px;
+  max-height: none;
+
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.mat-icon {
+  font-size: 28px;
+}
+ 
+
+tr.mat-footer-row,
+tr.mat-row {
+  height: 8px !important;
+  padding: 0px;
+}
+
+.mat-form-field {
+  width: 50%;
+  font-size: 10px;
+  margin-top: 5px;
+}
+
+
+
+.my-form-field {
+  // width: 50%;
+  font-size: 10px;
+  margin-bottom: -10px;
+  padding: 0px;
+}
+ 
+
+.mat-icon-button{
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.mat-cell {
+  font-size: 10px;
+  justify-content: left;
+  text-align: left;
+}
+
+.mat-toolbar-multiple-rows {
+  min-height: 10px;
+}
+
+
+tr.mat-footer-row {
+  
+  font-weight: bold;
+  padding: 0em 0em 0em 0em !important;
+  height: 25px !important;
+}

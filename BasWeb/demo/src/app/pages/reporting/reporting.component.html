@@ -1,0 +1,590 @@
+<vex-secondary-toolbar *ngIf="!isMobileLayout" [current]="this.languageMap['Raporlama'].labelName">
+  <vex-breadcrumbs [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+</vex-secondary-toolbar>
+
+
+<vex-page-layout>
+
+  <div div fxLayout="row" style=" height:85vh" [ngStyle]="{'margin-top': isMobileLayout?'30px ':'0px'}">
+
+    <as-split direction="horizontal" (gutterClick)="minSplit1($event)" [gutterSize]="isMobileLayout?30:5">
+      <as-split-area [size]="dsize11" style="overflow:hidden;">
+
+        <div @fadeInUp style="width:15%; font-size: 11px; " class="card" fxFlex="auto">
+
+          <!-- f2f3f7 -->
+          <!-- [ngStyle]="{'background-color':this.styleService.style$.source.value=='vex-style-default'? '#f2f3f7': (
+              this.styleService.style$.source.value=='vex-style-dark'?'black':'white')}" -->
+          <div fxLayout="column" style="height: 100%; overflow-y: scroll;overflow-x: scroll">
+
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+              <!-- [ngClass]="[activeNode === node ?'background-highlight':(this.styleService.style$.source.value=='vex-style-dark'?'background-dark':'background-normal')]" -->
+              <!-- (click)="activeNode = node" -->
+              <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle 
+                style="width: 100%; padding-left: 8px;">
+                <!-- [ngStyle]="{'background-color':this.styleService.style$.source.value=='vex-style-default'? '#f2f3f7': (
+                  this.styleService.style$.source.value=='vex-style-dark'?'black':'white')}" -->
+
+                <button mat-button style="font-size: 13px; font-weight: lighter; width: 95%;"
+                  (click)="reportClick(node.name)">
+                  {{node.name}}
+
+                </button>
+              </mat-tree-node>
+              <!-- This is the tree node template for expandable nodes -->
+              <!-- [ngStyle]="{'background-color':this.styleService.style$.source.value=='vex-style-default'? '#f2f3f7': (
+                  this.styleService.style$.source.value=='vex-style-dark'?'black':'white')}" -->
+              <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild">
+                <div class="mat-tree-node">
+
+                  <button mat-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name"
+                    (click)="extendMenu(node)" style="font-size: 13px; font-weight:normal;  width: 100%;">
+                    <mat-icon [icIcon]="icReport"></mat-icon>
+
+                    &nbsp;
+                    {{node.name}}
+                    &nbsp;
+                  </button>
+                </div>
+                <div [class.example-tree-invisible]="!treeControl.isExpanded(node)" role="group">
+                  <ng-container matTreeNodeOutlet></ng-container>
+                </div>
+              </mat-nested-tree-node>
+            </mat-tree>
+
+          </div>
+
+        </div>
+
+      </as-split-area>
+      <as-split-area [size]="dsize12" style="overflow:hidden;">
+
+
+        <div @fadeInUp style="width: 85%;" class="card" fxFlex="auto">
+
+          <mat-dialog-content fxLayout="row">
+            <nav mat-tab-nav-bar class="class-mat-tab-link"  style="width: 100%;  ">
+              <a mat-tab-link *ngFor="let link of links" (click)="gotoTab(link)" style="font-size: 12px; height: 40px;"
+                [ngStyle]="{ 'color': link.Index===this.activeLinkIndex?'white':'black'}" class="class-mat-tab-link">
+                {{ this.languageMap[link.name].labelName }}
+              </a>
+
+            </nav>
+          </mat-dialog-content>
+          <form [formGroup]="form">
+
+            <div [hidden]="this.activeLinkIndex===1"
+              [ngClass]="this.subFooter?'mat-dialog-content_sub2':'mat-dialog-content_max2'">
+
+              <mat-dialog-content fxLayout="row">
+
+                <button mat-raised-button color="primary"  (click)="addDef()"
+                  style="width: 120px;height: 35px; margin-left: 20px;margin-top: 10px; font-size: 12px;">
+                  <mat-icon style="margin-left: -15px; padding-top: 0px; ">add</mat-icon>
+                  {{this.languageMap['Yeni Kayıt'].labelName}}
+                </button>
+
+                <span fxFlex></span>
+
+                <span fxFlex></span>
+
+
+
+                <button mat-raised-button color="primary" (click)="saveDef()" style="margin-right: 3px; width: 90px;">
+                  <span>{{
+                    this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+                <button (click)="openDeleteRefDialog(this.form.value.DefId)" style="font-size: 15px;" type="button">
+                  <ic-icon [icon]="icDeleteForever" class="ltr:mr-3 rtl:ml-3" inline="true" size="32px"></ic-icon>
+
+
+                </button>
+
+
+
+              </mat-dialog-content>
+
+              <mat-dialog-content fxLayout="row" style="margin: 0px;  overflow:hidden ">
+
+                <div div fxLayout="row" style="width: 100%;">
+                  <as-split direction="horizontal" (gutterClick)="minSplit2($event)"
+                    [gutterSize]="isMobileLayout?30:5">
+                    <as-split-area [size]="dsize21" style="overflow:hidden;">
+                      <div fxFlex.lt-md="auto" class="card" style=" width: 100%; margin: 1vh 1vh 1vh 1vh;">
+
+                        <div [hidden]="!NewRecord">
+                          <mat-dialog-content fxLayout="row">
+
+                            <mat-form-field style="  font-size: 11px;" appearance="outline">
+                              <mat-label>Rapor Tanımı Adı</mat-label>
+                              <input matInput formControlName="DefName">
+
+                            </mat-form-field>
+
+                            <input hidden matInput formControlName="DefId">
+                            <span fxFlex></span>
+
+                          </mat-dialog-content>
+                        </div>
+
+                        <div [hidden]="NewRecord">
+                          <mat-dialog-content fxLayout="row">
+
+                            <mat-form-field style="font-size: 11px;" appearance="outline" class="whitesmoke">
+                              <mat-label>{{this.languageMap['Rapor Tanım Adı'].labelName}}</mat-label>
+                              <mat-select value="-1"
+                                (selectionChange)="getReportingDef(this.form.value.ReportName ,$event.value);">
+                                <mat-option *ngFor="let item of this.ReportDefList" [value]="item.ID">
+                                  {{ item.Name }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field class="whitesmoke" style="  font-size: 11px;" appearance="outline">
+                              <mat-label>SP</mat-label>
+                              <input readonly matInput formControlName="SpName">
+
+                            </mat-form-field>
+
+                            <span fxFlex></span>
+
+                          </mat-dialog-content>
+                        </div>
+
+                        <ng-container *ngFor="let column of filterList">
+
+                          <mat-dialog-content fxLayout="row">
+
+
+                            <ng-container *ngIf="(column.ParamName !== '@ReportDefinitionID' && column.ParamName !== '@ReturnCode' && column.ParamName !== '@CompanyId' && column.ParamName !== '@Username')
+              && (column.Type==='nvarchar' ||  column.Type==='varchar' )">
+                              <mat-form-field style=" font-size: 10px;" appearance="outline">
+                                <mat-label>{{column.ParamName}}</mat-label>
+                                <input style="width: 80px;" matInput (change)="handleChange(column.ParamName,  $event)"
+                                  value="{{column.ParamValue}}">
+
+                                <!-- [formControlName]="column.ParamName"  -->
+                              </mat-form-field>
+
+                            </ng-container>
+
+                            <ng-container *ngIf="(column.ParamName !== '@ReportDefinitionID' && column.ParamName !== '@ReturnCode' && column.ParamName !== '@CompanyId' && column.ParamName !== '@Username')
+            && (column.Type==='datetime' )">
+                              <mat-form-field style="font-size: 10px;" appearance="outline">
+                                <mat-label>{{column.ParamName}}</mat-label>
+                                <input matInput [matDatepicker]="picker"
+                                  (dateChange)="handleChangeDate(column.ParamName,$event)"
+                                  value="{{column.ParamValue}}">
+                                <mat-datepicker-toggle matSuffix [for]="picker">
+                                  <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                                </mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+
+                              </mat-form-field>
+
+                            </ng-container>
+
+
+                            <ng-container *ngIf="(column.ParamName !== '@ReportDefinitionID' && column.ParamName !== '@ReturnCode' && column.ParamName !== '@CompanyId' && column.ParamName !== '@Username')
+          && (column.Type==='decimal' ||  column.Type==='int')">
+                              <mat-form-field style="  font-size: 10px;" appearance="outline">
+                                <mat-label>{{column.ParamName}}</mat-label>
+
+                                <input matInput type="number" (change)="handleChange(column.ParamName,  $event)"
+                                  value="{{column.ParamValue}}">
+                              </mat-form-field>
+
+                            </ng-container>
+
+
+                          </mat-dialog-content>
+
+
+
+                        </ng-container>
+
+                      </div>
+
+                    </as-split-area>
+
+                    <as-split-area [size]="dsize22" style="overflow:hidden;">
+
+                      <div fxFlex.lt-md="auto" class="card" style="margin: 1vh 1vh 1vh 1vh;"
+                        [ngStyle]="{'width': isMobileLayout?'100px ':''}">
+
+
+                        <mat-dialog-content fxLayout="row">
+                          <span fxFlex></span>
+
+                          <span fxFlex></span>
+
+
+
+                        </mat-dialog-content>
+
+
+                        <div style="height: 68vh; overflow-y: scroll; overflow-x: hidden;">
+
+                          <mat-dialog-content fxLayout="row">
+
+
+                            <mat-form-field appearance="outline">
+                              <mat-label>{{this.languageMap['Tarih'].labelName}}</mat-label>
+                              <input format="DD/MM/YYYY" formControlName="StartDate"
+                                [matDatepicker]="datepickerStartDate" matInput>
+                              <mat-datepicker-toggle [for]="datepickerStartDate" matSuffix></mat-datepicker-toggle>
+                              <mat-datepicker #datepickerStartDate></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline">
+                              <mat-label>{{this.languageMap['Tarih'].labelName}}</mat-label>
+                              <input format="DD/MM/YYYY" formControlName="EndDate" [matDatepicker]="datepickerEndDate"
+                                matInput>
+                              <mat-datepicker-toggle [for]="datepickerEndDate" matSuffix></mat-datepicker-toggle>
+                              <mat-datepicker #datepickerEndDate></mat-datepicker>
+                            </mat-form-field>
+
+                          </mat-dialog-content>
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[0]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['SicilNo'].labelName}}</mat-label>
+                              <input formControlName="Emp1" matInput>
+
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('0',1)" inline="true" matSuffix>
+                              </mat-icon>
+
+                            </mat-form-field>
+
+
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[0]">
+                              <mat-label>{{this.languageMap['SicilNo'].labelName}}</mat-label>
+                              <input formControlName="Emp2" [value]="!(this.FilteroObjEnableArray[0])?'':null" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('0',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+                          </mat-dialog-content>
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[3]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Personel Tipi'].labelName}}</mat-label>
+                              <input formControlName="EmpType1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('3',1)" inline="true" matSuffix>
+                              </mat-icon>
+
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[3]">
+                              <mat-label>{{this.languageMap['Personel Tipi'].labelName}}</mat-label>
+                              <input formControlName="EmpType2" [value]="!(this.FilteroObjEnableArray[3])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('3',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+                          </mat-dialog-content>
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[1]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Departman'].labelName}}</mat-label>
+                              <input formControlName="Depart1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('1',1)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[1]">
+                              <mat-label>{{this.languageMap['Departman'].labelName}}</mat-label>
+                              <input formControlName="Depart2" [value]="!(this.FilteroObjEnableArray[1])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('1',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                          </mat-dialog-content>
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[4]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Masraf Tipi'].labelName}}</mat-label>
+                              <input formControlName="Cost1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('4',1)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[4]">
+                              <mat-label>{{this.languageMap['Masraf Tipi'].labelName}}</mat-label>
+                              <input formControlName="Cost2" [value]="!(this.FilteroObjEnableArray[4])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('4',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                          </mat-dialog-content>
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[5]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Kadro Tipi'].labelName}}</mat-label>
+                              <input formControlName="Cadre1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('5',1)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[5]">
+                              <mat-label>{{this.languageMap['Kadro Tipi'].labelName}}</mat-label>
+                              <input formControlName="Cadre2" [value]="!(this.FilteroObjEnableArray[5])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('5',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+                          </mat-dialog-content>
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[6]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Meslek Tipi'].labelName}}</mat-label>
+                              <input formControlName="Prof1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('6',1)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[6]">
+                              <mat-label>{{this.languageMap['Meslek Tipi'].labelName}}</mat-label>
+                              <input formControlName="Prof2" [value]="!(this.FilteroObjEnableArray[6])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('6',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+                          </mat-dialog-content>
+
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[7]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Gorev Tipi'].labelName}}</mat-label>
+                              <input formControlName="Task1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('7',1)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[7]">
+                              <mat-label>{{this.languageMap['Gorev Tipi'].labelName}}</mat-label>
+                              <input formControlName="Task2" [value]="!(this.FilteroObjEnableArray[7])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('7',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                          </mat-dialog-content>
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[8]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Grup Tipi'].labelName}}</mat-label>
+                              <input formControlName="Group1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('8',1)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[8]">
+                              <mat-label>{{this.languageMap['Grup Tipi'].labelName}}</mat-label>
+                              <input formControlName="Group2" [value]="!(this.FilteroObjEnableArray[8])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('8',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                          </mat-dialog-content>
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[9]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Birim Tipi'].labelName}}</mat-label>
+                              <input formControlName="Unit1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('9',1)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[9]">
+                              <mat-label>{{this.languageMap['Birim Tipi'].labelName}}</mat-label>
+                              <input formControlName="Unit2" [value]="!(this.FilteroObjEnableArray[9])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('9',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+                          </mat-dialog-content>
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[10]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Şube Tipi'].labelName}}</mat-label>
+                              <input formControlName="Branch1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('10',1)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[10]">
+                              <mat-label>{{this.languageMap['Şube Tipi'].labelName}}</mat-label>
+                              <input formControlName="Branch2" [value]="!(this.FilteroObjEnableArray[10])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('10',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+                          </mat-dialog-content>
+
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+                            <mat-form-field appearance="outline"
+                              [ngStyle]="{width: this.FilteroObjEnableArray[11]?'50%':'100%'}">
+                              <mat-label>{{this.languageMap['Servis Tipi'].labelName}}</mat-label>
+                              <input formControlName="Service1" matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('11',1)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" *ngIf="this.FilteroObjEnableArray[11]">
+                              <mat-label>{{this.languageMap['Servis Tipi'].labelName}}</mat-label>
+                              <input formControlName="Service2" [value]="!(this.FilteroObjEnableArray[11])?'':null"
+                                matInput>
+                              <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('11',2)" inline="true" matSuffix>
+                              </mat-icon>
+                            </mat-form-field>
+
+                          </mat-dialog-content>
+
+
+                          <mat-dialog-content fxLayout="row" style="margin-top: -20px;">
+
+
+                            <mat-form-field appearance="outline">
+                              <mat-label>{{this.languageMap['Gömlek Yaka'].labelName}}</mat-label>
+                              <mat-select style="width: 100%;" formControlName="Collar1">
+                                <mat-option *ngFor="let item of this.Collarcolors" [value]="item.Code">
+                                  {{ item.Name }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+
+
+                            <span fxFlex></span>
+
+                            <mat-form-field appearance="outline">
+                              <mat-label>{{this.languageMap['Gömlek Yaka'].labelName}}</mat-label>
+                              <mat-select style="width: 100%;" formControlName="Collar2">
+                                <mat-option *ngFor="let item of this.Collarcolors" [value]="item.Code">
+                                  {{ item.Name }}
+                                </mat-option>
+                              </mat-select>
+                            </mat-form-field>
+
+                          </mat-dialog-content>
+
+                        </div>
+
+
+                      </div>
+
+                    </as-split-area>
+                  </as-split>
+                </div>
+              </mat-dialog-content>
+
+
+
+            </div>
+
+          </form>
+
+
+          <div [hidden]="this.activeLinkIndex===0">
+            <mat-dialog-content fxLayout="row">
+
+
+              <mat-form-field style="bottom: 12px; font-size: 12px; margin-left: 10px !important; "
+                appearance="standard">
+                <input matInput (keyup)="applyFilter($event.target.value)"
+                  placeholder="{{this.languageMap['Filtre'].labelName}}">
+              </mat-form-field>
+
+
+
+              <span fxFlex></span>
+
+
+              <mat-paginator #usrPaginator class="whitesmoke2" [hidePageSize]="true"
+                style="height: 50px; " [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator>
+
+
+
+              <button *ngIf="filterList.length>0" (click)="execReport()" mat-button style="margin-bottom: 15px;">
+                <mat-icon class="mat-icon1" style="font-size: 24px;">refresh</mat-icon>
+              </button>
+
+              <button *ngIf="filterList.length>0" (click)="exporter.exportTable('xlsx',{fileName:reportName})"
+                mat-button style="margin-bottom: 15px;" matTooltip="{{this.languageMap['Excel'].labelName}}">
+                <mat-icon [icIcon]="icExcel"></mat-icon>
+              </button>
+
+
+              &nbsp;
+
+              &nbsp;
+
+
+            </mat-dialog-content>
+
+            <mat-dialog-content fxLayout="row" style="overflow-y:scroll; margin:0px;"
+              [ngClass]="this.subFooter?'mat-dialog-content_sub':'mat-dialog-content_max'">
+
+              <table @stagger matTableExporter #exporter="matTableExporter" [dataSource]="dataSourceGrid" class="w-full"
+                mat-table matSort>
+
+                <ng-container *ngFor="let column of columnsArray">
+
+                  <ng-container [matColumnDef]="column.property">
+                    <th *matHeaderCellDef mat-header-cell mat-sort-header
+                      [hidden]="this.columns.indexOf(column.property)=== -1"> {{ column.label }}
+                      &nbsp;
+                      <mat-checkbox [checked]="true" color="primary" (change)="columnCheck(column.property,$event)">
+                      </mat-checkbox>
+                    </th>
+                    <td *matCellDef="let row" mat-cell [hidden]="columns.indexOf(column.property)=== -1">
+                      {{ row[column.property] }}</td>
+                  </ng-container>
+
+                </ng-container>
+
+
+
+
+                <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+                <tr (click)="selectRow(row)" *matRowDef="let row; columns: columns;" @fadeInUp
+                  class="hover:bg-hover cursor-pointer" style="max-height: 120px;" mat-row></tr>
+              </table>
+
+            </mat-dialog-content>
+          </div>
+
+
+        </div>
+
+      </as-split-area>
+    </as-split>
+  </div>
+
+
+
+
+</vex-page-layout>

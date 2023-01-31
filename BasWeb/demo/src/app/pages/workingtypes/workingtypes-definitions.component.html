@@ -1,0 +1,176 @@
+<div div fxLayout="row" fxLayoutAlign=" center">
+
+  <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto" style="padding: 0px; height: 700px; overflow: hidden;">
+
+    <div class="card" style="padding:0px; height: 700px;">
+
+
+      <div mat-dialog-title class="px-gutter py-1 border-b" style="background-color: #D2D2DB; color:black" cdkDrag
+        cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+
+
+          <h2 class="title m-0">{{this.languageMap['Çalışma Türü Tanımları'].labelName}}</h2>
+          <span fxFlex></span>
+
+
+          <button mat-button style="width: 90px;" (click)="closeDialog()"> <span>{{
+              this.languageMap['Çıkış'].labelName.toUpperCase() }}</span> </button>
+
+          &nbsp;&nbsp;&nbsp;
+
+          <button mat-raised-button color="primary" style="width: 90px" [disabled]="!(this.saveEnabled)"
+            (click)="save()"> <span>{{
+              this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+        </div>
+      </div>
+
+
+
+      <mat-tab-group style="width: 100%; " class="class-mat-tab-link" [(selectedIndex)]="this.selectedIndex"
+        [ngStyle]="{'backgroundColor':this.backgroundColor}" (selectedTabChange)="onTabChanged($event);">
+        <mat-tab *ngIf="( 0==this.selectedIndex)">
+
+          <ng-template mat-tab-label>
+            <span
+              [ngStyle]="{'color': (0===this.selectedIndex)?'white':'black'}">{{this.languageMap['Normal'].labelName}}</span>
+          </ng-template>
+
+          <vex-workingtypes-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(0==this.selectedIndex)"
+            [formOnay]="true" (tabChanged)="tabChanged($event)" [tab]="(this.selectedIndex)"
+            [roundingHours]="this.roundingHours" [roundingDays]="this.roundingDays" [saveClick]="(this.saveClick)"
+            (changeDetectEvent)="changeDetectEvent($event)" [workingTypesType]="this.workingTypesType"
+            [workingDistTypes]="this.workingDistTypes"
+            [screenName]="this.languageMap['Normal'].labelName+' '+this.languageMap['Çalışma Türü Tanımları'].labelName">
+          </vex-workingtypes-definitions-item>
+        </mat-tab>
+        <!-- (!this.defaults.update || (this.defaults.update && 1==this.selectedIndex)) -->
+        <mat-tab *ngIf="(1==this.selectedIndex)">
+          <ng-template mat-tab-label>
+            <span
+              [ngStyle]="{'color': (1===this.selectedIndex)?'white':'black'}">{{this.languageMap['Devamsız'].labelName}}</span>
+          </ng-template>
+
+          <vex-workingtypes-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(1==this.selectedIndex)"
+            [formOnay]="true" (tabChanged)="tabChanged($event)" [tab]="(this.selectedIndex)"
+            [roundingHours]="this.roundingHours" [roundingDays]="this.roundingDays" [saveClick]="(this.saveClick)"
+            (changeDetectEvent)="changeDetectEvent($event)" [workingTypesType]="this.workingTypesType"
+            [workingDistTypes]="this.workingDistTypes"
+            [screenName]="this.languageMap['Devamsız'].labelName+' '+this.languageMap['Çalışma Türü Tanımları'].labelName">
+          </vex-workingtypes-definitions-item>
+        </mat-tab>
+
+        <mat-tab *ngIf="(2==this.selectedIndex)">
+
+          <ng-template mat-tab-label>
+            <span
+              [ngStyle]="{'color': (2===this.selectedIndex)?'white':'black'}">{{this.languageMap['İzin'].labelName}}</span>
+          </ng-template>
+
+          <vex-workingtypes-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(2==this.selectedIndex)"
+            [formOnay]="true" (tabChanged)="tabChanged($event)" [tab]="(this.selectedIndex)"
+            [roundingHours]="this.roundingHours" [roundingDays]="this.roundingDays" [saveClick]="(this.saveClick)"
+            (changeDetectEvent)="changeDetectEvent($event)" [workingTypesType]="this.workingTypesType"
+            [workingDistTypes]="this.workingDistTypes"
+            [screenName]="this.languageMap['İzin'].labelName+' '+this.languageMap['Çalışma Türü Tanımları'].labelName">
+          </vex-workingtypes-definitions-item>
+        </mat-tab>
+
+        <mat-tab *ngIf="( 3==this.selectedIndex)">
+
+          <ng-template mat-tab-label>
+            <span
+              [ngStyle]="{'color': (3===this.selectedIndex)?'white':'black'}">{{this.languageMap['Mesai'].labelName}}</span>
+          </ng-template>
+
+          <vex-workingtypes-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(3==this.selectedIndex)"
+            [formOnay]="true" (tabChanged)="tabChanged($event)" [tab]="(this.selectedIndex)"
+            [roundingHours]="this.roundingHours" [roundingDays]="this.roundingDays" [saveClick]="(this.saveClick)"
+            (changeDetectEvent)="changeDetectEvent($event)" [workingTypesType]="this.workingTypesType"
+            [workingDistTypes]="this.workingDistTypes"
+            [screenName]="this.languageMap['Mesai'].labelName+' '+this.languageMap['Çalışma Türü Tanımları'].labelName">
+          </vex-workingtypes-definitions-item>
+        </mat-tab>
+
+        <mat-tab *ngIf="( 4==this.selectedIndex)">
+
+          <ng-template mat-tab-label>
+            <span
+              [ngStyle]="{'color': (4===this.selectedIndex)?'white':'black'}">{{this.languageMap['Hakediş'].labelName}}</span>
+          </ng-template>
+
+          <vex-workingtypes-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(4==this.selectedIndex)"
+            [formOnay]="true" (tabChanged)="tabChanged($event)" [tab]="(this.selectedIndex)"
+            [roundingHours]="this.roundingHours" [roundingDays]="this.roundingDays" [saveClick]="(this.saveClick)"
+            (changeDetectEvent)="changeDetectEvent($event)" [workingTypesType]="this.workingTypesType"
+            [workingDistTypes]="this.workingDistTypes"
+            [screenName]="this.languageMap['Hakediş'].labelName+' '+this.languageMap['Çalışma Türü Tanımları'].labelName">
+          </vex-workingtypes-definitions-item>
+        </mat-tab>
+
+        <mat-tab *ngIf="( 5==this.selectedIndex)">
+
+          <ng-template mat-tab-label>
+            <span
+              [ngStyle]="{'color': (5===this.selectedIndex)?'white':'black'}">{{this.languageMap['Çalışma'].labelName}}</span>
+          </ng-template>
+
+          <vex-workingtypes-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(5==this.selectedIndex)"
+            [formOnay]="false" (tabChanged)="tabChanged($event)" [tab]="(this.selectedIndex)"
+            [roundingHours]="this.roundingHours" [roundingDays]="this.roundingDays" [saveClick]="(this.saveClick)"
+            (changeDetectEvent)="changeDetectEvent($event)" [workingTypesType]="this.workingTypesType"
+            [workingDistTypes]="this.workingDistTypes"
+            [screenName]="this.languageMap['Çalışma'].labelName+' '+this.languageMap['Çalışma Türü Tanımları'].labelName">
+          </vex-workingtypes-definitions-item>
+        </mat-tab>
+
+        <mat-tab *ngIf="( 6==this.selectedIndex)">
+
+          <ng-template mat-tab-label>
+            <span
+              [ngStyle]="{'color': (6===this.selectedIndex)?'white':'black'}">{{this.languageMap['Zamlı'].labelName}}</span>
+          </ng-template>
+
+          <vex-workingtypes-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(6==this.selectedIndex)"
+            [formOnay]="false" (tabChanged)="tabChanged($event)" [tab]="(this.selectedIndex)"
+            [roundingHours]="this.roundingHours" [roundingDays]="this.roundingDays" [saveClick]="(this.saveClick)"
+            (changeDetectEvent)="changeDetectEvent($event)" [workingTypesType]="this.workingTypesType"
+            [workingDistTypes]="this.workingDistTypes"
+            [screenName]="this.languageMap['Zamlı'].labelName+' '+this.languageMap['Çalışma Türü Tanımları'].labelName">
+          </vex-workingtypes-definitions-item>
+        </mat-tab>
+
+        <mat-tab *ngIf="( 7==this.selectedIndex)">
+
+          <ng-template mat-tab-label>
+            <span
+              [ngStyle]="{'color': (7===this.selectedIndex)?'white':'black'}">{{this.languageMap['Diğer'].labelName}}</span>
+          </ng-template>
+
+          <vex-workingtypes-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(7==this.selectedIndex)"
+            [formOnay]="false" (tabChanged)="tabChanged($event)" [tab]="(this.selectedIndex)"
+            [roundingHours]="this.roundingHours" [roundingDays]="this.roundingDays" [saveClick]="(this.saveClick)"
+            (changeDetectEvent)="changeDetectEvent($event)" [workingTypesType]="this.workingTypesType"
+            [workingDistTypes]="this.workingDistTypes"
+            [screenName]="this.languageMap['Diğer'].labelName+' '+this.languageMap['Çalışma Türü Tanımları'].labelName">
+          </vex-workingtypes-definitions-item>
+        </mat-tab>
+
+      </mat-tab-group>
+
+
+
+    </div>
+  </div>
+</div>

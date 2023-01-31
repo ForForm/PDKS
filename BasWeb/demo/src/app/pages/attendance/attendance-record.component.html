@@ -1,0 +1,139 @@
+<form [formGroup]="form">
+
+
+  <div mat-dialog-title fxLayout="row" fxLayoutAlign="start end" cdkDrag cdkDragRootElement=".cdk-overlay-pane"
+    cdkDragHandle>
+
+    <span fxFlex></span>
+    <button mat-button style="width: 90px;" (click)="closeDialog()"> <span style="color:black;">{{
+        this.languageMap['Çıkış'].labelName.toUpperCase() }}</span> </button>
+
+    <button mat-raised-button color="primary" style="width: 90px;" (click)="addRecord()"
+      [disabled]="!this.saveEnabled"><span>
+        {{
+        this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+  </div>
+
+  <div class="card" style="padding:10px; overflow: hidden; ">
+
+    <mat-dialog-content fxLayout="row">
+
+      <mat-form-field [ngStyle]="{'width': isMobileLayout?'100px':'40%'}">
+        <mat-label>{{this.languageMap['SicilNo'].labelName}}</mat-label>
+        <input readonly formControlName="Code" matInput cdkFocusInitial>
+        <!-- this.mode = "update" -->
+        <mat-icon *ngIf="this.mode !== 'update'"  style="margin-top: -5px;" [icIcon]="icMoreHoriz" inline="true" matSuffix  (click)="openList('0')">
+        </mat-icon>
+      </mat-form-field>
+
+
+      &nbsp;&nbsp;&nbsp;
+      <mat-form-field [ngStyle]="{'width': isMobileLayout?'300px':'60%'}">
+        <mat-label>{{this.languageMap['Adı'].labelName}}</mat-label>
+        <input readonly formControlName="Name" matInput>
+
+      </mat-form-field>
+
+      &nbsp;&nbsp;&nbsp;
+
+    </mat-dialog-content>
+
+    <mat-dialog-content fxLayout="row" style="overflow: hidden;">
+
+
+      <mat-checkbox color="primary" formControlName="In" [ngStyle]="{'margin': isMobileLayout?'none':'10px 0 0 10px'}"
+        [checked]="this.form.value.In"></mat-checkbox>
+      &nbsp;&nbsp;&nbsp;
+      <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'90px':'180px'}">
+        <mat-label>{{this.languageMap['Giriş Tarihi'].labelName}}</mat-label>
+        <input format="DD/MM/YYYY" formControlName="StartDate" [matDatepicker]="datepickerStartDate" [readonly]="!this.form.value.In" matInput>
+        <mat-datepicker-toggle [for]="datepickerStartDate" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #datepickerStartDate [disabled]="!this.form.value.In"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{this.languageMap['Saat'].labelName}}</mat-label>
+        <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="StartTime" [readonly]="!this.form.value.In" matInput>
+
+      </mat-form-field>
+
+      <!-- [disabled]="this.defaults.RecordOrInout === 1 || !this.form.value.In" -->
+      <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'70px':'100px'}">
+        <mat-label>{{this.languageMap['Giriş - Çıkış'].labelName}}</mat-label>
+        <mat-select style="width: 100%;" formControlName="InFlag" >
+          <mat-option *ngFor="let services of this.InOutType" [value]="services.Code">
+            {{services.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'70px':'none'}">
+        <mat-label>{{this.languageMap['Neden Kodu'].labelName}}</mat-label>
+        <mat-select style="width: 100%;" formControlName="InReason" [disabled]="!this.form.value.In">
+          <mat-option *ngFor="let services of this.InOutReason" [value]="services.ID">
+            {{services.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-menu-item *ngIf="this.defaults.Data !== undefined" [disabled]="!this.form.value.In"
+        style="padding: 0px; width: 50px;" (click)="deleteContact(0,this.form.value.IID)">
+        <mat-icon [icIcon]="icDeleteForever"></mat-icon>
+      </button>
+
+
+
+    </mat-dialog-content>
+
+
+    <mat-dialog-content fxLayout="row" *ngIf="this.defaults.RecordOrInout === 1" style="overflow: hidden;">
+
+      <mat-checkbox color="primary" formControlName="Out" [ngStyle]="{'margin': isMobileLayout?'none':'10px 0 0 10px'}"
+        [checked]="this.form.value.Out"></mat-checkbox>
+
+      &nbsp;&nbsp;&nbsp;
+      <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'90px':'180px'}" >
+        <mat-label>{{this.languageMap['Çıkış Tarihi'].labelName}}</mat-label>
+        <input format="DD/MM/YYYY" formControlName="EndDate" [matDatepicker]="datepickerEndDate" matInput [readonly]="!this.form.value.Out">
+        <mat-datepicker-toggle [for]="datepickerEndDate" matSuffix></mat-datepicker-toggle>
+        <mat-datepicker #datepickerEndDate [disabled]="!this.form.value.Out"></mat-datepicker >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{this.languageMap['Saat'].labelName}}</mat-label>
+        <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="EndTime" matInput [readonly]="!this.form.value.Out">
+
+      </mat-form-field>
+
+      <!-- [disabled]="this.defaults.RecordOrInout === 1 || !this.form.value.Out" -->
+      <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'70px':'100px'}">
+        <mat-label>{{this.languageMap['Giriş - Çıkış'].labelName}}</mat-label>
+        <mat-select style="width: 100%;" formControlName="OutFlag" 
+        >
+          <mat-option *ngFor="let services of this.InOutType" [value]="services.Code">
+            {{services.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
+      <mat-form-field appearance="outline" [ngStyle]="{'width': isMobileLayout?'70px':'none'}">
+        <mat-label>{{this.languageMap['Neden Kodu'].labelName}}</mat-label>
+        <mat-select style="width: 100%;" formControlName="OutReason" [disabled]="!this.form.value.Out">
+          <mat-option *ngFor="let services of this.InOutReason" [value]="services.ID">
+            {{services.Name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-menu-item *ngIf="this.defaults.Data !== undefined" [disabled]="!this.form.value.Out"
+        style="padding: 0px; width: 50px;" (click)="deleteContact(1,this.form.value.OID)">
+        <mat-icon [icIcon]="icDeleteForever"></mat-icon>
+      </button>
+
+
+    </mat-dialog-content>
+
+  </div>
+</form>

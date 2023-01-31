@@ -1,0 +1,85 @@
+ 
+
+<div mat-dialog-title class="px-gutter py-1 border-b" style="background-color: #D2D2DB; color:black" cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <span fxFlex></span>
+
+    <button mat-button style="width: 90px;" (click)="closeDialog()"> <span>{{
+        this.languageMap['Çıkış'].labelName.toUpperCase() }}</span> </button>
+    &nbsp;&nbsp;&nbsp;
+
+    <!-- [disabled]="!this.saveEnabled" -->
+    <button mat-raised-button color="primary" style="width: 90px;" (click)="save()" [disabled]="this.form.invalid">
+      <span>{{
+        this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+
+  </div>
+</div>
+
+
+<form [formGroup]="form">
+
+ 
+  <div class="card" style="margin:5px; overflow: hidden; ">
+
+
+    <mat-dialog-content fxLayout="column">
+      <div class="flex flex-col sm:flex-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Kod</mat-label>
+
+          <mat-select style="width: 100%;" formControlName="Code" cdkFocusInitial>
+            <mat-option *ngFor="let services of this.workingTypesCode" [value]="services.kodu">
+              {{services.kodu}} - {{services.adi}}
+            </mat-option>
+          </mat-select>
+
+
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tip</mat-label>
+          <mat-select style="width: 100%;" formControlName="Type">
+            <mat-option *ngFor="let services of this.workingDistTypes" [value]="services.kodu">
+              {{services.adi}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Çarpan</mat-label>
+          <input formControlName="Multiplier" type="number" matInput>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{this.languageMap['Alt Limit'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time"  formControlName="LowerLimit" matInput>
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{this.languageMap['Üst Limit'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time"  formControlName="UpperLimit" matInput>
+
+        </mat-form-field>
+
+
+
+
+
+      </div>
+
+
+    </mat-dialog-content>
+  </div>
+
+ 
+
+</form>

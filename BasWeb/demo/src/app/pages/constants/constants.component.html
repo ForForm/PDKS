@@ -1,0 +1,252 @@
+<vex-page-layout>
+
+  <vex-page-layout-header *ngIf="!isMobileLayout" class="pb-16" fxLayout="column" fxLayoutAlign="center start"
+    style="  margin-bottom: -75px;">
+    <div [class.container]="layoutCtrl.value === 'boxed'" [class.px-gutter]="layoutCtrl.value === 'fullwidth'"
+      class="w-full flex flex-col sm:flex-row justify-between">
+
+      <div>
+        <h1 class="title mt-0 mb-1">{{this.languageMap[this.labelScreen].labelName}}</h1>
+        <vex-breadcrumbs class="breadcrumb" [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+      </div>
+
+
+
+      <mat-button-toggle-group [formControl]="layoutCtrl" class="mt-4 sm:mt-0">
+        <mat-button-toggle value="boxed" (click)="resize('boxed')">{{this.languageMap['Ortala'].labelName}}
+        </mat-button-toggle>
+        <mat-button-toggle value="fullwidth" (click)="resize('fullwidth')">{{this.languageMap['Tam Ekran'].labelName}}
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+  </vex-page-layout-header>
+
+  <form [formGroup]="form">
+
+    <vex-page-layout-content [class.container]="layoutCtrl.value === 'boxed'"
+      [class.px-gutter]="layoutCtrl.value === 'fullwidth'" class="-mt-6"
+      [ngStyle]="{'width': (layoutCtrl.value === 'fullwidth')?'100%':'80%'}">
+
+
+      <div class="card" style="width: 100%;" [ngStyle]="{'margin-top': isMobileLayout?'30px ':'0px'}">
+
+        <div class="px-gutter py-4 border-b" style="height: 50px;">
+
+          <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: -10px; ">
+
+
+
+            <button mat-raised-button color="primary" *ngIf="this.pageauth.write"
+              style=" width: 120px; height: 35px; font-size: 12px;" (click)="add()">
+              <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+              {{this.languageMap['Yeni Kayıt'].labelName}}
+            </button>
+
+            <span fxFlex></span>
+
+
+            <button mat-raised-button color="primary" (click)="save()" *ngIf="this.pageauth.update"
+              style="margin-right: 3px; width: 90px;" [disabled]="this.form.invalid">
+              <span>{{
+                this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+          </div>
+        </div>
+
+        <div style="padding: 10px;">
+
+          <div fxLayout="row" fxLayoutAlign="space-between center" style="margin-top: -5x;"   class="class-mat-tab-link">
+
+            <mat-form-field   *ngIf="(this.type == 'holiday')" style=" width: 175px; margin-left: 5px;">
+              <mat-label>{{this.languageMap['Yıl'].labelName}}</mat-label>
+              <mat-select style="width: 100%;" formControlName="Year"  (selectionChange)="getPublicHoliday(null,$event.value)">
+              <mat-option *ngFor="let services of years" [value]="services.kodu">
+                {{services.adi}}
+              </mat-option>
+            </mat-select>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline" style="width: 180px;" *ngIf="(this.type == 'holiday')">
+
+            <mat-label>{{this.languageMap['Tarih'].labelName}}</mat-label>
+            <input format="DD/MM/YYYY" formControlName="Date" [matDatepicker]="datepickerD" matInput>
+            <mat-datepicker-toggle [for]="datepickerD" matSuffix></mat-datepicker-toggle>
+            <mat-datepicker #datepickerD></mat-datepicker>
+          </mat-form-field>
+
+          {{this.type == 'holiday'?'&nbsp;&nbsp;':''}}
+
+          <mat-form-field appearance="outline" *ngIf="(this.type == 'holiday')" style="width: 80px;">
+            <mat-label>{{this.languageMap['Gün'].labelName}}</mat-label>
+            <input formControlName="Day" type="number" matInput>
+          </mat-form-field>
+
+          {{this.type == 'holiday'?'&nbsp;&nbsp;':''}}
+
+          <mat-form-field appearance="outline" style="width: 200px;"
+            *ngIf="(this.type == 'defaults' || this.type == 'holiday')">
+            <mat-label>{{this.languageMap['Tip'].labelName}}</mat-label>
+            <mat-select style="width: 100%;" formControlName="Type"
+              (selectionChange)="this.type!=='holiday'?getConstantsGroupsDetails($event.value):null">
+              <mat-option *ngFor="let services of constantGroups" [value]="services.kodu">
+                {{services.adi}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+
+          {{this.type == 'holiday' || this.type == 'defaults' ?'&nbsp;&nbsp;':''}}
+
+          <mat-form-field appearance="outline" style="width: 30%;" *ngIf="(this.type !== 'holiday')">
+            <mat-label>{{this.languageMap['Kod'].labelName}}</mat-label>
+            <input cdkFocusInitial formControlName="Code" matInput>
+          </mat-form-field>
+
+          &nbsp;&nbsp;
+
+          <mat-form-field appearance="outline" style="width: 40%;" *ngIf="(this.type !== 'holiday')">
+            <mat-label>{{this.languageMap['Adı'].labelName}}</mat-label>
+            <input cdkFocusInitial formControlName="Name" matInput>
+          </mat-form-field>
+
+
+          <mat-form-field appearance="outline" style="width: 40%;" *ngIf="(this.type == 'holiday')">
+            <mat-label>{{this.languageMap['Açıklama'].labelName}}</mat-label>
+            <input cdkFocusInitial formControlName="Description" matInput>
+          </mat-form-field>
+
+
+          <input hidden cdkFocusInitial formControlName="ID" matInput>
+
+        </div>
+
+        <mat-dialog-content fxLayout="row">
+          <div style="overflow-y:scroll; width: 100%;"
+            [ngStyle]="{'height': this.subFooter?'calc(85vh - 330px)':'calc(85vh - 280px)'}">
+            <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort>
+
+              <ng-container matColumnDef="Checkbox">
+                <th hidden *matHeaderCellDef mat-header-cell>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                  </mat-checkbox>
+                </th>
+                <td hidden *matCellDef="let row" class="w-4" mat-cell>
+                  <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                    [checked]="selection.isSelected(row)" color="primary">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="ID">
+                <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+                <td hidden *matCellDef="let row" mat-cell>
+                  <span style="font-size: 20px; ">{{ row.ID }}</span>
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Code">
+                <th [hidden]="this.type == 'holiday'" *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Kod'].labelName}}
+                </th>
+                <td [hidden]="this.type == 'holiday'" *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Code }}</span>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Name">
+                <th [hidden]="this.type == 'holiday'" *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Adı'].labelName}}
+                </th>
+                <td [hidden]="this.type == 'holiday'" *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Name}}</span>
+                  <!-- form.value.Type==='CollarColors'?this.languageMap[row.Name ].labelName:  -->
+                </td>
+
+              </ng-container>
+
+
+              <ng-container matColumnDef="Date">
+                <th [hidden]="this.type !== 'holiday'" *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Tarih'].labelName}}
+                </th>
+                <td [hidden]="this.type !== 'holiday'" *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Date | date : "dd.MM.y"}}</span>
+                  <!-- form.value.Type==='CollarColors'?this.languageMap[row.Name ].labelName:  -->
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Type">
+                <th [hidden]="this.type !== 'holiday'" *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Tip'].labelName}}
+                </th>
+                <td [hidden]="this.type !== 'holiday'" *matCellDef="let row" mat-cell>
+                  <!-- <span style="font-size: 11px; ">{{ row.Type}}</span> -->
+                  <!-- form.value.Type==='CollarColors'?this.languageMap[row.Name ].labelName:  -->
+ 
+
+                  <mat-select style="width: 100%;" [value]="row.Type.toString()" disabled>
+                    <mat-option *ngFor="let services of this.constantGroups"
+                      [value]="services.kodu.toString()">
+                      {{services.adi }}
+                    </mat-option>
+                  </mat-select>
+
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Day">
+                <th [hidden]="this.type !== 'holiday'" *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Gün'].labelName}}
+                </th>
+                <td [hidden]="this.type !== 'holiday'" *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Day}}</span>
+                  <!-- form.value.Type==='CollarColors'?this.languageMap[row.Name ].labelName:  -->
+                </td>
+              </ng-container>
+
+
+              <ng-container matColumnDef="Description">
+                <th [hidden]="this.type !== 'holiday'" *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Açıklama'].labelName}}
+                </th>
+                <td [hidden]="this.type !== 'holiday'" *matCellDef="let row" mat-cell>
+                  <span style="font-size: 11px; ">{{ row.Description}}</span>
+                  <!-- form.value.Type==='CollarColors'?this.languageMap[row.Name ].labelName:  -->
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="Actions" sticky>
+                <th *matHeaderCellDef mat-header-cell mat-sort-header>
+                  {{this.languageMap['Aksiyon'].labelName}}</th>
+                <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                  <button (click)="delete(row)" mat-icon-button type="button">
+                    <mat-icon [icIcon]="icDelete"></mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+
+
+
+              <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+              <tr (click)="selectRow(row)" *matRowDef="let row; columns: columns;" @fadeInUp
+                [ngClass]=" {'highlight': selectedRowIndex == row.ID}" style="max-height: 120px;" mat-row></tr>
+            </table>
+          </div>
+        </mat-dialog-content>
+
+
+
+
+      </div>
+
+
+    </vex-page-layout-content>
+
+  </form>
+</vex-page-layout>

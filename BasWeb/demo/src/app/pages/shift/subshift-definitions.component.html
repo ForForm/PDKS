@@ -1,0 +1,361 @@
+<!-- <div fxLayout="row" fxLayoutAlign="start end" style="background-color: #D2D2DB;">
+  <span fxFlex></span>
+  <mat-icon [icIcon]="icClose1" (click)="closeDialog()" style="color:red; background-color: black;" matPrefix>
+  </mat-icon>
+
+</div> -->
+
+
+<div mat-dialog-title class="px-gutter py-1 border-b" style="background-color: #D2D2DB; color:black" cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+
+  <div fxLayout="row" fxLayoutAlign="space-between center">
+    <span fxFlex></span>
+
+    <button mat-button style="width: 90px;" (click)="closeDialog()"> <span>{{
+        this.languageMap['Çıkış'].labelName.toUpperCase() }}</span> </button>
+    &nbsp;&nbsp;&nbsp;
+
+    <!-- [disabled]="!this.saveEnabled" -->
+    <button mat-raised-button color="primary" style="width: 90px;" (click)="
+    this.defaults.sub==='shiftDist'?save():
+    (this.defaults.sub==='freeShiftDist'?saveFreeDist():
+    (this.defaults.sub==='freeShiftMeal'?saveFreeMeal():
+    (this.defaults.sub==='freeShiftNight'?saveFreeNight():
+    (this.defaults.sub==='shiftTolerance'?saveShiftTolerance():
+    (this.defaults.sub==='shiftHoliday'?saveShiftHoliday():'none')))))" 
+    [disabled]="this.defaults.sub==='shiftDist'?this.form.invalid:(
+        this.defaults.sub==='freeShiftDist'?this.formFreeDist.invalid:(
+          this.defaults.sub==='freeShiftMeal'?this.formFreeMeal.invalid:(  
+        this.defaults.sub==='freeShiftNight'?this.formFreeNight.invalid:(
+          this.defaults.sub==='shiftHoliday'?this.formHoliday.invalid:false
+        ))))">
+      <span>{{
+        this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+
+
+  </div>
+</div>
+
+
+<form [formGroup]="form" *ngIf="this.defaults.sub==='shiftDist'">
+
+  <div class="card" style="margin:5px; overflow: hidden; ">
+
+    <mat-dialog-content fxLayout="column">
+      <div class="flex flex-col sm:flex-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+          <!-- <input formControlName="WorkingTypeID"  cdkFocusInitial  matInput > -->
+          <mat-select style="width: 100%;" formControlName="WorkingTypeID" cdkFocusInitial>
+            <mat-option *ngFor="let services of this.defaults.workingTypesCode" [value]="services.id">
+              {{services.code+'-'+services.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Başlama'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="FirstHour" readonly
+            (change)="calculateTime()" matInput>
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Bitiş'].labelName}}Bitiş</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="LastHour"
+            [readonly]="this.defaults.vreadonly && this.defaults.update " (change)="calculateTime()"
+            (keypress)='calculateTime()' matInput>
+
+        </mat-form-field>
+
+
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Süre'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="Time" readonly matInput>
+
+        </mat-form-field>
+
+      </div>
+
+
+    </mat-dialog-content>
+
+  </div>
+
+</form>
+
+<form [formGroup]="formFreeDist" *ngIf="this.defaults.sub==='freeShiftDist'">
+
+  <div class="card" style="margin:5px; overflow: hidden; ">
+
+    <mat-dialog-content fxLayout="column">
+      <div class="flex flex-col sm:flex-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+          <!-- <input formControlName="WorkingTypeID"  cdkFocusInitial  matInput > -->
+          <mat-select style="width: 100%;" formControlName="WorkingTypeID" cdkFocusInitial>
+            <mat-option *ngFor="let services of this.defaults.workingTypesCode" [value]="services.id">
+              {{services.code+'-'+services.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Durum'].labelName}}</mat-label>
+          <!-- <input formControlName="State"  cdkFocusInitial  matInput > -->
+          <mat-select style="width: 100%;" formControlName="State">
+            <mat-option *ngFor="let services of this.defaults.freeShiftDistStatus" [value]="services.kodu.toString()">
+              {{services.kodu+'-'+services.adi }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+      </div>
+
+
+    </mat-dialog-content>
+
+  </div>
+
+</form>
+
+<form [formGroup]="formFreeMeal" *ngIf="this.defaults.sub==='freeShiftMeal'">
+
+  <div class="card" style="margin:5px; overflow: hidden; ">
+
+    <mat-dialog-content fxLayout="column">
+      <div class="flex flex-col sm:flex-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+          <!-- <input formControlName="WorkingTypeID"  cdkFocusInitial  matInput > -->
+          <mat-select style="width: 100%;" formControlName="WorkingTypeSrcID" cdkFocusInitial>
+            <mat-option *ngFor="let services of this.defaults.workingTypesCode" [value]="services.id">
+              {{services.code+'-'+services.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Toplam Saat'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="TotalTime" matInput>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+          <!-- <input formControlName="WorkingTypeID"  cdkFocusInitial  matInput > -->
+          <mat-select style="width: 100%;" formControlName="WorkingTypeDestID">
+            <mat-option *ngFor="let services of this.defaults.workingTypesCode" [value]="services.id">
+              {{services.code+'-'+services.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Hak.Sure'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="TransferTime" matInput>
+
+        </mat-form-field>
+
+
+      </div>
+
+
+    </mat-dialog-content>
+
+  </div>
+
+</form>
+
+<form [formGroup]="formFreeNight" *ngIf="this.defaults.sub==='freeShiftNight'">
+
+  <div class="card" style="margin:5px; overflow: hidden; ">
+
+    <mat-dialog-content fxLayout="column">
+      <div class="flex flex-col sm:flex-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+          <!-- <input formControlName="WorkingTypeID"  cdkFocusInitial  matInput > -->
+          <mat-select style="width: 100%;" formControlName="WorkingTypeID" cdkFocusInitial>
+            <mat-option *ngFor="let services of this.defaults.workingTypesCode" [value]="services.id">
+              {{services.code+'-'+services.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Başlama'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="FirstHour" matInput>
+
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>
+            {{this.languageMap['Bitiş'].labelName}}</mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="LastHour" matInput>
+
+        </mat-form-field>
+
+
+
+      </div>
+
+
+    </mat-dialog-content>
+
+  </div>
+
+</form>
+
+
+
+<form [formGroup]="formTolerance" *ngIf="this.defaults.sub==='shiftTolerance'">
+
+
+  <div class="card" style="margin:5px; overflow: hidden;">
+
+    <mat-dialog-content fxLayout="column">
+      <div class="flex flex-col sm:flex-row">
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{this.languageMap['Erken Giriş Zaman'].labelName}}
+          </mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" cdkFocusInitial formControlName="EarlyStartTime"
+            [readonly]="this.defaults.vreadonly" matInput>
+
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{this.languageMap['Giriş Zaman'].labelName}}
+          </mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="StartTime"
+            [readonly]="this.defaults.vreadonly" matInput>
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{this.languageMap['Geç Giriş Zaman'].labelName}}
+          </mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="LateStartTime"
+            [readonly]="this.defaults.vreadonly" matInput>
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{this.languageMap['Erken Çıkış Zaman'].labelName}}
+          </mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="EarlyFinishTime"
+            [readonly]="this.defaults.vreadonly" matInput>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{this.languageMap['Çıkış Zaman'].labelName}}
+          </mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="FinishTime"
+            [readonly]="this.defaults.vreadonly" matInput>
+
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{this.languageMap['Geç Çıkış Zaman'].labelName}}
+          </mat-label>
+          <input format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="LateFinishTime"
+            [readonly]="this.defaults.vreadonly" matInput>
+
+        </mat-form-field>
+
+
+
+      </div>
+
+
+    </mat-dialog-content>
+
+  </div>
+</form>
+
+
+
+<form [formGroup]="formHoliday" *ngIf="this.defaults.sub==='shiftHoliday'">
+
+
+  <div class="card" style="margin:5px; overflow: hidden;">
+
+    <mat-dialog-content fxLayout="column">
+      <div class="flex flex-col sm:flex-row">
+
+
+        <mat-form-field appearance="outline" style="width: 180px;"  >
+          <mat-label>{{this.languageMap['Başlangıç Tarih'].labelName}}</mat-label>
+          <input format="DD/MM/YYYY" formControlName="StartDate" [matDatepicker]="datepickerD" matInput>
+          <mat-datepicker-toggle [for]="datepickerD" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #datepickerD></mat-datepicker>
+        </mat-form-field>
+
+
+
+        <mat-form-field appearance="outline" style="width: 200px;">
+          <!-- (selectionChange)="this.type!=='holiday'?getConstantsGroupsDetails($event.value):null" -->
+          <mat-label>{{this.languageMap['Tip'].labelName}}</mat-label>
+          <mat-select style="width: 100%;" formControlName="HolidayType">
+          <mat-option *ngFor="let services of this.defaults.publicHolidays" [value]="services.kodu.toString()">
+            {{services.adi}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+
+
+        <mat-form-field appearance="outline" style="width: 200px;">
+          <!-- (selectionChange)="this.type!=='holiday'?getConstantsGroupsDetails($event.value):null" -->
+          <mat-label>{{this.languageMap['Vardiya'].labelName}}</mat-label>
+          <mat-select style="width: 100%;" formControlName="HolidayShiftID">
+          <mat-option *ngFor="let services of this.defaults.shiftHolidayTypes" [value]="services.kodu.toString()">
+            {{services.adi}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
+
+
+      </div>
+
+
+    </mat-dialog-content>
+
+  </div>
+</form>

@@ -1,0 +1,43 @@
+<div @stagger class="max-w-xxxs w-full">
+
+
+  <div class="card" style="height: 88vh; width: 20vh; margin-right: -20px; ">
+    <div class="h-14 mb-6 flex bg-primary-500 px-gutter sm:px-0" style="background-color: white;" fxLayout="row" fxLayoutAlign="start center">
+      <button (click)="createPersonnel.emit()" class="flex-auto" mat-raised-button type="button" 
+      style="background-color: #1795D0;color: white;font-size: 16px;height: 40px; padding: 0px;">
+        <ic-icon [icon]="icPersonAdd" class="ltr:mr-1 rtl:ml-3" inline="true" size="18px"></ic-icon>
+        <span>{{this.languageMap['Personel Ekle'].labelName}}</span>
+      </button>
+    </div>
+
+    <div class="px-gutter sm:px-0">
+      <ng-container *ngFor="let item of items">
+
+
+        <mat-slide-toggle class="list-item mt-2 no-underline flex items-center" *ngIf="item.type!=='subheading'"
+          (change)="personnelGetQuery.emit({type:item.id,code:$event.checked })">
+          <!-- <ic-icon [icon]="item.icon" [ngClass]="item.classes?.icon"   class="ltr:mr-3 rtl:ml-3" size="24px"></ic-icon>  -->
+          <span>{{ item.label }}</span>
+
+        </mat-slide-toggle>
+
+        <h3 *ngIf="item.type === 'subheading'" @fadeInRight
+          class="caption text-secondary uppercase font-medium mb-0 mt-6">
+          {{this.languageMap[item.label].labelName}}
+        </h3>
+      </ng-container>
+    </div>
+
+
+
+    <div class="list-item mt-2 no-underline flex items-center" style="margin-top: 20px;width: 100%; display: block; padding: 0px;">
+      <button (click)="createColumns.emit()" style="width: 100%; display: block; padding: 0px;" mat-raised-button type="button">
+        <ic-icon [icon]="icColumns" class="ltr:mr-3 rtl:ml-3" inline="true" size="18px"></ic-icon>
+        
+        <span style="font-size: 13px;">{{this.languageMap['Kolon Seçim Yap'].labelName}}</span>
+
+      </button>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,213 @@
+<form [formGroup]="form">
+
+  <div style="overflow: hidden; height: 600px;">
+
+
+
+    <form [formGroup]="formYearUsed">
+
+      <div fxLayout="row" fxLayoutAlign="space-between center" style=" margin: 5px;">
+
+        <!-- (click)="addYearCodeRow()" -->
+        <button (click)="addYearUsedRow()" mat-raised-button color="primary" style="width: 120px; height: 35px; font-size: 8px;">
+          <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+          {{this.languageMap['Yeni Kayıt'].labelName}}
+        </button>
+
+        <span fxFlex></span>
+
+        <!-- (click)="saveYearCodeRow()" -->
+        <button (click)="saveYearUsedRow()" mat-raised-button color="primary" style="margin-right: 3px; width: 90px; font-size: 8px;"
+          [disabled]="this.formYearUsed.invalid">
+          <span>{{
+            this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+      </div>
+
+      <mat-form-field appearance="outline" style=" margin-left: 5px;  font-size: 10px; width: 180px;">
+        <mat-label>
+          {{this.languageMap['Kod'].labelName}}</mat-label>
+        <input formControlName="Code" matInput readonly>
+        <mat-icon [icIcon]="icMoreHoriz" (click)="openDefinition('0',1)" inline="true" matSuffix></mat-icon>
+      </mat-form-field>
+
+      &nbsp; 
+      <mat-form-field appearance="outline" style=" font-size: 10px;width: 250px;">
+        <mat-label>
+          {{this.languageMap['Adı'].labelName}}</mat-label>
+        <input formControlName="Name" readonly matInput>
+      </mat-form-field>
+
+ 
+
+      <mat-dialog-content fxLayout="row" style=" width: 100%; margin-top: 5px; ">
+
+        <mat-form-field style=" font-size: 10px; width: 180px; margin-top: -1px; margin-left: 5px;">
+          <mat-label>
+            {{this.languageMap['Türü'].labelName}}</mat-label>
+          <mat-select style="width: 100%;" formControlName="Type">
+            <mat-option *ngFor="let item of LeaveUsedTypes" [value]="item.Code.toString()">
+              {{item.Name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        &nbsp; &nbsp;
+
+
+        <mat-form-field appearance="outline" style="margin-top: -1px; font-size: 10px; width: 90px;">
+          <mat-label>
+            {{this.languageMap['Ay'].labelName}}</mat-label>
+          <mat-select style="width: 100%;" formControlName="Month">
+            <mat-option *ngFor="let item of Months" [value]="item">
+              {{item}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        &nbsp; &nbsp;
+        <mat-form-field appearance="outline" style="margin-top: -1px; font-size: 10px;width: 90px;">
+          <mat-label>
+            {{this.languageMap['Yıl'].labelName}}</mat-label>
+          <input formControlName="Year" type="number" matInput>
+        </mat-form-field>
+        &nbsp; &nbsp;
+
+        <mat-form-field appearance="outline" style="margin-top: -1px; font-size: 10px;width: 90px;">
+          <mat-label>
+            {{this.languageMap['Kullanılmış/Devir'].labelName}}</mat-label>
+          <input formControlName="Day" type="number" matInput>
+        </mat-form-field>
+
+      </mat-dialog-content>
+
+
+
+
+    </form>
+
+
+
+    <mat-dialog-content fxLayout="row">
+
+      <mat-form-field style="width: 100%;">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filtre">
+      </mat-form-field>
+
+    </mat-dialog-content>
+
+
+    <mat-dialog-content fxLayout="row" style="overflow-y:auto;">
+
+      <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort style="margin: 5px;">
+
+
+
+        <ng-container matColumnDef="ID">
+          <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+          <td hidden *matCellDef="let row" mat-cell>
+            <span style="font-size: 20px; ">{{ row.ID }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="EmployeeID">
+          <th hidden *matHeaderCellDef mat-header-cell mat-sort-header>ID</th>
+          <td hidden *matCellDef="let row" mat-cell>
+            <span style="font-size: 20px; ">{{ row.EmployeeID }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Code">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>{{this.languageMap['Kod'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Code }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Name">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>{{this.languageMap['Adı'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Name }}</span>
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="Surname">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{this.languageMap['Soyadı'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Surname }}</span>
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="Month">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{this.languageMap['Ay'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Month }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Year">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{this.languageMap['Yıl'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Year }}</span>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Day">
+          <th *matHeaderCellDef mat-header-cell mat-sort-header>
+            {{this.languageMap['Kullanılmış/Devir'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+            <span style="font-size: 11px; ">{{ row.Day }}</span>
+          </td>
+
+        </ng-container>
+
+        <ng-container matColumnDef="Type">
+          <th *matHeaderCellDef mat-header-cell>
+            {{this.languageMap['Türü'].labelName}}
+          </th>
+          <td *matCellDef="let row" mat-cell>
+
+            <mat-select style="width: 100%;" [value]="row.Type.toString()" disabled>
+              <mat-option *ngFor="let item of LeaveUsedTypes" [value]="item.Code.toString()">
+                {{item.Name}}
+              </mat-option>
+            </mat-select>
+          </td>
+        </ng-container>
+
+        
+        <ng-container matColumnDef="Actions" sticky>
+          <th *matHeaderCellDef mat-header-cell>
+            {{this.languageMap['Aksiyon'].labelName}}</th>
+          <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+            <button (click)="deleteYearUsedRow(row)" mat-icon-button type="button">
+              <mat-icon [icIcon]="icDelete"></mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+
+
+        <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+        <tr (click)="selectYearUsedRow(row)"  *matRowDef="let row; columns: columns;"  [ngClass]="{ 'highlight': row === selectedYearUsedRow }" 
+          style="max-height: 120px;" mat-row></tr>
+        <!-- (dblclick)="select(row)" (click)="getDetail(row)"  -->
+      </table>
+
+    </mat-dialog-content>
+
+
+
+  </div>
+</form>

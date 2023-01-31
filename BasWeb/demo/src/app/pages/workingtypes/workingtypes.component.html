@@ -1,0 +1,14 @@
+<vex-secondary-toolbar [current]="this.languageMap['Çalışma Türü Tanımları'].labelName">
+  <vex-breadcrumbs [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+</vex-secondary-toolbar>
+
+
+
+<div div fxLayout="row" style=" width: 100%;" [ngStyle]="{'height': (this.subFooter?'77vh':'calc(77vh + 35px)')}">
+
+  <!-- [selectedIndex]="selectedTabIndex===undefined?0:selectedTabIndex" -->
+  <workingtypes-table style="width: 100%;" [languageMap]="this.languageMap" [pageauth]="this.pageauth">
+  </workingtypes-table>
+
+
+</div>

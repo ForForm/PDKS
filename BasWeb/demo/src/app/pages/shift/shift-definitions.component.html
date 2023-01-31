@@ -1,0 +1,79 @@
+<div div fxLayout="row" fxLayoutAlign=" center">
+
+  <div fxFlex="calc(100% - 12px)" fxFlex.lt-md="auto" style="padding: 0px;height: 800px; overflow: hidden;">
+    <div class="card" style="padding:0px;height: 800px;">
+
+
+      <div mat-dialog-title class="px-gutter py-1 border-b" style="background-color: #D2D2DB; color:black" cdkDrag
+        cdkDragRootElement=".cdk-overlay-pane" cdkDragHandle>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+
+          <h2 class="title m-0">{{this.languageMap['Vardiya Parametreleri'].labelName}}</h2>
+          <span fxFlex></span>
+          <button mat-button style="width: 90px;" (click)="closeDialog()"> <span>{{
+              this.languageMap['Çıkış'].labelName.toUpperCase() }}</span> </button>
+          &nbsp;&nbsp;&nbsp;
+          <button mat-raised-button color="primary" style="width: 90px;" [disabled]="!this.saveEnabled"
+            (click)="save()"> <span>{{
+              this.languageMap['Kaydet'].labelName.toUpperCase() }}</span> </button>
+
+        </div>
+      </div>
+
+      <mat-tab-group style="width: 100%;" [(selectedIndex)]="this.selectedIndex" class="class-mat-tab-link"
+        (selectedTabChange)="onTabChanged($event);">
+        <mat-tab class="class-mat-tab-link"
+          *ngIf="( 0==this.selectedIndex)">
+
+          <ng-template mat-tab-label>
+            <span [ngStyle]="{
+                  'color': (0===this.selectedIndex)?'white':'black'}">{{this.languageMap['Vardiya'].labelName}}</span>
+          </ng-template>
+
+          <vex-shift-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(0==this.selectedIndex)"
+            [formOnay]="true" [tab]="(this.selectedIndex)" [workingTypesType]="this.workingTypesType"
+            [workingTypesCode]="this.workingTypesCode" [languageMap]="this.languageMap" [saveClick]="(this.saveClick)"
+            (changeDetectEvent)="changeDetectEvent($event)"
+            [screenName]="this.languageMap['Vardiya'].labelName+' '+this.languageMap['Vardiya Parametreleri'].labelName">
+          </vex-shift-definitions-item>
+        </mat-tab>
+
+        <mat-tab class="class-mat-tab-link"
+          *ngIf="(1==this.selectedIndex)">
+
+          <ng-template mat-tab-label>
+            <span [ngStyle]="{
+                  'color': (1===this.selectedIndex)?'white':'black'}">{{this.languageMap['Serbest
+              Vardiya'].labelName}}</span>
+          </ng-template>
+
+
+
+          <vex-shift-definitions-item [ngStyle]="{'color': selectedStyle === Style.dark ? 'white' : 'black'}"
+            *ngIf="this.selectedStyle$ | async as selectedStyle" [tabSelected]="(1==this.selectedIndex)"
+            [formOnay]="true" [tab]="(this.selectedIndex)" [languageMap]="this.languageMap"
+            [workingTypesType]="this.workingTypesType" [workingTypesCode]="this.workingTypesCode"
+            [saveClick]="(this.saveClick)" (changeDetectEvent)="changeDetectEvent($event)"
+            [screenName]="this.languageMap['Serbest Vardiya'].labelName+' '+this.languageMap['Vardiya Parametreleri'].labelName">
+          </vex-shift-definitions-item>
+        </mat-tab>
+
+
+      </mat-tab-group>
+
+
+
+    </div>
+  </div>
+</div>
+
+<!-- 
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">İPTAL</button>
+    <button *ngIf="isCreateMode()" color="primary" mat-button type="submit">EKLE</button>
+    <button *ngIf="isUpdateMode()" color="primary" mat-button
+      type="submit">{{this.visible?'ALT KOD EKLE':'GÜNCELLE'}}</button>
+  </mat-dialog-actions> -->

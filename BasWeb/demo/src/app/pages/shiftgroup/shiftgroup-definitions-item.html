@@ -1,0 +1,276 @@
+<form [formGroup]="form">
+
+  <div div fxLayout="row" style="padding: 5px;">
+
+    
+      <div class="card" style="width: 100%;">
+        <mat-form-field [ngStyle]="{'width':isMobileLayout?'140px':'none'}">
+          <mat-label>{{this.languageMap['Kod'].labelName}}</mat-label>
+          <input formControlName="Code" matInput [readonly]="!this.defaults.auth || this.defaults.update" cdkFocusInitial (focusout)="onFocusOutCode($event)">
+
+        </mat-form-field>
+        &nbsp;&nbsp;
+
+        <mat-form-field [ngStyle]="{'width':isMobileLayout?'140px':'none'}">
+          <mat-label>{{this.languageMap['Vardiya Grup'].labelName}}</mat-label>
+          <input formControlName="Name" matInput [readonly]="!this.defaults.auth">
+
+        </mat-form-field>
+        &nbsp;&nbsp;
+
+
+        <mat-form-field [ngStyle]="{'width':isMobileLayout?'140px':'none'}">
+          <mat-label>{{this.languageMap['Gün'].labelName}}</mat-label>
+          <input format="DD/MM/YYYY" [disabled]="!this.defaults.auth" formControlName="StartDate"
+            [matDatepicker]="datepickerStartDate" matInput>
+          <mat-datepicker-toggle [for]="datepickerStartDate" matSuffix></mat-datepicker-toggle>
+          <mat-datepicker #datepickerStartDate></mat-datepicker>
+        </mat-form-field>
+
+
+        &nbsp;&nbsp;
+
+        <mat-checkbox color="primary" style="margin: 10px 0 0 10px;" formControlName="ShiftCalc"
+        [checked]="this.form.value.ShiftCalc">{{this.languageMap['Personele Göre Hesapla'].labelName}}
+      </mat-checkbox>
+
+      </div>
+
+ 
+  </div>
+
+  <div div fxLayout="row" style="width: 100%;  height: 560px; ">
+
+    <as-split [direction]="isMobileLayout?'vertical':'horizontal'" [gutterSize]="5">
+
+      <as-split-area [size]="40" style="overflow:hidden;" >
+
+        <div style="margin: 5px; padding: 5px; height: 98%;" class="card">
+
+
+          <mat-dialog-content fxLayout="row"  >
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" style=" width: 100%;"  class="class-mat-tab-link">
+              <label style="font-size: 10px;">{{this.languageMap['Gün Dağılım'].labelName }}</label>
+            </div>
+
+          </mat-dialog-content>
+
+          <div class="bg-app-bar px-1 h-16 border-b sticky left-0" fxLayout="row" fxLayoutAlign="start center"
+            style="  height: 40px;padding:5px;  ">
+
+
+
+            <button mat-raised-button color="primary" *ngIf="this.defaults.auth && this.update"
+              (click)="createSubDefinition()" style="width: 120px; height: 35px; font-size: 12px;">
+              <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+              {{this.languageMap['Yeni Kayıt'].labelName}}
+            </button>
+
+            <span fxFlex></span>
+
+          </div>
+
+          <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort>
+
+            <ng-container matColumnDef="ID">
+              <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+              <td hidden *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.ID }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="ShiftGroupID">
+              <th hidden *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['ShiftGroupID'].labelName}}</th>
+              <td hidden *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.ShiftGroupID }}</span>
+              </td>
+            </ng-container>
+
+            <!-- disabled                 -->
+            <ng-container matColumnDef="ShiftID">
+              <th style="width: 150px;" *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Vardiya'].labelName}}
+              </th>
+              <td *matCellDef="let row" style="width: 10px;font-size: x-small;" mat-cell>
+                <mat-select style="width: 100%;" [value]="row.ShiftID" disabled>
+                  <mat-option *ngFor="let services of this.shiftsCode" [value]="services.id">
+                    {{services.code+'-'+services.name }}
+                  </mat-option>
+                </mat-select>
+
+              </td>
+            </ng-container>
+
+
+
+
+            <ng-container matColumnDef="NumberOfDays">
+              <th *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Gün Sayısı'].labelName}}</th>
+              <td *matCellDef="let row" mat-cell>
+                <span style="font-size: 11px; ">{{ row.NumberOfDays }}</span>
+              </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="Actions" style="width: 20px;">
+              <th style="width: 20px;" *matHeaderCellDef mat-header-cell>
+                {{this.languageMap['Aksiyon'].labelName}}
+              </th>
+              <td style="width: 20px;" *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                <button (click)="$event.stopPropagation()" [disabled]="!this.defaults.auth"
+                  [matMenuTriggerData]="{ definition: row }" [matMenuTriggerFor]="actionsMenu" mat-icon-button
+                  type="button">
+                  <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columns;sticky:true;" style="height: 30px !important;"></tr>
+
+            <tr *matRowDef="let row; columns: columns;" @fadeInUp (click)="this.selectedRowIndex1 = row.ID"
+              [ngClass]="{'highlight': selectedRowIndex1 == row.ID}" mat-row></tr>
+
+
+          </table>
+        </div>
+      </as-split-area>
+
+      <as-split-area [size]="60" style="overflow:hidden;">
+        <div style="margin: 5px; padding: 5px; height: 98%;   " class="card">
+
+          
+          <mat-dialog-content fxLayout="row"  >
+
+            <div fxLayout="row" fxLayoutAlign="space-between center" style=" width: 100%;"  class="class-mat-tab-link">
+              <label style="font-size: 10px;">{{this.languageMap['Yedek Vardiya'].labelName }}</label>
+            </div>
+
+          </mat-dialog-content>
+
+          <div class="bg-app-bar px-1 h-16 border-b sticky left-0" fxLayout="row" fxLayoutAlign="start center"
+          style="  height: 40px;padding:5px;  ">
+
+
+
+          <button mat-raised-button color="primary" *ngIf="this.defaults.auth && this.update"
+            (click)="createShiftGroupBackUp()" style="width: 120px; height: 35px; font-size: 12px;">
+            <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+            {{this.languageMap['Yeni Kayıt'].labelName}}
+          </button>
+
+          <span fxFlex></span>
+
+        </div>
+
+        <table @stagger [dataSource]="dataSourceB" class="w-full" mat-table matSort>
+
+          <ng-container matColumnDef="ID">
+            <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+            <td hidden *matCellDef="let row" mat-cell>
+              <span style="font-size: 11px; ">{{ row.ID }}</span>
+            </td>
+          </ng-container>
+
+
+          <ng-container matColumnDef="ShiftGroupID">
+            <th hidden *matHeaderCellDef mat-header-cell>
+              {{this.languageMap['ShiftGroupID'].labelName}}</th>
+            <td hidden *matCellDef="let row" mat-cell>
+              <span style="font-size: 11px; ">{{ row.ShiftGroupID }}</span>
+            </td>
+          </ng-container>
+
+          <!-- disabled                 -->
+          <ng-container matColumnDef="ShiftID">
+            <th style="width: 150px;" *matHeaderCellDef mat-header-cell>
+              {{this.languageMap['Vardiya'].labelName}}
+            </th>
+            <td *matCellDef="let row" style="width: 10px;font-size: x-small;" mat-cell>
+              <mat-select style="width: 100%;" [value]="row.ShiftID" disabled>
+                <mat-option *ngFor="let services of this.shiftsCode" [value]="services.id">
+                  {{services.code+'-'+services.name }}
+                </mat-option>
+              </mat-select>
+
+            </td>
+          </ng-container>
+
+
+
+<!-- 
+          <ng-container matColumnDef="NumberOfDays">
+            <th *matHeaderCellDef mat-header-cell>
+              {{this.languageMap['Gün Sayısı'].labelName}}</th>
+            <td *matCellDef="let row" mat-cell>
+              <span style="font-size: 11px; ">{{ row.NumberOfDays }}</span>
+            </td>
+          </ng-container> -->
+
+
+          <ng-container matColumnDef="Actions" style="width: 20px;">
+            <th style="width: 20px;" *matHeaderCellDef mat-header-cell>
+              {{this.languageMap['Aksiyon'].labelName}}
+            </th>
+            <td style="width: 20px;" *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+              <button (click)="$event.stopPropagation()" [disabled]="!this.defaults.auth"
+                [matMenuTriggerData]="{ definition: row }" [matMenuTriggerFor]="actionsMenuB" mat-icon-button
+                type="button">
+                <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="columnsB;sticky:true;" style="height: 30px !important;"></tr>
+
+          <tr *matRowDef="let row; columns: columnsB;" @fadeInUp (click)="this.selectedRowIndex1 = row.ID"
+            [ngClass]="{'highlight': selectedRowIndex1 == row.ID}" mat-row></tr>
+
+
+        </table>
+  
+
+        </div>
+      </as-split-area>
+    </as-split>
+
+
+    <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+      <ng-template let-definition="definition" matMenuContent>
+
+        <button (click)="updateDistibutionRow(definition)" mat-menu-item>
+          <mat-icon [icIcon]="icEdit"></mat-icon>
+          <span>{{this.languageMap['Güncelle'].labelName}}</span>
+        </button>
+        <button (click)="deleteDistibutionRow(definition)" mat-menu-item>
+          <mat-icon [icIcon]="icDelete"></mat-icon>
+          <span>{{this.languageMap['Sil'].labelName}}</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+
+
+ 
+
+    <mat-menu #actionsMenuB="matMenu" xPosition="before" yPosition="below">
+      <ng-template let-definition="definition" matMenuContent>
+
+        <button (click)="definitionUpdateShiftGroupBackup(definition)" mat-menu-item>
+          <mat-icon [icIcon]="icEdit"></mat-icon>
+          <span>{{this.languageMap['Güncelle'].labelName}}</span>
+        </button>
+        <button (click)="definitionDeleteShiftGroupBackup(definition)" mat-menu-item>
+          <mat-icon [icIcon]="icDelete"></mat-icon>
+          <span>{{this.languageMap['Sil'].labelName}}</span>
+        </button>
+      </ng-template>
+    </mat-menu>
+
+
+
+  </div>
+
+</form>

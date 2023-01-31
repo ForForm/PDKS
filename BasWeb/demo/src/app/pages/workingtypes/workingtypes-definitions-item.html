@@ -1,0 +1,340 @@
+  <form [formGroup]="form">
+
+
+    <div div fxLayout="row" style="padding: 5px;">
+
+
+      <div class="card" fxFlex.lt-md="auto" style="width: 100%;">
+
+
+        <mat-form-field [ngStyle]="{'width':isMobileLayout?'140px':'none'}">
+          <mat-label>
+            {{this.languageMap['Kod'].labelName}}</mat-label>
+          <input [readonly]="this.defaults.update" formControlName="Code" matInput cdkFocusInitial (focusout)="onFocusOutCode($event)">
+
+        </mat-form-field>
+        &nbsp;&nbsp;
+
+        <mat-form-field [ngStyle]="{'width':isMobileLayout?'140px':'none'}">
+          <mat-label>
+            {{this.languageMap['Adı'].labelName}}</mat-label>
+          <input formControlName="Name" matInput>
+
+        </mat-form-field>
+        &nbsp;&nbsp;
+
+        <mat-form-field [ngStyle]="{'width':isMobileLayout?'140px':'none'}">
+          <mat-label>
+            {{this.languageMap['Saat Yuvarlama'].labelName}}</mat-label>
+          <mat-select style="width: 100%;  " disableRipple formControlName="RoundingHourID">
+
+            <mat-option *ngFor="let services of roundingHours" [value]="services.kodu">
+              {{services.adi}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        &nbsp;&nbsp;
+        <mat-form-field [ngStyle]="{'width':isMobileLayout?'140px':'none'}">
+          <mat-label>
+            {{this.languageMap['Gün Yuvarlama'].labelName}}</mat-label>
+          <mat-select disableRipple formControlName="RoundingDayID">
+            <mat-option *ngFor="let services of roundingDays" [value]="services.kodu">
+              {{services.adi}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <span fxFlex></span>
+
+        &nbsp;&nbsp;
+        <mat-form-field [ngStyle]="{'width':isMobileLayout?'140px':'none'}">
+          <mat-label>
+            {{this.languageMap['Çalışma Türü'].labelName}}</mat-label>
+          <mat-select disableRipple formControlName="Type">
+            <mat-option *ngFor="let services of workingTypesType" [value]="services.kodu">
+              {{services.adi}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+
+    </div>
+
+    <div div fxLayout="row" style="width: 100%; height: 510px;">
+
+      <as-split [direction]="isMobileLayout?'vertical':'horizontal'" [gutterSize]="5">
+
+        <as-split-area [size]="isMobileLayout?(this.tab==2?'60':'40'):'35'" style="overflow:hidden;  ">
+
+          <div style="padding:5px;margin: 5px; height: 98%; " class="card">
+
+            <mat-dialog-content style="overflow: hidden;">
+              <mat-form-field appearance="outline" style="padding: 0px; "
+                [ngStyle]="{'width':isMobileLayout?'95px':'200px'}">
+                <mat-label>
+                  {{this.languageMap['Alt Limit'].labelName}}</mat-label>
+                <input matInput format="YYYY/MM/DD HH:mm:ss" type="time" formControlName="LowerLimit">
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="padding: 0px;"
+                [ngStyle]="{'width':isMobileLayout?'95px':'200px'}">
+                <mat-label>
+                  {{this.languageMap['Üst Limit'].labelName}}</mat-label>
+                <input class="col-md-5 end" format="HH:mm:ss" matInput type="time" formControlName="UpperLimit">
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="padding: 0px;"
+                [ngStyle]="{'width':isMobileLayout?'95px':'200px'}">
+                <mat-label>
+                  {{this.languageMap['Çarpan'].labelName}}</mat-label>
+                <input matInput type="number" formControlName="Multiplier" matInput>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="padding: 0px;"
+                [ngStyle]="{'width':isMobileLayout?'95px':'200px'}">
+                <mat-label>
+                  {{this.languageMap['Rapor Kodu'].labelName}}</mat-label>
+                <input cdkFocusInitial formControlName="ReportCode" matInput>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="padding: 0px;"
+                [ngStyle]="{'width':isMobileLayout?'95px':'200px'}">
+                <mat-label>
+                  {{this.languageMap['Entegrasyon Kodu'].labelName}}</mat-label>
+                <input cdkFocusInitial formControlName="IntegrationCode" matInput>
+              </mat-form-field>
+              <mat-form-field appearance="outline" style="padding: 0px;"
+                [ngStyle]="{'width':isMobileLayout?'95px':'200px'}">
+                <mat-label>
+                  {{this.languageMap['Denkleştirme Derecesi'].labelName}}</mat-label>
+                <input cdkFocusInitial formControlName="EqualizationDegrees" matInput>
+              </mat-form-field>
+            </mat-dialog-content>
+
+            <div style="  margin:3px; padding: 3px; border:1px solid black;">
+              <mat-dialog-content fxLayout="row" style="overflow: hidden;">
+                <span
+                  style="width: 120px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Onay'].labelName}}</span>
+                <mat-checkbox color="primary" formControlName="Confirmation">
+                </mat-checkbox>
+              </mat-dialog-content>
+
+
+              <mat-dialog-content fxLayout="row" style="overflow: hidden;"
+                *ngIf="this.tab == 0 || this.tab == 5 || this.tab == 6">
+                <span
+                  style="width: 120px;margin:3px 3px 0px 0px;font-size: 13px; ">{{this.languageMap['Zorunlu'].labelName}}
+                </span>
+                <!-- (input)="validate($event)" -->
+                <mat-checkbox color="primary" formControlName="Compulsory" (change)="this.formOnay=true"></mat-checkbox>
+                <!-- <mat-hint align="end">Not more then 100 characters long.</mat-hint> -->
+              </mat-dialog-content>
+
+              <mat-dialog-content fxLayout="row" style="overflow: hidden;font-size: 13px;" *ngIf="this.tab == 2">
+                <span style="width: 120px;margin:1px 3px 0px 0px ; font-size: 13px;">{{this.languageMap['Çalışma
+                  Hesapla'].labelName}}
+                </span>
+                <mat-checkbox color="primary" formControlName="WorkCalculator">
+                </mat-checkbox>
+              </mat-dialog-content>
+
+              <mat-dialog-content fxLayout="row" style="overflow: hidden;font-size: 13px;" *ngIf="this.tab == 2">
+                <span style="width: 120px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Neden
+                  Kodu'].labelName}}</span>
+                <mat-checkbox color="primary" formControlName="LeaveContinued">
+                </mat-checkbox>
+              </mat-dialog-content>
+
+
+              <mat-dialog-content fxLayout="row" style="overflow: hidden;font-size: 13px;" *ngIf="this.tab == 2">
+                <span
+                  style="width: 120px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Cumartesi'].labelName}}</span>
+                <mat-checkbox color="primary" formControlName="Saturday"></mat-checkbox>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span
+                  style="width: 30px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Gün'].labelName}}</span>
+                <mat-checkbox color="primary" formControlName="SaturdayDay">
+                </mat-checkbox>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span
+                  style="width: 30px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Saat'].labelName}}&nbsp;</span>
+                <mat-checkbox color="primary" formControlName="SaturdayHour">
+                </mat-checkbox>
+
+              </mat-dialog-content>
+
+
+              <mat-dialog-content fxLayout="row" style="overflow: hidden;font-size: 13px;" *ngIf="this.tab == 2">
+                <span style="width: 120px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Hafta
+                  Tatili'].labelName}}
+                </span>
+                <mat-checkbox color="primary" formControlName="Weekend"></mat-checkbox>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span
+                  style="width: 30px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Gün'].labelName}}</span>
+                <mat-checkbox color="primary" formControlName="WeekendDay">
+                </mat-checkbox>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span
+                  style="width: 30px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Saat'].labelName}}&nbsp;</span>
+                <mat-checkbox color="primary" formControlName="WeekendHour">
+                </mat-checkbox>
+              </mat-dialog-content>
+
+              <mat-dialog-content fxLayout="row" style="overflow: hidden;font-size: 13px;" *ngIf="this.tab == 2">
+                <span style="width: 120px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Genel
+                  Tatil'].labelName}}
+                </span>
+                <mat-checkbox color="primary" formControlName="GeneralHoliday">
+                </mat-checkbox>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span
+                  style="width: 30px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Gün'].labelName}}</span>
+                <mat-checkbox color="primary" formControlName="GeneralHolidayDay">
+                </mat-checkbox>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+                <span
+                  style="width: 30px;margin:1px 3px 0px 0px ;font-size: 13px;">{{this.languageMap['Saat'].labelName}}&nbsp;</span>
+                <mat-checkbox color="primary" formControlName="GeneralHolidayHour">
+                </mat-checkbox>
+
+              </mat-dialog-content>
+
+
+            </div>
+
+
+          </div>
+
+        </as-split-area>
+
+        <as-split-area [size]="isMobileLayout?(this.tab==2?'40':'60'):'65'" style="overflow:hidden; ">
+
+          <div style="margin: 5px;height: 98%; " class="card">
+
+            <div class="bg-app-bar px-1 h-16 border-b sticky left-0" fxLayout="row" fxLayoutAlign="start center"
+            style="  height: 40px;">
+
+              <button mat-raised-button color="primary" *ngIf="this.defaults.auth && this.update"
+                style="width: 120px; height: 30px; "
+                (click)="createSubDefinition()">
+                <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+                {{this.languageMap['Yeni Kayıt'].labelName}}
+              </button>
+
+              <span fxFlex></span>
+
+            </div>
+            <mat-dialog-content fxLayout="row" style=" overflow-y: auto; ">
+              <div class="app-table-wrapper" style="width: 100%;  ">
+
+                <table @stagger [dataSource]="dataSource" class="w-full" mat-table>
+
+                  <ng-container matColumnDef="ID" style="width: 10px;">
+                    <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+                    <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>
+                      <span>{{ row.ID }}</span>
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="Code" style="width: 10px;">
+                    <th *matHeaderCellDef mat-header-cell>{{this.languageMap['Kod'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" style="width: 10px;" mat-cell>
+                      <span>{{ row.Code }}-{{ row.Name }}</span>
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="Type" style="width: 10px;">
+                    <th *matHeaderCellDef mat-header-cell>{{this.languageMap['Tip'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" style="width: 10px; " mat-cell>
+                      <!-- <span >{{ row.multiplier }}</span> -->
+
+                      <mat-select style="width: 100%;" [value]="row.Type" disabled>
+                        <mat-option *ngFor="let services of workingDistTypes" [value]="services.kodu">
+                          {{services.adi}}
+                        </mat-option>
+                      </mat-select>
+
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="Multiplier" style="width: 10px;">
+                    <th *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Çarpan'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" style="width: 10px;" mat-cell>
+                      <span>{{ row.Multiplier }}</span>
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="LowerLimit" style="width: 10px;">
+                    <th *matHeaderCellDef mat-header-cell>{{this.languageMap['Alt
+                      Limit'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" style="width: 10px;" mat-cell>
+                      <span>{{ row.LowerLimit | date : "HH:mm" }}</span>
+                    </td>
+                  </ng-container>
+
+
+                  <ng-container matColumnDef="UpperLimit" style="width: 10px;">
+                    <th *matHeaderCellDef mat-header-cell>{{this.languageMap['Üst
+                      Limit'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" style="width: 10px;" mat-cell>
+                      <span>{{ row.UpperLimit | date : "HH:mm" }}</span>
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Actions">
+                    <th *matHeaderCellDef mat-header-cell>
+                      {{this.languageMap['Aksiyon'].labelName}}
+                    </th>
+                    <td *matCellDef="let row" class="w-10 text-secondary" mat-cell>
+                      <button (click)="$event.stopPropagation()" [disabled]="!this.defaults.auth"
+                        [matMenuTriggerData]="{ definition: row }" [matMenuTriggerFor]="actionsMenu" mat-icon-button
+                        type="button">
+                        <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+                      </button>
+                    </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="columns;sticky:true;" style="height: 30px !important;">
+                  </tr>
+                  <tr *matRowDef="let row; columns: columns;" @fadeInUp class="hover:bg-hover cursor-pointer"
+                    style="height: 10px !important;" mat-row></tr>
+
+
+                </table>
+              </div>
+            </mat-dialog-content>
+
+
+            <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+              <ng-template let-definition="definition" matMenuContent>
+
+                <button (click)="updateDistibutionRow(definition)" mat-menu-item>
+                  <mat-icon [icIcon]="icEdit"></mat-icon>
+                  <span>Güncelle</span>
+                </button>
+                <button (click)="deleteDistibutionRow(definition)" mat-menu-item>
+                  <mat-icon [icIcon]="icDelete"></mat-icon>
+                  <span>Sil</span>
+                </button>
+              </ng-template>
+            </mat-menu>
+
+          </div>
+
+        </as-split-area>
+
+      </as-split>
+
+    </div>
+
+  </form>

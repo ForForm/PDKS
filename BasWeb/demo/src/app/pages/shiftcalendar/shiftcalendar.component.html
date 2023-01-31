@@ -1,0 +1,185 @@
+<vex-secondary-toolbar [current]="this.languageMap['Takvim Parametreleri'].labelName">
+  <vex-breadcrumbs [crumbs]="this.breadcrumbs"></vex-breadcrumbs>
+</vex-secondary-toolbar>
+ 
+<div div fxLayout="row" style=" width: 100%; height: 87vh;">
+
+  <as-split direction="horizontal" [gutterSize]="5">
+    <as-split-area [size]="60" style="overflow:hidden;">
+
+      <div fxFlex="calc(70% - 12px)" fxFlex.lt-md="auto" style="padding: 5px;">
+        <div class="card" style=" padding: 5px; margin-right: -5px;height:87vh">
+          <mat-dialog-content fxLayout="row" [ngStyle]="{'max-height': this.subFooter?'calc(83vh - 50px)':'83vh'}">
+            <div class="app-table-wrapper" style="overflow-y:scroll; font-size: smaller;width: 100%;">
+              <table @stagger [dataSource]="dataSourceShift" class="w-full" style="border: 1px solid black; " mat-table
+                matSort>
+
+                <ng-container *ngFor="let column of selectedColumns">
+
+                  <!-- | date : "dd.MM.y EEEE" -->
+                  <ng-container *ngIf="column.Property === 'Tarih'" [matColumnDef]="column.Property">
+                    <th *matHeaderCellDef mat-header-cell style="text-align:-webkit-center; " >
+                      {{column.Label}}</th>
+                    <td *matCellDef="let row" [ngClass]="column.cssClasses"
+                      style="font-size: 11px;  border:1px solid black;  "
+                      [ngStyle]="{'text-align':'center','width':'50px'}" mat-cell>{{ row[column.Property]
+                      }}</td>
+                    </ng-container>
+                    <!-- this.Colors[i][column.Say] i y , column.Say x -->
+                  <ng-container *ngIf="column.Property !== 'Tarih'" [matColumnDef]="column.Property">
+                    <th  *matHeaderCellDef mat-header-cell style="text-align:-webkit-center; ">
+                      {{column.Label}}</th>
+                     <td *matCellDef="let row; let i = index" [ngClass]="column.cssClasses"  
+                     matTooltip="{{(row[column.Property]!==null?row[column.Property].split('|')[1]:null)}}"
+                      style="font-size: 11px; border:1px solid black;" [style.color]="this.Colors[i][column.Say]"
+                      [ngStyle]="{'font-weight': 'bold','text-align':'center','width':'50px'}" mat-cell>{{
+                      (row[column.Property]!==null?row[column.Property].split('|')[0]:null) }}</td>
+                  </ng-container>
+
+
+
+                </ng-container>
+
+
+                <tr *matHeaderRowDef="columnsShift; sticky: true" mat-header-row style="height: 30px !important;"></tr>
+                <tr *matRowDef="let row; columns: columnsShift;" @fadeInUp class="hover:bg-hover cursor-pointer"
+                  style="height: 20px !important;" mat-row></tr>
+
+
+              </table>
+            </div>
+          </mat-dialog-content>
+        </div>
+      </div>
+
+    </as-split-area>
+
+    <as-split-area [size]="40" style="overflow:hidden;">
+
+      <div fxFlex="calc(30% - 12px)" fxFlex.lt-md="auto" style="padding: 5px;">
+        <div class="card" style=" padding: 5px; height: 87vh;">
+          <mat-dialog-content fxLayout="row">
+
+            <div style="overflow-y:scroll; width: 100%;">
+              <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort>
+
+                <ng-container matColumnDef="Checkbox">
+                  <th *matHeaderCellDef mat-header-cell>
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+                    </mat-checkbox>
+                  </th>
+                  <td *matCellDef="let row" class="w-4" mat-cell>
+                    <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+                      [checked]="selection.isSelected(row)" color="primary">
+                    </mat-checkbox>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="ID">
+                  <th hidden *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>ID</th>
+                  <td hidden *matCellDef="let row" mat-cell>
+                    <span style="font-size: 20px; ">{{ row.id }}</span>
+                  </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="Code">
+                  <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+                    {{this.languageMap['Kod'].labelName}}
+                  </th>
+                  <td *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.Code }}</span>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Name">
+                  <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+                    {{this.languageMap['Adı'].labelName}}
+                  </th>
+                  <td *matCellDef="let row" mat-cell>
+                    <span style="font-size: 11px; ">{{ row.Name }}</span>
+                  </td>
+
+                </ng-container>
+
+                <ng-container matColumnDef="StartDate">
+                  <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+                    {{this.languageMap['Tarih'].labelName}}
+                  </th>
+                  <td *matCellDef="let row" mat-cell>
+                    <!-- [matDatepicker]="datepickerRef" #datepickerRef -->
+                    <!-- <input readonly format="DD/MM/YYYY"  matInput [value]="row.StartDate"> -->
+                    <span style="font-size: 11px;">{{ row.StartDate | date : "dd.MM.y" }}</span>
+
+
+                        
+
+                  </td>
+
+                </ng-container>
+
+
+
+
+                <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+                <tr *matRowDef="let row; columns: columns;" @fadeInUp class="hover:bg-hover cursor-pointer"
+                  style="max-height: 120px;" mat-row></tr>
+              </table>
+            </div>
+          </mat-dialog-content>
+ 
+          <form [formGroup]="form">
+
+            <mat-dialog-content fxLayout="row" style="margin-top: 20px;">
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{this.languageMap['Tarih'].labelName}}</mat-label>
+                <input format="DD/MM/YYYY" formControlName="BeginDate" readonly  [matDatepicker]="datepickerBeginDate" matInput>
+                <mat-datepicker-toggle [for]="datepickerBeginDate" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #datepickerBeginDate></mat-datepicker>
+              </mat-form-field>
+ 
+
+              <button [disabled]="this.form.invalid" (click)="getCalendar()" mat-menu-item>
+                <mat-icon [icIcon]="icEdit"></mat-icon>
+                <span>{{this.languageMap['Takvim Göster'].labelName}}</span>
+              </button>
+
+            </mat-dialog-content>
+
+
+            <mat-dialog-content fxLayout="row" style="margin-top: 10px;">
+
+              <mat-form-field appearance="outline">
+                <mat-label>{{this.languageMap['Tarih'].labelName}}</mat-label>
+                <input format="DD/MM/YYYY" formControlName="EndDate" readonly [matDatepicker]="datepickerEndDate" matInput>
+                <mat-datepicker-toggle [for]="datepickerEndDate" matSuffix></mat-datepicker-toggle>
+                <mat-datepicker #datepickerEndDate></mat-datepicker>
+              </mat-form-field>
+
+              <button (click)="saveCalendar()" [disabled]="this.form.invalid" mat-menu-item>
+                <mat-icon [icIcon]="icSave"></mat-icon>
+                <span> {{this.languageMap['Takvim Oluştur'].labelName}}</span>
+              </button>
+
+            </mat-dialog-content>
+      
+
+
+
+
+          </form>
+
+        </div>
+      </div>
+
+    </as-split-area>
+
+  </as-split>
+</div>
+
+
+ 

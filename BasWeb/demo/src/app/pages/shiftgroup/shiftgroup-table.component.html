@@ -1,0 +1,146 @@
+<div class="bg-app-bar px-6 h-16 border-b sticky left-0" fxLayout="row" fxLayoutAlign="start center" color="primary">
+
+  <button mat-raised-button color="primary" *ngIf="this.pageauth.write" (click)="createShiftGroup()"
+    style=" width: 120px; height: 35px; font-size: 12px;">
+    <mat-icon style="margin-left: -15px; padding-top: 0px;">add</mat-icon>
+    {{this.languageMap['Yeni Kayıt'].labelName}}
+  </button>
+
+  <span fxFlex></span>
+
+
+  <div *ngIf="isMobileLayout" class="bg-card rounded-full border px-4" style="overflow: auto;" fxFlex.lt-md="auto"
+    fxLayout="row" fxLayoutAlign="start center">
+    <input [formControl]="searchCtrl" class="px-1 py-2 border-0 outline-none w-full bg-transparent" style="width: 60px;"
+      [placeholder]="this.languageMap['Ara'].labelName" type="search">
+  </div>
+
+
+  <div *ngIf="!isMobileLayout" class="bg-card rounded-full border px-4" style="overflow: auto;" fxFlex="400px"
+    fxFlex.lt-md="auto" fxHide.xs fxLayout="row" fxLayoutAlign="start center">
+    <ic-icon [icIcon]="icSearch" size="20px"></ic-icon>
+    <input [formControl]="searchCtrl" class="px-4 py-3 border-0 outline-none w-full bg-transparent"
+      [placeholder]="this.languageMap['Ara'].labelName" type="search">
+  </div>
+
+  <button color="primary" mat-icon-button type="button" (click)="getShiftGroup(null)">
+    <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+  </button>
+
+
+
+</div>
+
+
+<div class="app-table-wrapper" style="height: 69vh;">
+  <table @stagger [dataSource]="dataSource" class="w-full" mat-table matSort>
+
+    <ng-container matColumnDef="Checkbox">
+      <th hidden *matHeaderCellDef mat-header-cell>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+          [indeterminate]="selection.hasValue() && !isAllSelected()" color="primary">
+        </mat-checkbox>
+      </th>
+      <td hidden *matCellDef="let row" class="w-4" mat-cell>
+        <mat-checkbox (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+          [checked]="selection.isSelected(row)" color="primary">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="ID" style="width: 10px;">
+      <th hidden *matHeaderCellDef mat-header-cell>ID</th>
+      <td hidden *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span>{{ row.id }}</span>
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Code">
+      <th *matHeaderCellDef style="width: 10px;" mat-header-cell>{{this.languageMap['Kod'].labelName}}
+      </th>
+      <td *matCellDef="let row" style="width: 10px;" mat-cell>
+
+        <!-- <mat-checkbox hidden style="margin-right: 10px;" *ngIf="row.Code!==''"
+          (change)="$event ? detailToggle(row) : null" (click)="$event.stopPropagation()"
+          [checked]="selection.isSelected(row)" color="primary">
+        </mat-checkbox> -->
+
+        <span>{{ row.Code }}</span>
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="Name">
+      <th *matHeaderCellDef style="width: 10px;" mat-header-cell>{{this.languageMap['Adı'].labelName}}
+      </th>
+      <td *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span >{{ row.Name }}</span>
+      </td>
+
+    </ng-container>
+
+    <ng-container matColumnDef="StartDate">
+      <th *matHeaderCellDef style="width: 10px;" mat-header-cell>{{this.languageMap['Gün'].labelName}}
+      </th>
+      <td *matCellDef="let row" style="width: 10px;" mat-cell>
+        <span > {{row.StartDate | date : "dd.MM.y"}}</span>
+
+      </td>
+
+    </ng-container>
+
+    <ng-container matColumnDef="ShiftCalc">
+      <th *matHeaderCellDef style="width: 10px;" mat-header-cell>{{this.languageMap['Personele Göre Hesapla'].labelName}}
+      </th>
+      <td *matCellDef="let row" style="width: 10px;" mat-cell>
+        
+        <mat-checkbox [checked]="row.ShiftCalc" disabled>
+        </mat-checkbox>
+
+
+      </td>
+
+    </ng-container>
+
+    <ng-container matColumnDef="Actions" sticky>
+      <th [hidden]="(!this.pageauth.write && !this.pageauth.update && !this.pageauth.delete)" *matHeaderCellDef
+        mat-header-cell> </th>
+      <td [hidden]="(!this.pageauth.write && !this.pageauth.update && !this.pageauth.delete)" *matCellDef="let row"
+        class="w-10 text-secondary" mat-cell>
+        <button (click)="$event.stopPropagation()" [matMenuTriggerData]="{ definition: row }"
+          [matMenuTriggerFor]="actionsMenu" mat-icon-button type="button">
+          <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+
+    <tr *matHeaderRowDef="columns;sticky: true;" mat-header-row></tr>
+    <tr (dblclick)="updateShiftGroup(row,false)" (click)="selectShiftGroupRow(row,false)"
+      *matRowDef="let row; columns: columns;" @fadeInUp [ngClass]="{'highlight': selectedRowIndex == row.ID}" mat-row>
+    </tr>
+  </table>
+
+
+</div>
+
+
+
+
+
+<mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+  <ng-template let-definition="definition" matMenuContent>
+
+
+    <button (click)="updateShiftGroup(definition,true)" *ngIf="this.pageauth.update" mat-menu-item>
+      <mat-icon [icIcon]="icEdit"></mat-icon>
+      <span>{{this.languageMap['Güncelle'].labelName}}</span>
+    </button>
+    <button (click)="deleteShiftGroup(definition)" *ngIf="this.pageauth.delete" mat-menu-item>
+      <mat-icon [icIcon]="icDelete"></mat-icon>
+      <span>{{this.languageMap['Sil'].labelName}}</span>
+    </button>
+  </ng-template>
+</mat-menu>
